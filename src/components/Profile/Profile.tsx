@@ -1,5 +1,6 @@
 import React from "react";
 import s from './Profile.module.css';
+import {MyPosts} from "./MyPosts/MyPosts";
 
 export const Profile = () => {
     return (
@@ -25,22 +26,7 @@ export const Profile = () => {
                     </div>
                 </div>
             </div>
-
-            <div className={s.my_posts_section}>
-                <p className={s.my_posts_title}>My posts</p>
-                <div className={s.new_post_section}>
-                    <input className={s.new_post_create_field} type="text" placeholder="Type your news ..."/>
-                    <button className={s.send_news_btn}>Send</button>
-                </div>
-                <div className={s.posts_list_section}>
-                    <div className={s.post_item}>
-                        post 1
-                    </div>
-                    <div className={s.post_item}>
-                        post 2
-                    </div>
-                </div>
-            </div>
+            <MyPosts/>
         </div>
     )
 }

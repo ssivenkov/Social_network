@@ -1,0 +1,31 @@
+.my_posts_section {
+    margin-left: 10px;
+}
+
+.my_posts_title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.new_post_section {
+    margin-bottom: 30px;
+}
+
+.new_post_create_field {
+    width: 100%;
+    background-color: lightgray;
+    min-height: 60px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.send_news_btn {
+    color: white;
+    font-size: 20px;
+    background-color: darkgreen;
+    padding: 5px 20px 5px 20px;
+}
+
+.posts_list_section {
+}
