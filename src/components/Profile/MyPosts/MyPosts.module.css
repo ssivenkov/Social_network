@@ -8,23 +8,39 @@
 }
 
 .new_post_section {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 30px;
 }
 
 .new_post_create_field {
-    width: 100%;
+    width: 55%;
     background-color: lightgray;
     min-height: 60px;
     padding: 10px;
     margin-bottom: 15px;
     font-size: 18px;
+    border-radius: 5px;
+    word-wrap: break-word;
+}
+.new_post_create_field:focus {
+    box-shadow: chartreuse 0 0 10px 1px;
 }
 
 .send_news_btn {
-    color: white;
+    display: block;
+    max-width: 10%;
+    color: #fff;
     font-size: 20px;
     background-color: darkgreen;
     padding: 5px 20px 5px 20px;
+    border-radius: 5px;
+}
+.send_news_btn:hover {
+    background-color: #00aa00;
+    color: #fff;
+    text-shadow: #fff 0 0 4px;
+    box-shadow: #009900 0 0 15px;
 }
 
 .posts_list_section {

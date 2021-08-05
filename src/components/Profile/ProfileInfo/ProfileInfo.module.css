@@ -1,0 +1,29 @@
+.img_title {
+    display: block;
+    width: 100%;
+    max-height: 100px;
+    margin-bottom: 10px;
+}
+
+.user_info_section {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+
+.user_avatar {
+    width: 100px;
+    height: 100px;
+    margin-right: 40px;
+    border-radius: 50%;
+}
+
+.user_name {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.user_desc {
+    font-size: 17px;
+    color: #111;
+}
