@@ -11,7 +11,7 @@ export const Post = (props: PostType) => {
         <div className={s.post_item}>
             <div className={s.avatar}>
                 <img
-                    src="https://i.pinimg.com/736x/3f/47/b3/3f47b39a801290271ad789d1ecc053cc.jpg"
+                    src="http://sun9-17.userapi.com/s/v1/ig2/vA5NcCTxJizo_ce97CcVRezF8VEE_9UXJStRXGgbFIvtDIPramNHSZEhUKYbr-U3BTVf5eay6AuX2A9FMTQVmhZw.jpg?size=200x0&quality=96&crop=194,0,674,674&ava=1"
                     alt=""/>
             </div>
             <div className={s.textBlock}>
