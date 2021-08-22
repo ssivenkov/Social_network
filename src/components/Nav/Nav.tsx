@@ -1,11 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Nav.module.css";
-import { AvatarsType } from "../Dialogs/Dialogs";
+import { AvatarType } from "../Dialogs/Dialogs";
 import AvatarMiniatureItem from "../Dialogs/AvatarsMiniatureItem/AvatarsMiniatureItem";
 
 export type NavStateType = {
-  friends: Array<AvatarsType>
+  friends: Array<AvatarType>
 }
 
 type NavProps = {
@@ -14,7 +14,7 @@ type NavProps = {
 
 export const Nav = (props: NavProps) => {
   let friendsElements = props.state.friends
-    .map(el => <AvatarMiniatureItem link={el.link} id={el.id} />);
+    .map((el: AvatarType) => <AvatarMiniatureItem key={el.id} link={el.link} id={el.id} />);
 
   return (
     <nav className={s.nav}>

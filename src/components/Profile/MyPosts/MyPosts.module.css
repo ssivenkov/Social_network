@@ -1,19 +1,19 @@
-.my_posts_section {
+.myPostsSection {
     margin-left: 10px;
 }
 
-.my_posts_title {
+.myPostsTitle {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.new_post_section {
+.newPostSection {
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
 }
 
-.new_post_create_field {
+.newPostCreateField {
     width: 55%;
     background-color: lightgray;
     min-height: 60px;
@@ -23,11 +23,11 @@
     border-radius: 5px;
     word-wrap: break-word;
 }
-.new_post_create_field:focus {
+.newPostCreateField:focus {
     box-shadow: chartreuse 0 0 10px 1px;
 }
 
-.send_news_btn {
+.sendNewsBtn {
     display: block;
     max-width: 10%;
     color: #fff;
@@ -36,12 +36,12 @@
     padding: 5px 20px 5px 20px;
     border-radius: 5px;
 }
-.send_news_btn:hover {
+.sendNewsBtn:hover {
     background-color: #00aa00;
     color: #fff;
     text-shadow: #fff 0 0 4px;
     box-shadow: #009900 0 0 15px;
 }
 
-.posts_list_section {
+.postsListSection {
 }

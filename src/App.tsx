@@ -3,40 +3,40 @@ import "./App.css";
 import "./Reset.css";
 import { Route } from "react-router-dom";
 import { Header } from "./components/Header/Header";
-import { Nav, NavStateType } from "./components/Nav/Nav";
+import { Nav } from "./components/Nav/Nav";
 import { Profile } from "./components/Profile/Profile";
 import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
-import { Dialogs, DialogsStateType } from "./components/Dialogs/Dialogs";
-import { PostsStateType } from "./components/Profile/MyPosts/MyPosts";
 import { Friends } from "./components/Friends/Friends";
-
-type StateType = {
-  profilePage: PostsStateType
-  dialogsPage: DialogsStateType
-  sidebarFriends: NavStateType
-}
+import { RootStateType } from "./redux/store";
+import { Dialogs } from "./components/Dialogs/Dialogs";
 
 type AppType = {
-  state: StateType
+  state: RootStateType
+  addPost: (postText: string) => void
+  updateNewPostText: (newText: string) => void
 }
 
-function App(props: AppType) {
+const App: React.FC<AppType> = (props) => {
   return (
-      <div className="global-wrapper">
-        <Header />
-        <Nav state={props.state.sidebarFriends} />
-        <div className="global-wrapper-content">
-          <Route path="/dialogs" render={() => <Dialogs state={props.state.dialogsPage} />} />
-          <Route exact path="/profile" render={() => <Profile state={props.state.profilePage} />} />
-          <Route exact path="/news" render={() => <News />} />
-          <Route exact path="/music" render={() => <Music />} />
-          <Route exact path="/settings" render={() => <Settings />} />
-          <Route exact path="/friends" render={() => <Friends />} />
-        </div>
+    <div className="global-wrapper">
+      <Header />
+      <Nav state={props.state.sidebarFriends} />
+      <div className="global-wrapper-content">
+        <Route path="/dialogs" render={() => <Dialogs state={props.state.dialogsPage} />} />
+        <Route exact path="/profile" render={() =>
+          <Profile state={props.state.profilePage}
+                   addPost={props.addPost}
+                   updateNewPostText={props.updateNewPostText}
+                   message={props.state.profilePage.messageForNewPost} />} />
+        <Route exact path="/news" render={() => <News />} />
+        <Route exact path="/music" render={() => <Music />} />
+        <Route exact path="/settings" render={() => <Settings />} />
+        <Route exact path="/friends" render={() => <Friends />} />
       </div>
+    </div>
   );
-}
+};
 
 export default App;

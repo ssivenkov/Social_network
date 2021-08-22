@@ -1,4 +1,21 @@
 .message {
     color: #000;
-    margin-bottom: 4.35em;
+    margin-bottom: 1.74em;
+}
+
+.inputContainer {
+    display: flex;
+}
+
+.input {
+    border-radius: 5px;
+}
+
+.sendButton {
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: gold;
 }

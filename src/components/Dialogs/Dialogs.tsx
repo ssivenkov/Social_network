@@ -4,40 +4,40 @@ import DialogItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
 import AvatarItem from "./AvatarsItem/AvatarsItem";
 
-type DialogsType = {
+type DialogType = {
   id: number
   name: string
 }
 
-type MessagesType = {
+type MessageType = {
   id: number
   message: string
 }
 
-export type AvatarsType = {
+export type AvatarType = {
   id: number
   link: string
 }
 
 export type DialogsStateType = {
-  dialogs: Array<DialogsType>
-  messages: Array<MessagesType>
-  avatars: Array<AvatarsType>
+  dialogs: Array<DialogType>
+  messages: Array<MessageType>
+  avatars: Array<AvatarType>
 }
 
-export type Dialogs = {
+export type DialogsType = {
   state: DialogsStateType
 }
 
-export const Dialogs = (props: Dialogs) => {
+export const Dialogs = (props: DialogsType) => {
   let avatarsElements = props.state.avatars
-    .map(el => <AvatarItem link={el.link} id={el.id} />);
+    .map(el => <AvatarItem key={el.id} link={el.link} id={el.id} />);
 
   let dialogsElements = props.state.dialogs
-    .map(el => <DialogItem name={el.name} id={el.id} />);
+    .map(el => <DialogItem key={el.id} name={el.name} id={el.id} />);
 
   let messagesElements = props.state.messages
-    .map(el => <Message message={el.message} id={el.id} />);
+    .map(el => <Message key={el.id} message={el.message} id={el.id} />);
 
   return (
     <div className={s.dialogs}>
