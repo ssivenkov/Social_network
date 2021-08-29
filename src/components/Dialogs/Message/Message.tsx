@@ -17,8 +17,11 @@ const Message = (props: messagePropsType) => {
     <div>
       <div className={s.message}>{props.message}</div>
       <div className={s.inputContainer}>
-        <textarea className={s.input} ref={newTextMessage} />
-        <button onClick={sendMessage} className={`${s.send_news_btn} ${s.sendButton}`}>Send</button>
+        <textarea className={s.input}
+
+                  ref={newTextMessage} />
+        <button onClick={sendMessage}
+                className={`${s.send_news_btn} ${s.sendButton}`}>Send</button>
       </div>
     </div>
   );

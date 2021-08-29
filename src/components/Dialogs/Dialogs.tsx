@@ -23,6 +23,7 @@ export type DialogsStateType = {
   dialogs: Array<DialogType>
   messages: Array<MessageType>
   avatars: Array<AvatarType>
+  newMessageBody: string
 }
 
 export type DialogsType = {
@@ -48,7 +49,17 @@ export const Dialogs = (props: DialogsType) => {
         {dialogsElements}
       </div>
       <div className={s.messages}>
-        {messagesElements}
+        <div>{messagesElements}</div>
+        <div>
+          <div>
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

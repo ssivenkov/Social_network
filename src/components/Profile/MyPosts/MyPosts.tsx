@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import s from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
+import { ActionsTypes, addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/store";
 
 export type PostsType = {
   id: number
@@ -15,8 +16,7 @@ export type PostsStateType = {
 
 export type Posts = {
   state: PostsStateType
-  addPost: (postText: string) => void
-  updateNewPostText: (newText: string) => void
+  dispatch: (action: ActionsTypes) => void
   message: string
 }
 
@@ -26,11 +26,13 @@ export const MyPosts = (props: Posts) => {
                                  message={p.message}
                                  likesCount={p.likesCount} />);
   const addPost = function() {
-    props.addPost(props.message);
+    props.dispatch(addPostActionCreator(props.message))
   };
 
-  const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    props.updateNewPostText(e.currentTarget.value);
+  const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    let action = updateNewPostTextActionCreator(e.currentTarget.value)
+    props.dispatch(action)
+  }
 
   return (
     <div className={s.myPostsSection}>

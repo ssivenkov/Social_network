@@ -9,13 +9,12 @@ import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { Friends } from "./components/Friends/Friends";
-import { RootStateType } from "./redux/store";
+import { ActionsTypes, RootStateType } from "./redux/store";
 import { Dialogs } from "./components/Dialogs/Dialogs";
 
 type AppType = {
   state: RootStateType
-  addPost: (postText: string) => void
-  updateNewPostText: (newText: string) => void
+  dispatch: (action: ActionsTypes) => void
 }
 
 const App: React.FC<AppType> = (props) => {
@@ -27,8 +26,7 @@ const App: React.FC<AppType> = (props) => {
         <Route path="/dialogs" render={() => <Dialogs state={props.state.dialogsPage} />} />
         <Route exact path="/profile" render={() =>
           <Profile state={props.state.profilePage}
-                   addPost={props.addPost}
-                   updateNewPostText={props.updateNewPostText}
+                   dispatch={props.dispatch}
                    message={props.state.profilePage.messageForNewPost} />} />
         <Route exact path="/news" render={() => <News />} />
         <Route exact path="/music" render={() => <Music />} />
