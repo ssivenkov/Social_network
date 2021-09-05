@@ -23,11 +23,15 @@ const App: React.FC<AppType> = (props) => {
       <Header />
       <Nav state={props.state.sidebarFriends} />
       <div className="global-wrapper-content">
-        <Route path="/dialogs" render={() => <Dialogs state={props.state.dialogsPage} />} />
+        <Route path="/dialogs" render={() => <Dialogs state={props.state.dialogsPage}
+                                                      dispatch={props.dispatch}
+                                                      message={props.state.dialogsPage.newMessageTextBody} />}
+        />
         <Route exact path="/profile" render={() =>
           <Profile state={props.state.profilePage}
                    dispatch={props.dispatch}
-                   message={props.state.profilePage.messageForNewPost} />} />
+                   message={props.state.profilePage.messageForNewPost} />}
+        />
         <Route exact path="/news" render={() => <News />} />
         <Route exact path="/music" render={() => <Music />} />
         <Route exact path="/settings" render={() => <Settings />} />

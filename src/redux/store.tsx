@@ -18,11 +18,13 @@ export type StoreType = {
 
 export type ActionsTypes = ReturnType<typeof addPostActionCreator>
   | ReturnType<typeof updateNewPostTextActionCreator>
+  | ReturnType<typeof updateNewMessageTextActionCreator>
   | ReturnType<typeof updateNewMessageBodyActionCreator>
   | ReturnType<typeof sendMessageActionCreator>
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
@@ -37,6 +39,13 @@ export const updateNewPostTextActionCreator = (newText: string) => {
   return {
     type: UPDATE_NEW_POST_TEXT,
     newText: newText
+  } as const
+}
+
+export const updateNewMessageTextActionCreator = (newText: string) => {
+  return {
+    type: UPDATE_NEW_MESSAGE_TEXT,
+    newMessageText: newText
   } as const
 }
 
@@ -78,7 +87,8 @@ let store: StoreType = {
         { id: 4, message: "This social network is awesome!" },
         { id: 5, message: "Go" }
       ],
-      newMessageBody: "",
+      newPostTextBody: "",
+      newMessageTextBody: "",
       avatars: [
         { id: 1, link: "https://i.pinimg.com/736x/3f/47/b3/3f47b39a801290271ad789d1ecc053cc.jpg" },
         { id: 2, link: "https://images.wallpaperscraft.ru/image/kot_morda_vzglyad_usy_81681_1280x1280.jpg" },
@@ -98,7 +108,6 @@ let store: StoreType = {
   _callSubscriber() {
     console.log("State changed, but subscriber not defined");
   },
-
   getState() {
     return this._state;
   },
@@ -120,12 +129,19 @@ let store: StoreType = {
     } else if (action.type === UPDATE_NEW_POST_TEXT) {
       this._state.profilePage.messageForNewPost = action.newText;
       this._callSubscriber(store);
-    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-      this._state.dialogsPage.newMessageBody = action.body;
+    }
+
+    else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+      this._state.dialogsPage.newMessageTextBody = action.newMessageText;
+      this._callSubscriber(store);
+    }
+
+    else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+      this._state.dialogsPage.newPostTextBody = action.body;
       this._callSubscriber(store);
     } else if (action.type === SEND_MESSAGE) {
-      let message = this._state.dialogsPage.newMessageBody;
-      this._state.dialogsPage.newMessageBody = "";
+      let message = this._state.dialogsPage.newPostTextBody;
+      this._state.dialogsPage.newPostTextBody = "";
       this._state.dialogsPage.messages.push({id: 3, message: message});
       this._callSubscriber(store);
     }

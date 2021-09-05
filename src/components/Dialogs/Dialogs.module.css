@@ -12,3 +12,31 @@
 .messages {
     padding: 10px;
 }
+
+.inputContainer {
+    display: flex;
+    align-items: flex-end;
+}
+
+.input {
+    padding: 5px;
+    border-radius: 5px;
+    resize: none;
+}
+
+textarea.input::placeholder {
+    color: #aaa;
+}
+
+.sendButton {
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: gold;
+}
+
+.sendButton:hover {
+    background-color: yellow;
+}

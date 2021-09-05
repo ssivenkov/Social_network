@@ -1,8 +1,9 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import s from "./Dialogs.module.css";
 import DialogItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
 import AvatarItem from "./AvatarsItem/AvatarsItem";
+import { ActionsTypes, updateNewMessageTextActionCreator } from "../../redux/store";
 
 type DialogType = {
   id: number
@@ -23,11 +24,14 @@ export type DialogsStateType = {
   dialogs: Array<DialogType>
   messages: Array<MessageType>
   avatars: Array<AvatarType>
-  newMessageBody: string
+  newPostTextBody: string
+  newMessageTextBody: string
 }
 
 export type DialogsType = {
   state: DialogsStateType
+  dispatch: (action: ActionsTypes) => void
+  message: string
 }
 
 export const Dialogs = (props: DialogsType) => {
@@ -40,6 +44,15 @@ export const Dialogs = (props: DialogsType) => {
   let messagesElements = props.state.messages
     .map(el => <Message key={el.id} message={el.message} id={el.id} />);
 
+  const newMessageTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const action = updateNewMessageTextActionCreator(e.currentTarget.value)
+    props.dispatch(action)
+  }
+
+  const alertMessage = () => {
+    alert(props.message)
+  }
+
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
@@ -50,15 +63,14 @@ export const Dialogs = (props: DialogsType) => {
       </div>
       <div className={s.messages}>
         <div>{messagesElements}</div>
-        <div>
-          <div>
-            <div>
-
-            </div>
-            <div>
-
-            </div>
-          </div>
+        <div className={s.inputContainer}>
+          <textarea value={props.message}
+                    onChange={newMessageTextHandler}
+                    className={s.input}
+                    placeholder="Enter answer"/>
+          <button className={s.sendButton}
+                  onClick={alertMessage}
+          >Send</button>
         </div>
       </div>
     </div>
