@@ -3,7 +3,7 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
 import AvatarItem from "./AvatarsItem/AvatarsItem";
-import { ActionsTypes, updateNewMessageTextActionCreator } from "../../redux/store";
+import { ActionsTypes, sendMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/store";
 
 type DialogType = {
   id: number
@@ -49,8 +49,9 @@ export const Dialogs = (props: DialogsType) => {
     props.dispatch(action)
   }
 
-  const alertMessage = () => {
-    alert(props.message)
+  const sendMessage = () => {
+    const action = sendMessageActionCreator();
+    props.dispatch(action);
   }
 
   return (
@@ -69,7 +70,7 @@ export const Dialogs = (props: DialogsType) => {
                     className={s.input}
                     placeholder="Enter answer"/>
           <button className={s.sendButton}
-                  onClick={alertMessage}
+                  onClick={sendMessage}
           >Send</button>
         </div>
       </div>

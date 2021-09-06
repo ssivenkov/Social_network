@@ -25,6 +25,7 @@ export const MyPosts = (props: Posts) => {
     .map((p: PostsType) => <Post key={p.id}
                                  message={p.message}
                                  likesCount={p.likesCount} />);
+
   const addPost = function() {
     props.dispatch(addPostActionCreator(props.message))
   };

@@ -19,14 +19,12 @@ export type StoreType = {
 export type ActionsTypes = ReturnType<typeof addPostActionCreator>
   | ReturnType<typeof updateNewPostTextActionCreator>
   | ReturnType<typeof updateNewMessageTextActionCreator>
-  | ReturnType<typeof updateNewMessageBodyActionCreator>
   | ReturnType<typeof sendMessageActionCreator>
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
-const SEND_MESSAGE = "SEND-MESSAGE";
+const SEND_DIALOG_MESSAGE = "SEND-DIALOG-MESSAGE";
 
 export const addPostActionCreator = (postText: string) => {
   return {
@@ -44,22 +42,14 @@ export const updateNewPostTextActionCreator = (newText: string) => {
 
 export const updateNewMessageTextActionCreator = (newText: string) => {
   return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
+    type: UPDATE_NEW_MESSAGE_BODY,
     newMessageText: newText
   } as const
 }
 
-export const updateNewMessageBodyActionCreator = (body: string) => {
+export const sendMessageActionCreator = () => {
   return {
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body: body
-  } as const
-}
-
-export const sendMessageActionCreator = (message: string) => {
-  return {
-    type: SEND_MESSAGE,
-    message: message
+    type: SEND_DIALOG_MESSAGE
   } as const
 }
 
@@ -92,7 +82,7 @@ let store: StoreType = {
       avatars: [
         { id: 1, link: "https://i.pinimg.com/736x/3f/47/b3/3f47b39a801290271ad789d1ecc053cc.jpg" },
         { id: 2, link: "https://images.wallpaperscraft.ru/image/kot_morda_vzglyad_usy_81681_1280x1280.jpg" },
-        { id: 3, link: "http://mobimg.b-cdn.net/v3/fetch/62/620e78234f747fa272d1bbb5a9032467.jpeg" },
+        { id: 3, link: "https://mobimg.b-cdn.net/v3/fetch/62/620e78234f747fa272d1bbb5a9032467.jpeg" },
         { id: 4, link: "https://wallbox.ru/resize/800x480/wallpapers/main/201522/344385ce96c7f38.jpg" },
         { id: 5, link: "https://www.ejin.ru/wp-content/uploads/2019/05/smeshnoj-kotik-oblizyvaetsja.jpg" }
       ]
@@ -101,10 +91,11 @@ let store: StoreType = {
       friends: [
         { id: 1, link: "https://i.pinimg.com/736x/3f/47/b3/3f47b39a801290271ad789d1ecc053cc.jpg" },
         { id: 2, link: "https://images.wallpaperscraft.ru/image/kot_morda_vzglyad_usy_81681_1280x1280.jpg" },
-        { id: 3, link: "http://mobimg.b-cdn.net/v3/fetch/62/620e78234f747fa272d1bbb5a9032467.jpeg" }
+        { id: 3, link: "https://mobimg.b-cdn.net/v3/fetch/62/620e78234f747fa272d1bbb5a9032467.jpeg" }
       ]
     }
   },
+
   _callSubscriber() {
     console.log("State changed, but subscriber not defined");
   },
@@ -116,7 +107,10 @@ let store: StoreType = {
   },
 
   dispatch(action) {
-    if (action.type === ADD_POST) {
+    if (action.type === UPDATE_NEW_POST_TEXT) {
+      this._state.profilePage.messageForNewPost = action.newText;
+      this._callSubscriber(store);
+    } else if (action.type === ADD_POST) {
       let newPost: PostsType = {
         id: 3,
         message: action.postText,
@@ -124,27 +118,22 @@ let store: StoreType = {
       };
       if (newPost.message.length !== 0) {
         this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.messageForNewPost = '';
         this._callSubscriber(store);
       }
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-      this._state.profilePage.messageForNewPost = action.newText;
-      this._callSubscriber(store);
-    }
-
-    else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-      this._state.dialogsPage.newMessageTextBody = action.newMessageText;
-      this._callSubscriber(store);
     }
 
     else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-      this._state.dialogsPage.newPostTextBody = action.body;
-      this._callSubscriber(store);
-    } else if (action.type === SEND_MESSAGE) {
-      let message = this._state.dialogsPage.newPostTextBody;
-      this._state.dialogsPage.newPostTextBody = "";
-      this._state.dialogsPage.messages.push({id: 3, message: message});
+      this._state.dialogsPage.newMessageTextBody = action.newMessageText;
       this._callSubscriber(store);
     }
+    else if (action.type === SEND_DIALOG_MESSAGE) {
+      const body = this._state.dialogsPage.newMessageTextBody;
+      this._state.dialogsPage.messages.push( {id: 6, message: body} )
+      this._state.dialogsPage.newMessageTextBody = '';
+      this._callSubscriber(store);
+    }
+
   }
 };
 
