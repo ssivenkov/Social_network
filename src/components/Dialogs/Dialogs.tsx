@@ -3,7 +3,8 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
 import AvatarItem from "./AvatarsItem/AvatarsItem";
-import { ActionsTypes, sendMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/store";
+import { sendMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/reducers/dialogsReducer";
+import { ActionsTypes } from "../../redux/store";
 
 type DialogType = {
   id: number
