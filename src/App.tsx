@@ -10,7 +10,7 @@ import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { Friends } from "./components/Friends/Friends";
 import { ActionsTypes, RootStateType } from "./redux/store";
-import { Dialogs } from "./components/Dialogs/Dialogs";
+import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 
 type AppType = {
   state: RootStateType
@@ -23,7 +23,7 @@ const App: React.FC<AppType> = (props) => {
       <Header />
       <Nav state={props.state.sidebarFriends} />
       <div className="global-wrapper-content">
-        <Route path="/dialogs" render={() => <Dialogs state={props.state.dialogsPage}
+        <Route path="/dialogs" render={() => <DialogsContainer state={props.state.dialogsPage}
                                                       dispatch={props.dispatch}
                                                       message={props.state.dialogsPage.newMessageTextBody} />}
         />

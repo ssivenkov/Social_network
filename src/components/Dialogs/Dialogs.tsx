@@ -3,56 +3,34 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
 import AvatarItem from "./AvatarsItem/AvatarsItem";
-import { sendMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/reducers/dialogsReducer";
-import { ActionsTypes } from "../../redux/store";
-
-type DialogType = {
-  id: number
-  name: string
-}
-
-type MessageType = {
-  id: number
-  message: string
-}
-
-export type AvatarType = {
-  id: number
-  link: string
-}
-
-export type DialogsStateType = {
-  dialogs: Array<DialogType>
-  messages: Array<MessageType>
-  avatars: Array<AvatarType>
-  newPostTextBody: string
-  newMessageTextBody: string
-}
+import { AvatarType, DialogType, MessageType } from "./DialogsContainer";
 
 export type DialogsType = {
-  state: DialogsStateType
-  dispatch: (action: ActionsTypes) => void
+  avatars: Array<AvatarType>
+  dialogs: Array<DialogType>
+  messages: Array<MessageType>
+  updateNewMessageText: (text: string) => void
+  sendMessage: () => void
   message: string
 }
 
 export const Dialogs = (props: DialogsType) => {
-  let avatarsElements = props.state.avatars
+  let avatarsElements = props.avatars
     .map(el => <AvatarItem key={el.id} link={el.link} id={el.id} />);
 
-  let dialogsElements = props.state.dialogs
+  let dialogsElements = props.dialogs
     .map(el => <DialogItem key={el.id} name={el.name} id={el.id} />);
 
-  let messagesElements = props.state.messages
+  let messagesElements = props.messages
     .map(el => <Message key={el.id} message={el.message} id={el.id} />);
 
   const newMessageTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const action = updateNewMessageTextActionCreator(e.currentTarget.value)
-    props.dispatch(action)
+    let text = e.currentTarget.value;
+    props.updateNewMessageText(text);
   }
 
   const sendMessage = () => {
-    const action = sendMessageActionCreator();
-    props.dispatch(action);
+    props.sendMessage();
   }
 
   return (

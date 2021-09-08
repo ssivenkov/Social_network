@@ -1,50 +1,41 @@
 import React, { ChangeEvent } from "react";
 import s from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
-import {  addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/reducers/profileReducer";
-import { ActionsTypes } from "../../../redux/store";
+import { PostsType } from "./MyPostsContainer";
 
-export type PostsType = {
-  id: number
+type MyPostsType = {
   message: string
-  likesCount: number
-}
-
-export type PostsStateType = {
+  updateNewPostText: (text: string) => void
+  addPost: () => void
   posts: Array<PostsType>
-  messageForNewPost: string
 }
 
-export type Posts = {
-  state: PostsStateType
-  dispatch: (action: ActionsTypes) => void
-  message: string
-}
-
-export const MyPosts = (props: Posts) => {
-  let postsElements = props.state.posts
-    .map((p: PostsType) => <Post key={p.id}
-                                 message={p.message}
-                                 likesCount={p.likesCount} />);
-
-  const addPost = function() {
-    props.dispatch(addPostActionCreator(props.message))
+export const MyPosts = (props: MyPostsType) => {
+  const onAddPost = function() {
+    props.addPost();
   };
 
-  const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const action = updateNewPostTextActionCreator(e.currentTarget.value)
-    props.dispatch(action)
-  }
+  const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    let text = e.currentTarget.value;
+    props.updateNewPostText(text);
+  };
+
+  let postsElements = props.posts.map((p: PostsType) =>
+    <Post key={p.id}
+          message={p.message}
+          likesCount={p.likesCount}
+    />
+  );
 
   return (
     <div className={s.myPostsSection}>
       <h3 className={s.myPostsTitle}>My posts</h3>
       <div className={s.newPostSection}>
         <textarea value={props.message}
-                  onChange={newTextChangeHandler}
+                  onChange={onPostChange}
                   className={s.newPostCreateField}
                   placeholder="Share your news here ..." />
-        <button onClick={addPost} className={s.sendNewsBtn}>Send</button>
+        <button onClick={onAddPost} className={s.sendNewsBtn}>Send</button>
       </div>
       <div className={s.postsListSection}>
         {postsElements}

@@ -1,5 +1,5 @@
-import { PostsStateType } from "../components/Profile/MyPosts/MyPosts";
-import { DialogsStateType } from "../components/Dialogs/Dialogs";
+import { PostsStateType } from "../components/Profile/MyPosts/MyPostsContainer";
+import { DialogsStateType } from "../components/Dialogs/DialogsContainer";
 import { NavStateType } from "../components/Nav/Nav";
 import profileReducer, { addPostActionCreator, updateNewPostTextActionCreator } from "./reducers/profileReducer";
 import dialogsReducer, { sendMessageActionCreator, updateNewMessageTextActionCreator } from "./reducers/dialogsReducer";

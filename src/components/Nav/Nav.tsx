@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import s from "./Nav.module.css";
-import { AvatarType } from "../Dialogs/Dialogs";
+import { AvatarType } from "../Dialogs/DialogsContainer";
 import AvatarMiniatureItem from "../Dialogs/AvatarsMiniatureItem/AvatarsMiniatureItem";
 
 export type NavStateType = {
