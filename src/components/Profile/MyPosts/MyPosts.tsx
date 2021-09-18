@@ -1,16 +1,16 @@
 import React, { ChangeEvent } from "react";
 import s from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
-import { PostsType } from "./MyPostsContainer";
+/*import { PostsType } from "./MyPostsContainer";*/
 
-type MyPostsType = {
+/*type MyPostsType = {
   message: string
   updateNewPostText: (text: string) => void
   addPost: () => void
   posts: Array<PostsType>
-}
+}*/
 
-export const MyPosts = (props: MyPostsType) => {
+export const MyPosts = (props: any/*MyPostsType*/) => {
   const onAddPost = function() {
     props.addPost();
   };
@@ -20,7 +20,7 @@ export const MyPosts = (props: MyPostsType) => {
     props.updateNewPostText(text);
   };
 
-  let postsElements = props.posts.map((p: PostsType) =>
+  let postsElements = props.posts.map((p: any/*: PostsType*/) =>
     <Post key={p.id}
           message={p.message}
           likesCount={p.likesCount}

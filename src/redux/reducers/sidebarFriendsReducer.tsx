@@ -1,4 +1,4 @@
-import { NavStateType } from "../../components/Nav/Nav";
+/*import { NavStateType } from "../../components/Nav/Nav";*/
 /*import { ActionsTypes } from "../store";*/
 
 let initialState = {
@@ -9,7 +9,7 @@ let initialState = {
   ]
 }
 
-const sidebarFriendsReducer = (state: NavStateType = initialState/*, action: ActionsTypes*/) => {
+const sidebarFriendsReducer = (state: any /*NavStateType*/ = initialState/*, action: ActionsTypes*/) => {
 
   return state;
 }

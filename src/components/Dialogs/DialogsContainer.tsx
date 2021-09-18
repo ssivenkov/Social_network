@@ -1,7 +1,8 @@
 import React from "react";
 import { sendMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/reducers/dialogsReducer";
-import { ActionsTypes } from "../../redux/store";
+/*import { ActionsTypes } from "../../redux/store";*/
 import { Dialogs } from "./Dialogs";
+import StoreContext from "../../StoreContext";
 
 export type DialogType = {
   id: number
@@ -26,30 +27,34 @@ export type DialogsStateType = {
   newMessageTextBody: string
 }
 
-export type DialogsType = {
+/*export type DialogsType = {
   state: DialogsStateType
   dispatch: (action: ActionsTypes) => void
   message: string
-}
+}*/
 
-export const DialogsContainer = (props: DialogsType) => {
-  const onUpdateNewMessageText = (text: string) => {
-    const action = updateNewMessageTextActionCreator(text)
-    props.dispatch(action)
+export const DialogsContainer = (/*props: DialogsType*/) => {
+  return <StoreContext.Consumer>
+    { (store) => {
+      let state = store.getState();
+      const onUpdateNewMessageText = (text: string) => {
+        const action = updateNewMessageTextActionCreator(text);
+        store.dispatch(action);
+      };
+
+      const onSendMessage = () => {
+        const action = sendMessageActionCreator();
+        store.dispatch(action);
+      };
+
+      return <Dialogs avatars={state.dialogsPage.avatars}
+                      dialogs={state.dialogsPage.dialogs}
+                      messages={state.dialogsPage.messages}
+                      updateNewMessageText={onUpdateNewMessageText}
+                      sendMessage={onSendMessage}
+                      message={state.dialogsPage.message}
+      />;
+    }
   }
-
-  const onSendMessage = () => {
-    const action = sendMessageActionCreator();
-    props.dispatch(action);
-  }
-
-  return (
-    <Dialogs avatars={props.state.avatars}
-             dialogs={props.state.dialogs}
-             messages={props.state.messages}
-             updateNewMessageText={onUpdateNewMessageText}
-             sendMessage={onSendMessage}
-             message={props.message}
-    />
-  )
+  </StoreContext.Consumer>;
 };

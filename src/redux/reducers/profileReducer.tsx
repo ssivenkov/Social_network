@@ -1,5 +1,5 @@
-import { PostsStateType, PostsType } from "../../components/Profile/MyPosts/MyPostsContainer";
-import { ActionsTypes } from "../store";
+// import { PostsStateType, PostsType } from "../../components/Profile/MyPosts/MyPostsContainer";
+// import { ActionsTypes } from "../store";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -12,10 +12,10 @@ let initialState = {
   ]
 }
 
-const profileReducer = (state: PostsStateType = initialState, action: ActionsTypes) => {
+const profileReducer = (state: any = initialState, action: any) => {
   switch (action.type) {
     case ADD_POST:
-      let newPost: PostsType = {
+      let newPost: any = {
         id: 3,
         message: state.messageForNewPost,
         likesCount: 0

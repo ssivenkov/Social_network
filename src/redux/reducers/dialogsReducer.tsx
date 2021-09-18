@@ -1,5 +1,5 @@
-import { DialogsStateType } from "../../components/Dialogs/DialogsContainer";
-import { ActionsTypes } from "../store";
+// import { DialogsStateType } from "../../components/Dialogs/DialogsContainer";
+// import { ActionsTypes } from "../store";
 
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_DIALOG_MESSAGE = "SEND-DIALOG-MESSAGE";
@@ -30,7 +30,7 @@ let initialState = {
   ]
 }
 
-const dialogsReducer = (state: DialogsStateType = initialState, action: ActionsTypes) => {
+const dialogsReducer = (state: any = initialState, action: any) => {
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_BODY:
       state.newMessageTextBody = action.newMessageText;
