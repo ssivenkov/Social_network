@@ -12,6 +12,8 @@ export type RootStateType = {
   sidebarFriends: NavStateType
 }
 
+export type StoreType = typeof store
+
 export type ActionsTypes = ReturnType<typeof addPostActionCreator>
   | ReturnType<typeof updateNewPostTextActionCreator>
   | ReturnType<typeof updateNewMessageTextActionCreator>
