@@ -3,34 +3,25 @@ import "./App.css";
 import "./Reset.css";
 import { Route } from "react-router-dom";
 import { Header } from "./components/Header/Header";
-import { Nav } from "./components/Nav/Nav";
 import { Profile } from "./components/Profile/Profile";
 import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
 import { Friends } from "./components/Friends/Friends";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
-/*import { ActionsTypes, RootStateType } from "./redux/store";*/
+import { NavContainer } from "./components/Nav/NavContainer";
 
-/*type AppType = {
-  state: RootStateType
-  dispatch: (action: ActionsTypes) => void
-}*/
-
-const App: React.FC/*<AppType>*/ = (/*props*/) => {
+const App: React.FC = () => {
   return (
     <div className="global-wrapper">
       <Header />
-      <Nav /*state={props.state.sidebarFriends}*//>
+      <NavContainer />
       <div className="global-wrapper-content">
-        <Route path="/dialogs" render={() => <DialogsContainer /*state={props.state.dialogsPage}
-                                                      dispatch={props.dispatch}
-                                                      message={props.state.dialogsPage.newMessageTextBody}*/ />}
+        <Route path="/dialogs" render={() =>
+          <DialogsContainer />}
         />
         <Route exact path="/profile" render={() =>
-          <Profile /*state={props.state.profilePage}
-                   dispatch={props.dispatch}
-                   message={props.state.profilePage.messageForNewPost} */ />}
+          <Profile />}
         />
         <Route exact path="/news" render={() => <News />} />
         <Route exact path="/music" render={() => <Music />} />

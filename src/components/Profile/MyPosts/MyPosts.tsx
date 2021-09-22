@@ -1,16 +1,9 @@
 import React, { ChangeEvent } from "react";
 import s from "./MyPosts.module.css";
 import { Post } from "./Post/Post";
-/*import { PostsType } from "./MyPostsContainer";*/
+import { MyPostsPropsType } from "./MyPostsContainer";
 
-/*type MyPostsType = {
-  message: string
-  updateNewPostText: (text: string) => void
-  addPost: () => void
-  posts: Array<PostsType>
-}*/
-
-export const MyPosts = (props: any/*MyPostsType*/) => {
+export const MyPosts = (props: MyPostsPropsType) => {
   const onAddPost = function() {
     props.addPost();
   };
@@ -20,7 +13,7 @@ export const MyPosts = (props: any/*MyPostsType*/) => {
     props.updateNewPostText(text);
   };
 
-  let postsElements = props.posts.map((p: any/*: PostsType*/) =>
+  let postsElements = props.posts.map((p) =>
     <Post key={p.id}
           message={p.message}
           likesCount={p.likesCount}
@@ -31,7 +24,7 @@ export const MyPosts = (props: any/*MyPostsType*/) => {
     <div className={s.myPostsSection}>
       <h3 className={s.myPostsTitle}>My posts</h3>
       <div className={s.newPostSection}>
-        <textarea value={props.message}
+        <textarea value={props.messageForNewPost}
                   onChange={onPostChange}
                   className={s.newPostCreateField}
                   placeholder="Share your news here ..." />

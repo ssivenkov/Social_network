@@ -1,8 +1,8 @@
-import React from "react";
 import { sendMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/reducers/dialogsReducer";
-/*import { ActionsTypes } from "../../redux/store";*/
+import { connect } from "react-redux";
 import { Dialogs } from "./Dialogs";
-import StoreContext from "../../StoreContext";
+import { Dispatch } from "redux";
+import { RootStateType } from "../../redux/reduxStore";
 
 export type DialogType = {
   id: number
@@ -19,42 +19,39 @@ export type AvatarType = {
   link: string
 }
 
-export type DialogsStateType = {
+export type MapStateToPropsType = {
   dialogs: Array<DialogType>
   messages: Array<MessageType>
   avatars: Array<AvatarType>
-  newPostTextBody: string
   newMessageTextBody: string
 }
 
-/*export type DialogsType = {
-  state: DialogsStateType
-  dispatch: (action: ActionsTypes) => void
-  message: string
-}*/
+type DispatchToPropsType = {
+  updateNewMessageText: (text: string) => void
+  sendMessage: () => void
+}
 
-export const DialogsContainer = (/*props: DialogsType*/) => {
-  return <StoreContext.Consumer>
-    { (store) => {
-      let state = store.getState();
-      const onUpdateNewMessageText = (text: string) => {
-        const action = updateNewMessageTextActionCreator(text);
-        store.dispatch(action);
-      };
+export type DialogsPropsType = MapStateToPropsType & DispatchToPropsType;
 
-      const onSendMessage = () => {
-        const action = sendMessageActionCreator();
-        store.dispatch(action);
-      };
-
-      return <Dialogs avatars={state.dialogsPage.avatars}
-                      dialogs={state.dialogsPage.dialogs}
-                      messages={state.dialogsPage.messages}
-                      updateNewMessageText={onUpdateNewMessageText}
-                      sendMessage={onSendMessage}
-                      message={state.dialogsPage.message}
-      />;
-    }
-  }
-  </StoreContext.Consumer>;
+let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
+  return {
+    dialogs: state.dialogsPage.dialogs,
+    messages: state.dialogsPage.messages,
+    avatars: state.dialogsPage.avatars,
+    newMessageTextBody: state.dialogsPage.newMessageTextBody
+  };
 };
+
+let mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => {
+  return {
+    updateNewMessageText: (text: string) => {
+      dispatch(updateNewMessageTextActionCreator(text));
+    },
+    sendMessage: () => {
+      dispatch(sendMessageActionCreator());
+    }
+  };
+};
+
+export const DialogsContainer = connect<MapStateToPropsType, DispatchToPropsType, {}, RootStateType>
+(mapStateToProps, mapDispatchToProps)(Dialogs);

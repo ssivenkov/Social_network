@@ -3,18 +3,9 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
 import AvatarItem from "./AvatarsItem/AvatarsItem";
-import { AvatarType, DialogType, MessageType } from "./DialogsContainer";
+import {DialogsPropsType} from "./DialogsContainer";
 
-export type DialogsType = {
-  avatars: Array<AvatarType>
-  dialogs: Array<DialogType>
-  messages: Array<MessageType>
-  updateNewMessageText: (text: string) => void
-  sendMessage: () => void
-  message: string
-}
-
-export const Dialogs = (props: DialogsType) => {
+export const Dialogs = (props: DialogsPropsType) => {
   let avatarsElements = props.avatars
     .map(el => <AvatarItem key={el.id} link={el.link} id={el.id} />);
 
@@ -44,7 +35,7 @@ export const Dialogs = (props: DialogsType) => {
       <div className={s.messages}>
         <div>{messagesElements}</div>
         <div className={s.inputContainer}>
-          <textarea value={props.message}
+          <textarea value={props.newMessageTextBody}
                     onChange={newMessageTextHandler}
                     className={s.input}
                     placeholder="Enter answer"/>
