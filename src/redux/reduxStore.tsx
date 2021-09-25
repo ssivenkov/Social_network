@@ -2,19 +2,21 @@ import { combineReducers, createStore } from "redux";
 import profileReducer, {
   addPostActionCreator,
   PostsStateType,
-  updateNewPostTextActionCreator
+  updateNewPostTextActionCreator,
 } from "./reducers/profileReducer";
 import dialogsReducer, {
   DialogsStateType,
   sendMessageActionCreator,
-  updateNewMessageTextActionCreator
+  updateNewMessageTextActionCreator,
 } from "./reducers/dialogsReducer";
 import sidebarFriendsReducer, { SidebarFriendsType } from "./reducers/sidebarFriendsReducer";
+import usersReducer, { UsersStateType } from "./reducers/usersReducer";
 
 export type RootStateType = {
   profilePage: PostsStateType
   dialogsPage: DialogsStateType
   sidebarFriends: SidebarFriendsType
+  usersPage: UsersStateType
 }
 
 export type ActionsTypes = ReturnType<typeof addPostActionCreator>
@@ -25,7 +27,8 @@ export type ActionsTypes = ReturnType<typeof addPostActionCreator>
 let reducers = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
-  sidebarFriends: sidebarFriendsReducer
+  sidebarFriends: sidebarFriendsReducer,
+  usersPage: usersReducer,
 });
 
 let store = createStore(reducers);

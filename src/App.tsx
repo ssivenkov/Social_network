@@ -10,23 +10,27 @@ import { Settings } from "./components/Settings/Settings";
 import { Friends } from "./components/Friends/Friends";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import { NavContainer } from "./components/Nav/NavContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App: React.FC = () => {
   return (
     <div className="global-wrapper">
-      <Header />
-      <NavContainer />
+      <Header/>
+      <NavContainer/>
       <div className="global-wrapper-content">
         <Route path="/dialogs" render={() =>
-          <DialogsContainer />}
+          <DialogsContainer/>}
         />
         <Route exact path="/profile" render={() =>
-          <Profile />}
+          <Profile/>}
         />
-        <Route exact path="/news" render={() => <News />} />
-        <Route exact path="/music" render={() => <Music />} />
-        <Route exact path="/settings" render={() => <Settings />} />
-        <Route exact path="/friends" render={() => <Friends />} />
+        <Route exact path="/users" render={() =>
+          <UsersContainer/>}
+        />
+        <Route exact path="/news" render={() => <News/>}/>
+        <Route exact path="/music" render={() => <Music/>}/>
+        <Route exact path="/settings" render={() => <Settings/>}/>
+        <Route exact path="/friends" render={() => <Friends/>}/>
       </div>
     </div>
   );
