@@ -7,9 +7,14 @@ import { UsersClassType } from "./UsersContainer";
 class Users extends React.Component<UsersClassType> {
   componentDidMount() {
     if (this.props.users.length === 0) {
-      axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-        this.props.setUsers(response.data.items);
-      });
+      axios.get("https://social-network.samuraijs.com/api/1.0/users",
+        {withCredentials: true, headers: {"API-KEY": ***REMOVED***}})
+        .then(response => {
+          this.props.setUsers(response.data.items);
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+        });
     }
   }
 
@@ -36,7 +41,7 @@ class Users extends React.Component<UsersClassType> {
           </div>
           <div>
             {/*<div>{"user.location.country"}</div>
-            <div>{"user.location.city"}</div>*/}
+             <div>{"user.location.city"}</div>*/}
           </div>
         </div>
       </div>)}
