@@ -3,7 +3,6 @@ import "./App.css";
 import "./Reset.css";
 import { Route } from "react-router-dom";
 import { Header } from "./components/Header/Header";
-import { Profile } from "./components/Profile/Profile";
 import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
 import { Settings } from "./components/Settings/Settings";
@@ -11,6 +10,7 @@ import { Friends } from "./components/Friends/Friends";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import { NavContainer } from "./components/Nav/NavContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const App: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ const App: React.FC = () => {
           <DialogsContainer/>}
         />
         <Route exact path="/profile" render={() =>
-          <Profile/>}
+          <ProfileContainer/>}
         />
         <Route exact path="/users" render={() =>
           <UsersContainer/>}
