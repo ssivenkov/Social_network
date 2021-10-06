@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
+import { NavLink } from "react-router-dom";
 
 type UsersType = {
     totalUsersCount: number
@@ -22,7 +23,7 @@ export let Users = (props: UsersType) => {
     return <div>
         <div>
             {pages.map(p => {
-                return <span onClick={(e) => {props.onPageChanged(p)}}
+                return <span onClick={() => {props.onPageChanged(p)}}
                              className={props.currentPage === p ? s.selectPage : ""}>{p}</span>
             })}
         </div>
@@ -31,9 +32,11 @@ export let Users = (props: UsersType) => {
             props.users.map(user => <div className={s.container} key={user.id}>
                 <div>
                     <div>
-                        <img className={s.avatar} src={user.photos.small != null
-                            ? user.photos.small
-                            : userPhoto} alt=""/>
+                        <NavLink to={'/profile/' + user.id}>
+                            <img className={s.avatar} src={user.photos.small != null
+                                ? user.photos.small
+                                : userPhoto} alt=""/>
+                        </NavLink>
                     </div>
                     <div>
                         {user.followed

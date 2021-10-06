@@ -1,13 +1,19 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
+import { Preloader } from "../../common/Preloader/Preloader";
+import userPhoto from "../../../assets/images/user.png";
 
-export const ProfileInfo = () => {
+export const ProfileInfo = (props: any) => {
+    if (!props.profile) {
+        return <Preloader/>
+    }
+
     return (
         <div>
             <div>
                 <img
                     className={s.img_title}
-                    src="https://storge.pic2.me/cm/2560x1440/474/5845d0fb0f254.jpg"
+                    src="https://w-dog.ru/wallpapers/10/19/426855838571046/gory-vershiny-dolina-reka-les-priroda.jpg"
                     alt=""
                 />
             </div>
@@ -15,17 +21,39 @@ export const ProfileInfo = () => {
                 <div>
                     <img
                         className={s.user_avatar}
-                        src="http://sun9-17.userapi.com/s/v1/ig2/vA5NcCTxJizo_ce97CcVRezF8VEE_9UXJStRXGgbFIvtDIPramNHSZEhUKYbr-U3BTVf5eay6AuX2A9FMTQVmhZw.jpg?size=200x0&quality=96&crop=194,0,674,674&ava=1"
-                        alt=""
+                        src={props.profile.photos.large ? props.profile.photos.large : userPhoto}
+                        alt={"User avatar " + props.profile.fullName}
                     />
                 </div>
                 <div>
-                    <div className={s.user_name}>User name</div>
+                    <div className={s.user_name}>{props.profile.fullName ? props.profile.fullName : "Name hidden"}</div>
                     <div className={s.user_desc}>
-                        <p>Date of Birth: date</p>
-                        <p>City: city</p>
-                        <p>Education: education</p>
-                        <p>Web Site: website</p>
+                        <div>{props.profile.lookingForAJob === true ? "Looking for a job" : ""}</div>
+                        <div>{props.profile.lookingForAJobDescription ? props.profile.lookingForAJobDescription : ""}</div>
+                        <div>{props.profile.aboutMe ? "About me: " + props.profile.aboutMe : ""}</div>
+                        {
+                            props.profile.contacts.facebook
+                            || props.profile.contacts.website
+                            || props.profile.contacts.vk
+                            || props.profile.contacts.twitter
+                            || props.profile.contacts.instagram
+                            || props.profile.contacts.youtube
+                            || props.profile.contacts.github
+                            || props.profile.contacts.mainLink
+                                ? <div>Contacts:
+                                    <div>
+                                        <div>{props.profile.contacts.facebook ? "Facebook: " + props.profile.contacts.facebook : ""}</div>
+                                        <div>{props.profile.contacts.website ? "Website: " + props.profile.contacts.website : ""}</div>
+                                        <div>{props.profile.contacts.vk ? "VK: " + props.profile.contacts.vk : ""}</div>
+                                        <div>{props.profile.contacts.twitter ? "Twitter: " + props.profile.contacts.twitter : ""}</div>
+                                        <div>{props.profile.contacts.instagram ? "Instagram: " + props.profile.contacts.instagram : ""}</div>
+                                        <div>{props.profile.contacts.youtube ? "YouTube: " + props.profile.contacts.youtube : ""}</div>
+                                        <div>{props.profile.contacts.github ? "GitHub: " + props.profile.contacts.github : ""}</div>
+                                        <div>{props.profile.contacts.mainLink ? "Main link: " + props.profile.contacts.mainLink : ""}</div>
+                                    </div>
+                                </div>
+                                : ""
+                        }
                     </div>
                 </div>
             </div>
