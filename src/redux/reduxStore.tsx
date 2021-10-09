@@ -11,12 +11,14 @@ import dialogsReducer, {
 } from "./reducers/dialogsReducer";
 import sidebarFriendsReducer, { SidebarFriendsType } from "./reducers/sidebarFriendsReducer";
 import usersReducer, { UsersStateType } from "./reducers/usersReducer";
+import authReducer, { AuthStateType } from "./reducers/authReducer";
 
 export type RootStateType = {
   profilePage: PostsStateType
   dialogsPage: DialogsStateType
   sidebarFriends: SidebarFriendsType
   usersPage: UsersStateType
+  auth: AuthStateType
 }
 
 export type ActionsTypes = ReturnType<typeof addPostActionCreator>
@@ -29,6 +31,7 @@ let reducers = combineReducers({
   dialogsPage: dialogsReducer,
   sidebarFriends: sidebarFriendsReducer,
   usersPage: usersReducer,
+  auth: authReducer
 });
 
 let store = createStore(reducers);
