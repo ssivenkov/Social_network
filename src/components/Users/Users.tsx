@@ -25,7 +25,7 @@ export let Users = (props: UsersType) => {
     return <div>
         <div>
             {pages.map(p => {
-                return <span onClick={() => {props.onPageChanged(p)}}
+                return <span key={p} onClick={() => {props.onPageChanged(p)}}
                              className={props.currentPage === p ? s.selectPage : ""}>{p}</span>
             })}
         </div>

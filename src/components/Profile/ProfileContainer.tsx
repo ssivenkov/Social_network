@@ -1,35 +1,47 @@
 import React from "react";
 import { Profile } from "./Profile";
 import { connect } from "react-redux";
-import { setUserProfile } from "../../redux/reducers/profileReducer";
-import { withRouter } from "react-router-dom";
-import { usersAPI } from "../../api/UsersAPI";
+import { Redirect, withRouter, RouteComponentProps } from "react-router-dom";
+import { getUserProfile, ProfileType } from "../../redux/reducers/profileReducer";
+import { RootStateType } from "../../redux/reduxStore";
 
-class ProfileContainer extends React.Component<any, any> {
+type MapStateToPropsType = {
+    profile: null | ProfileType
+    isAuth: boolean
+}
+
+type MapDispatchToPropsType = {
+    getUserProfile: (userId: number) => void
+}
+
+type MatchParamsType = {
+    userId: string
+}
+type OwnProps = MapDispatchToPropsType & MapStateToPropsType
+type PropsType = RouteComponentProps<MatchParamsType> & OwnProps
+
+class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
-        let userId = this.props.match.params.userId;
+        let userId = +this.props.match.params.userId;
         if (!userId) {
             userId = 2;
         }
-        usersAPI.getProfile(userId)
-            .then(data => {
-                this.props.setUserProfile(data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        this.props.getUserProfile(userId);
     }
 
     render() {
+        if (!this.props.isAuth) return <Redirect to={"/login"}/>
+
         return (
             <Profile {...this.props} profile={this.props.profile}/>
         )
     }
 }
 
-let mapStateToProps = (state: any): any => ({
+let mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth,
 })
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
-export default connect(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);

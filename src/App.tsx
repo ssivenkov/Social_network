@@ -11,6 +11,7 @@ import { NavContainer } from "./components/Nav/NavContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./components/Login/Login";
 
 const App: React.FC = () => {
     return (
@@ -27,13 +28,16 @@ const App: React.FC = () => {
                 <Route exact path="/users" render={() =>
                     <UsersContainer/>}
                 />
+                <Route exact path="/login" render={() =>
+                    <LoginPage/>}
+                />
                 <Route exact path="/news" render={() => <News/>}/>
                 <Route exact path="/music" render={() => <Music/>}/>
                 <Route exact path="/settings" render={() => <Settings/>}/>
                 <Route exact path="/friends" render={() => <Friends/>}/>
             </div>
         </div>
-    );
+);
 };
 
 export default App;

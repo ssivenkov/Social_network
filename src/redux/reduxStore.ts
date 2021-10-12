@@ -9,7 +9,7 @@ import dialogsReducer, {
   sendMessageActionCreator,
   updateNewMessageTextActionCreator,
 } from "./reducers/dialogsReducer";
-import sidebarFriendsReducer, { SidebarFriendsType } from "./reducers/sidebarFriendsReducer";
+import sidebarFriendsReducer, { SidebarFriendsStateType } from "./reducers/sidebarFriendsReducer";
 import usersReducer, { UsersStateType } from "./reducers/usersReducer";
 import authReducer, { AuthStateType } from "./reducers/authReducer";
 import thunkMiddleware from "redux-thunk";
@@ -17,7 +17,7 @@ import thunkMiddleware from "redux-thunk";
 export type RootStateType = {
   profilePage: PostsStateType
   dialogsPage: DialogsStateType
-  sidebarFriends: SidebarFriendsType
+  sidebarFriends: SidebarFriendsStateType
   usersPage: UsersStateType
   auth: AuthStateType
 }
