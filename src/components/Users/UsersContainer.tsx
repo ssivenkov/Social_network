@@ -32,7 +32,7 @@ type mapDispatchToUsersType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     setCurrentPage: (pageNumber: number) => void
-    getUsers: any
+    getUsers: (page: number, pageSize: number) => void
 }
 
 export type UsersClassType = mapStateToUsersPropsType & mapDispatchToUsersType;
@@ -40,16 +40,6 @@ export type UsersClassType = mapStateToUsersPropsType & mapDispatchToUsersType;
 class UsersComponent extends React.Component<UsersClassType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
-        /*this.props.toggleIsFetching(true);
-         usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-         .then(data => {
-         this.props.toggleIsFetching(false);
-         this.props.setUsers(data.items);
-         this.props.setTotalUsersCount(data.totalCount);
-         })
-         .catch((error) => {
-         console.log(error);
-         });*/
     }
 
     onPageChanged = (pageNumber: number) => {

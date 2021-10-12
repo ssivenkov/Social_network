@@ -1,4 +1,4 @@
-import { usersAPI } from "../../api/UsersAPI";
+import { UsersAPI } from "../../api/UsersAPI";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -29,6 +29,45 @@ export type UsersStateType = {
     followingInProgress: Array<number>
 }
 
+type FollowActionType = {
+    type: "FOLLOW"
+    userId: number
+}
+
+type UnFollowActionType = {
+    type: "UNFOLLOW"
+    userId: number
+}
+type SetUsersActionType = {
+    type: "SET-USERS"
+    users: Array<UserType>
+}
+type SetCurrentPageActionType = {
+    type: "SET-CURRENT-PAGE"
+    currentPage: number
+}
+type SetTotalUsersCountActionType = {
+    type: "SET-TOTAL-USERS-COUNT"
+    count: number
+}
+type ToggleIsFetchingActionType = {
+    type: "TOGGLE-IS-FETCHING"
+    isFetching: boolean
+}
+type FollowingInProgressActionType = {
+    type: "FOLLOWING-IN-PROGRESS"
+    isFetching: boolean
+    userId: number
+}
+
+type UserActionsType = FollowActionType
+    | UnFollowActionType
+    | SetUsersActionType
+    | SetCurrentPageActionType
+    | SetTotalUsersCountActionType
+    | ToggleIsFetchingActionType
+    | FollowingInProgressActionType
+
 let initialState = {
     users: [],
     pageSize: 5,
@@ -38,7 +77,7 @@ let initialState = {
     followingInProgress: [],
 };
 
-const userReducer = (state: UsersStateType = initialState, action: any): UsersStateType => {
+const userReducer = (state: UsersStateType = initialState, action: UserActionsType): UsersStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -95,7 +134,7 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) =>
 export const getUsers = (currentPage: number, pageSize: number) => {
     return (dispatch: any) => {
         dispatch(toggleIsFetching(true));
-        usersAPI.getUsers(currentPage, pageSize)
+        UsersAPI.getUsers(currentPage, pageSize)
             .then(data => {
                 dispatch(toggleIsFetching(false));
                 dispatch(setUsers(data.items));
@@ -109,7 +148,7 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 export const follow = (userId: number) => {
     return (dispatch: any) => {
         dispatch(toggleFollowingProgress(true, userId));
-        usersAPI.follow(userId)
+        UsersAPI.follow(userId)
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(followSuccess(userId));
@@ -124,7 +163,7 @@ export const follow = (userId: number) => {
 export const unFollow = (userId: number) => {
     return (dispatch: any) => {
         dispatch(toggleFollowingProgress(true, userId));
-        usersAPI.unFollow(userId)
+        UsersAPI.unFollow(userId)
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(unFollowSuccess(userId));
