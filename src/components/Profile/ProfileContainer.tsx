@@ -17,10 +17,10 @@ type MapDispatchToPropsType = {
 type MatchParamsType = {
     userId: string
 }
-type OwnProps = MapDispatchToPropsType & MapStateToPropsType
-type PropsType = RouteComponentProps<MatchParamsType> & OwnProps
 
-class ProfileContainer extends React.Component<PropsType> {
+export type ProfilePropsType = RouteComponentProps<MatchParamsType> & MapStateToPropsType & MapDispatchToPropsType
+
+class ProfileContainer extends React.Component<ProfilePropsType> {
     componentDidMount() {
         let userId = +this.props.match.params.userId;
         if (!userId) {
@@ -30,7 +30,6 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
     render() {
-        if (!this.props.isAuth) return <Redirect to={"/login"}/>
 
         return (
             <Profile {...this.props} profile={this.props.profile}/>
@@ -38,10 +37,16 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 }
 
+let AuthRedirectComponent = (props: any) => {
+    if (!props.isAuth) return <Redirect to={"/login"}/>
+    return <ProfileContainer {...props}/>
+}
+
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
     isAuth: state.auth.isAuth,
 })
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer)
-export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);
+let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, RootStateType>
+(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent);

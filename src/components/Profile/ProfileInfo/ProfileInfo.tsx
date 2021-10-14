@@ -2,8 +2,13 @@ import React from "react";
 import s from "./ProfileInfo.module.css";
 import { Preloader } from "../../common/Preloader/Preloader";
 import userPhoto from "../../../assets/images/user.png";
+import { ProfileType } from "../../../redux/reducers/profileReducer";
 
-export const ProfileInfo = (props: any) => {
+type ProfileInfoPropsType = {
+    profile: null | ProfileType
+}
+
+export const ProfileInfo = (props: ProfileInfoPropsType) => {
     if (!props.profile) {
         return <Preloader/>
     }
