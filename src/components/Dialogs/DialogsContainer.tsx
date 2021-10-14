@@ -1,4 +1,4 @@
-import { sendMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/reducers/dialogsReducer";
+import { sendMessage, updateNewMessageText } from "../../redux/reducers/dialogsReducer";
 import { connect } from "react-redux";
 import { Dialogs } from "./Dialogs";
 import { Dispatch } from "redux";
@@ -27,12 +27,12 @@ export type MapStateToPropsType = {
     isAuth: boolean
 }
 
-type DispatchToPropsType = {
+type MapDispatchToPropsType = {
     updateNewMessageText: (text: string) => void
     sendMessage: () => void
 }
 
-export type DialogsPropsType = MapStateToPropsType & DispatchToPropsType;
+export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
@@ -44,16 +44,16 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     };
 };
 
-let mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         updateNewMessageText: (text: string) => {
-            dispatch(updateNewMessageTextActionCreator(text));
+            dispatch(updateNewMessageText(text));
         },
         sendMessage: () => {
-            dispatch(sendMessageActionCreator());
+            dispatch(sendMessage());
         },
     };
 };
 
-export const DialogsContainer = connect<MapStateToPropsType, DispatchToPropsType, {}, RootStateType>
+export const DialogsContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, RootStateType>
 (mapStateToProps, mapDispatchToProps)(Dialogs);

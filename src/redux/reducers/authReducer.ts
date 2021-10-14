@@ -1,5 +1,6 @@
-import { authAPI } from "../../api/UsersAPI";
-import { Dispatch } from "redux";
+import { AuthAPI } from "../../api/API";
+import { ThunkDispatch } from "redux-thunk";
+import { RootStateType } from "../reduxStore";
 
 const SET_USER_DATA = "SET-USER-DATA"
 
@@ -15,18 +16,11 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
-};
-
-type SetUserDataActionType = {
-    type: "SET-USER-DATA"
-    data: {
-        userId: number
-        email: string
-        login: string
-    }
 }
 
-type AuthActionsType = SetUserDataActionType
+type SetUserDataActionType = ReturnType<typeof setAuthUserData>
+
+export type AuthActionsType = SetUserDataActionType
 
 const authReducer = (state: AuthStateType = initialState, action: AuthActionsType): AuthStateType => {
     switch (action.type) {
@@ -41,20 +35,22 @@ const authReducer = (state: AuthStateType = initialState, action: AuthActionsTyp
     }
 };
 
-export const setAuthUserData = (userId: number, email: string, login: string): SetUserDataActionType =>
-    ({type: SET_USER_DATA, data: {userId, email, login}});
+export const setAuthUserData = (userId: number, email: string, login: string) =>
+    ({type: SET_USER_DATA, data: {userId, email, login}} as const)
 
-export const getAuthUserData = () => (dispatch: Dispatch<AuthActionsType>) => {
-    authAPI.me()
-        .then(data => {
-            if (data.resultCode === 0) {
-                let {id, email, login} = data.data;
-                dispatch(setAuthUserData(id, email, login));
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+export const getAuthUserData = () => {
+    return (dispatch: ThunkDispatch<RootStateType, unknown, AuthActionsType>) => {
+        AuthAPI.me()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    let {id, email, login} = data.data;
+                    dispatch(setAuthUserData(id, email, login));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 }
 
 export default authReducer;

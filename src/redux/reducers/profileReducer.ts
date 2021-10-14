@@ -1,5 +1,6 @@
-import { UsersAPI } from "../../api/UsersAPI";
-import { Dispatch } from "redux";
+import { UsersAPI } from "../../api/API";
+import { ThunkDispatch } from "redux-thunk";
+import { RootStateType } from "../reduxStore";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -33,27 +34,11 @@ export type ProfileType = {
     userId: number
 }
 
-export type PostsStateType = {
+export type ProfileStateType = {
     posts: Array<PostsType>
     messageForNewPost: string
     profile: null | ProfileType
 }
-
-export type AddPostActionType = {
-    type: "ADD-POST"
-};
-export type UpdateNewPostActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
-};
-export type SetUserProfileActionType = {
-    type: "SET-USER-PROFILE"
-    profile: null | ProfileType
-};
-
-type ProfileActionsType = AddPostActionType
-    | UpdateNewPostActionType
-    | SetUserProfileActionType
 
 let initialState = {
     messageForNewPost: "",
@@ -62,9 +47,17 @@ let initialState = {
         {id: 2, message: "Hello, welcome!", likesCount: 15},
     ],
     profile: null,
-};
+}
 
-const profileReducer = (state: PostsStateType = initialState, action: ProfileActionsType): PostsStateType => {
+export type AddPostActionType = ReturnType<typeof addPost>
+export type UpdateNewPostActionType = ReturnType<typeof updateNewPostText>
+export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
+
+export type ProfileActionsType = AddPostActionType
+    | UpdateNewPostActionType
+    | SetUserProfileActionType
+
+const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
         case ADD_POST: {
             let newPost: PostsType = {
@@ -96,20 +89,23 @@ const profileReducer = (state: PostsStateType = initialState, action: ProfileAct
     }
 };
 
-export const addPostActionCreator = (): AddPostActionType => ({type: ADD_POST});
-export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostActionType =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: newText});
-export const setUserProfile = (profile: null | ProfileType): SetUserProfileActionType =>
-    ({type: SET_USER_PROFILE, profile});
+export const addPost = () =>
+    ({type: ADD_POST} as const)
+export const updateNewPostText = (newText: string) =>
+    ({type: UPDATE_NEW_POST_TEXT, newText: newText} as const)
+export const setUserProfile = (profile: null | ProfileType) =>
+    ({type: SET_USER_PROFILE, profile} as const)
 
-export const getUserProfile = (userId: number) => (dispatch: Dispatch<ProfileActionsType>) => {
-    UsersAPI.getProfile(userId)
-        .then(data => {
-            dispatch(setUserProfile(data));
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-};
+export const getUserProfile = (userId: number) => {
+    return (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
+        UsersAPI.getProfile(userId)
+            .then(data => {
+                dispatch(setUserProfile(data));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+}
 
 export default profileReducer;

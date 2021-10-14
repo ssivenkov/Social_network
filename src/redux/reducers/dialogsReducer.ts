@@ -10,18 +10,6 @@ export type DialogsStateType = {
     newMessageTextBody: string
 }
 
-type UpdateNewMessageBodyActionType = {
-    type: "UPDATE-NEW-MESSAGE-BODY"
-    newMessageText: string
-}
-
-type SendDialogMessageActionType = {
-    type: "SEND-DIALOG-MESSAGE"
-}
-
-type DialogsActionsType = UpdateNewMessageBodyActionType
-    | SendDialogMessageActionType
-
 let initialState = {
     dialogs: [
         {id: 1, name: "Dimych"},
@@ -45,7 +33,13 @@ let initialState = {
         {id: 4, link: "https://wallbox.ru/resize/800x480/wallpapers/main/201522/344385ce96c7f38.jpg"},
         {id: 5, link: "https://www.ejin.ru/wp-content/uploads/2019/05/smeshnoj-kotik-oblizyvaetsja.jpg"},
     ],
-};
+}
+
+type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageText>
+type SendDialogMessageActionType = ReturnType<typeof sendMessage>
+
+export type DialogsActionsType = UpdateNewMessageBodyActionType
+    | SendDialogMessageActionType
 
 const dialogsReducer = (state: DialogsStateType = initialState, action: DialogsActionsType): DialogsStateType => {
     switch (action.type) {
@@ -68,17 +62,9 @@ const dialogsReducer = (state: DialogsStateType = initialState, action: DialogsA
     }
 };
 
-export const updateNewMessageTextActionCreator = (newText: string): UpdateNewMessageBodyActionType => {
-    return {
-        type: UPDATE_NEW_MESSAGE_BODY,
-        newMessageText: newText,
-    } as const;
-};
-
-export const sendMessageActionCreator = (): SendDialogMessageActionType => {
-    return {
-        type: SEND_DIALOG_MESSAGE,
-    } as const;
-};
+export const updateNewMessageText = (newText: string) =>
+    ({type: UPDATE_NEW_MESSAGE_BODY, newMessageText: newText} as const)
+export const sendMessage = () =>
+    ({type: SEND_DIALOG_MESSAGE} as const)
 
 export default dialogsReducer;
