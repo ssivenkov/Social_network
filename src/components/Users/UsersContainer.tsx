@@ -7,6 +7,8 @@ import { RootStateType } from "../../redux/reduxStore";
 import React from "react";
 import { Users } from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -37,7 +39,7 @@ type MapDispatchToPropsType = {
 
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
-class UsersComponent extends React.Component<UsersPropsType> {
+class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
@@ -63,5 +65,8 @@ class UsersComponent extends React.Component<UsersPropsType> {
     }
 }
 
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, RootStateType>
-(mapStateToProps, {setCurrentPage, getUsers, follow, unFollow})(UsersComponent);
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, RootStateType>
+    (mapStateToProps, {setCurrentPage, getUsers, follow, unFollow}),
+)(UsersContainer)
