@@ -1,10 +1,11 @@
-import { UsersAPI } from "../../api/API";
+import { ProfileAPI, UsersAPI } from "../../api/API";
 import { ThunkDispatch } from "redux-thunk";
 import { RootStateType } from "../reduxStore";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
+const SET_STATUS = "SET-STATUS";
 
 export type PostsType = {
     id: number
@@ -38,6 +39,7 @@ export type ProfileStateType = {
     posts: Array<PostsType>
     messageForNewPost: string
     profile: null | ProfileType
+    status: string
 }
 
 let initialState = {
@@ -47,15 +49,18 @@ let initialState = {
         {id: 2, message: "Hello, welcome!", likesCount: 15},
     ],
     profile: null,
+    status: "",
 }
 
 export type AddPostActionType = ReturnType<typeof addPost>
 export type UpdateNewPostActionType = ReturnType<typeof updateNewPostText>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
+export type SetStatusActionType = ReturnType<typeof setStatus>
 
 export type ProfileActionsType = AddPostActionType
     | UpdateNewPostActionType
     | SetUserProfileActionType
+    | SetStatusActionType
 
 const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
@@ -84,6 +89,12 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
                 profile: action.profile,
             }
         }
+        case SET_STATUS: {
+            return {
+                ...state,
+                status: action.status,
+            }
+        }
         default:
             return state;
     }
@@ -95,12 +106,41 @@ export const updateNewPostText = (newText: string) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: newText} as const)
 export const setUserProfile = (profile: null | ProfileType) =>
     ({type: SET_USER_PROFILE, profile} as const)
+export const setStatus = (status: string) =>
+    ({type: SET_STATUS, status} as const)
 
 export const getUserProfile = (userId: number) => {
     return (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
         UsersAPI.getProfile(userId)
             .then(data => {
                 dispatch(setUserProfile(data));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+}
+
+export const getStatus = (userId: number) => {
+    return (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
+        ProfileAPI.getStatus(userId)
+            .then(data => {
+                dispatch(setStatus(data));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+}
+
+export const updateStatus = (status: string) => {
+    return (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
+        ProfileAPI.updateStatus(status)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(setStatus(status));
+                }
+
             })
             .catch((error) => {
                 console.log(error);

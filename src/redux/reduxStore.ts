@@ -16,6 +16,7 @@ let RootReducer = combineReducers({
     sidebarFriends: sidebarFriendsReducer,
     usersPage: usersReducer,
     auth: authReducer,
+
 });
 
 type RootReducerType = typeof RootReducer;

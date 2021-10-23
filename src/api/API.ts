@@ -26,28 +26,43 @@ type FollowResponseType = {
 export const UsersAPI = {
     getUsers(currentPage = 1, pageSize = 1) {
         return instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => response.data)
+            .then(response => response.data);
     },
 
     getProfile(userId: number) {
-        return instance.get<GetProfileResponseType>(`profile/${userId}`)
-            .then(response => response.data)
+        console.warn('Obsolete method. Please use ProfileAPI object')
+        return ProfileAPI.getProfile(userId);
     },
 
     follow(userId: number) {
         return instance.post<FollowResponseType>(`follow/${userId}`, {})
-            .then(response => response.data)
+            .then(response => response.data);
     },
 
     unFollow(userId: number) {
         return instance.delete<FollowResponseType>(`follow/${userId}`)
-            .then(response => response.data)
+            .then(response => response.data);
     },
+}
+
+export const ProfileAPI = {
+    getProfile(userId: number) {
+        return instance.get<GetProfileResponseType>(`profile/${userId}`)
+            .then(response => response.data);
+    },
+    getStatus(userId: number) {
+        return instance.get(`profile/status/` + userId)
+            .then(response => response.data);
+    },
+    updateStatus(status: string) {
+        return instance.put(`profile/status/`, {status: status})
+            .then(response => response.data);
+    }
 }
 
 export const AuthAPI = {
     me() {
         return instance.get(`auth/me`)
-            .then(response => response.data)
+            .then(response => response.data);
     },
 }
