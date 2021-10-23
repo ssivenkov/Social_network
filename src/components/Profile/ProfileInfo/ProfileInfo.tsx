@@ -3,13 +3,16 @@ import s from "./ProfileInfo.module.css";
 import { Preloader } from "../../common/Preloader/Preloader";
 import userPhoto from "../../../assets/images/user.png";
 import { ProfileType } from "../../../redux/reducers/profileReducer";
+import ProfileStatus from "./ProfileStatus"
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType
+    status: string
+    updateStatus: (status: string) => void
 }
 
-export const ProfileInfo = (props: ProfileInfoPropsType) => {
-    if (!props.profile) {
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) => {
+    if (!profile) {
         return <Preloader/>
     }
 
@@ -26,35 +29,38 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <div>
                     <img
                         className={s.user_avatar}
-                        src={props.profile.photos.large ? props.profile.photos.large : userPhoto}
-                        alt={"User avatar " + props.profile.fullName}
+                        src={profile.photos.large ? profile.photos.large : userPhoto}
+                        alt={"User avatar " + profile.fullName}
                     />
                 </div>
                 <div>
-                    <div className={s.user_name}>{props.profile.fullName ? props.profile.fullName : "Name hidden"}</div>
+                    <div className={s.user_name}>{profile.fullName ? profile.fullName : "Name hidden"}</div>
+                    <ProfileStatus status={status}
+                                   updateStatus={updateStatus}
+                    />
                     <div className={s.user_desc}>
-                        <div>{props.profile.lookingForAJob === true ? "Looking for a job" : ""}</div>
-                        <div>{props.profile.lookingForAJobDescription ? props.profile.lookingForAJobDescription : ""}</div>
-                        <div>{props.profile.aboutMe ? "About me: " + props.profile.aboutMe : ""}</div>
+                        <div>{profile.lookingForAJob === true ? "Looking for a job" : ""}</div>
+                        <div>{profile.lookingForAJobDescription ? profile.lookingForAJobDescription : ""}</div>
+                        <div>{profile.aboutMe ? "About me: " + profile.aboutMe : ""}</div>
                         {
-                            props.profile.contacts.facebook
-                            || props.profile.contacts.website
-                            || props.profile.contacts.vk
-                            || props.profile.contacts.twitter
-                            || props.profile.contacts.instagram
-                            || props.profile.contacts.youtube
-                            || props.profile.contacts.github
-                            || props.profile.contacts.mainLink
+                            profile.contacts.facebook
+                            || profile.contacts.website
+                            || profile.contacts.vk
+                            || profile.contacts.twitter
+                            || profile.contacts.instagram
+                            || profile.contacts.youtube
+                            || profile.contacts.github
+                            || profile.contacts.mainLink
                                 ? <div>Contacts:
                                     <div>
-                                        <div>{props.profile.contacts.facebook ? "Facebook: " + props.profile.contacts.facebook : ""}</div>
-                                        <div>{props.profile.contacts.website ? "Website: " + props.profile.contacts.website : ""}</div>
-                                        <div>{props.profile.contacts.vk ? "VK: " + props.profile.contacts.vk : ""}</div>
-                                        <div>{props.profile.contacts.twitter ? "Twitter: " + props.profile.contacts.twitter : ""}</div>
-                                        <div>{props.profile.contacts.instagram ? "Instagram: " + props.profile.contacts.instagram : ""}</div>
-                                        <div>{props.profile.contacts.youtube ? "YouTube: " + props.profile.contacts.youtube : ""}</div>
-                                        <div>{props.profile.contacts.github ? "GitHub: " + props.profile.contacts.github : ""}</div>
-                                        <div>{props.profile.contacts.mainLink ? "Main link: " + props.profile.contacts.mainLink : ""}</div>
+                                        <div>{profile.contacts.facebook ? "Facebook: " + profile.contacts.facebook : ""}</div>
+                                        <div>{profile.contacts.website ? "Website: " + profile.contacts.website : ""}</div>
+                                        <div>{profile.contacts.vk ? "VK: " + profile.contacts.vk : ""}</div>
+                                        <div>{profile.contacts.twitter ? "Twitter: " + profile.contacts.twitter : ""}</div>
+                                        <div>{profile.contacts.instagram ? "Instagram: " + profile.contacts.instagram : ""}</div>
+                                        <div>{profile.contacts.youtube ? "YouTube: " + profile.contacts.youtube : ""}</div>
+                                        <div>{profile.contacts.github ? "GitHub: " + profile.contacts.github : ""}</div>
+                                        <div>{profile.contacts.mainLink ? "Main link: " + profile.contacts.mainLink : ""}</div>
                                     </div>
                                 </div>
                                 : ""
