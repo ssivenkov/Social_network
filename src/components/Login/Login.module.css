@@ -1,0 +1,21 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.field {
+    display: inline-flex;
+    margin: 5px;
+}
+
+.login {
+    border: 2px solid green;
+}
+
+.password {
+    border: 2px solid green;
+}
+
+.error {
+    color: red;
+}

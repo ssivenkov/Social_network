@@ -30,7 +30,7 @@ export type MapStateToPropsType = {
 
 type MapDispatchToPropsType = {
     updateNewMessageText: (text: string) => void
-    sendMessage: () => void
+    sendMessage: (newMessageBody: string) => void
 }
 
 export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType;
@@ -49,8 +49,8 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         updateNewMessageText: (text: string) => {
             dispatch(updateNewMessageText(text));
         },
-        sendMessage: () => {
-            dispatch(sendMessage());
+        sendMessage: (newMessageBody: string) => {
+            dispatch(sendMessage(newMessageBody));
         },
     };
 };
