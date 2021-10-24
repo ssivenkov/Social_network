@@ -9,6 +9,7 @@ import sidebarFriendsReducer from "./reducers/sidebarFriendsReducer";
 import usersReducer, { UserActionsType } from "./reducers/usersReducer";
 import authReducer, { AuthActionsType } from "./reducers/authReducer";
 import thunkMiddleware, { ThunkAction } from "redux-thunk";
+import { reducer as formReducer } from "redux-form"
 
 let RootReducer = combineReducers({
     profilePage: profileReducer,
@@ -16,7 +17,7 @@ let RootReducer = combineReducers({
     sidebarFriends: sidebarFriendsReducer,
     usersPage: usersReducer,
     auth: authReducer,
-
+    form: formReducer,
 });
 
 type RootReducerType = typeof RootReducer;
