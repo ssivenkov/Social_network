@@ -1,4 +1,4 @@
-import { sendMessage, updateNewMessageText } from "../../redux/reducers/dialogsReducer";
+import { sendMessage } from "../../redux/reducers/dialogsReducer";
 import { connect } from "react-redux";
 import { Dialogs } from "./Dialogs";
 import { compose, Dispatch } from "redux";
@@ -25,11 +25,9 @@ export type MapStateToPropsType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
     avatars: Array<AvatarType>
-    newMessageTextBody: string
 }
 
 type MapDispatchToPropsType = {
-    updateNewMessageText: (text: string) => void
     sendMessage: (newMessageBody: string) => void
 }
 
@@ -40,15 +38,11 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
         avatars: state.dialogsPage.avatars,
-        newMessageTextBody: state.dialogsPage.newMessageTextBody,
     };
 };
 
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
-        updateNewMessageText: (text: string) => {
-            dispatch(updateNewMessageText(text));
-        },
         sendMessage: (newMessageBody: string) => {
             dispatch(sendMessage(newMessageBody));
         },

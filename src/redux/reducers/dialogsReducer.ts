@@ -1,13 +1,11 @@
 import { AvatarType, DialogType, MessageType } from "../../components/Dialogs/DialogsContainer";
 
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_DIALOG_MESSAGE = "SEND-DIALOG-MESSAGE";
 
 export type DialogsStateType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
     avatars: Array<AvatarType>
-    newMessageTextBody: string
 }
 
 let initialState = {
@@ -25,7 +23,6 @@ let initialState = {
         {id: 4, message: "This social network is awesome!"},
         {id: 5, message: "Go"},
     ],
-    newMessageTextBody: "",
     avatars: [
         {id: 1, link: "https://i.pinimg.com/736x/3f/47/b3/3f47b39a801290271ad789d1ecc053cc.jpg"},
         {id: 2, link: "https://img.joinfo.com/i/2018/06/800x0/5b30ce1e882dc.jpg"},
@@ -35,20 +32,12 @@ let initialState = {
     ],
 }
 
-type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageText>
 type SendDialogMessageActionType = ReturnType<typeof sendMessage>
 
-export type DialogsActionsType = UpdateNewMessageBodyActionType
-    | SendDialogMessageActionType
+export type DialogsActionsType = SendDialogMessageActionType
 
 const dialogsReducer = (state: DialogsStateType = initialState, action: DialogsActionsType): DialogsStateType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY: {
-            return {
-                ...state,
-                newMessageTextBody: action.newMessageText,
-            };
-        }
         case SEND_DIALOG_MESSAGE: {
             let newMessageTextBody = action.newMessageBody;
             return {
@@ -61,8 +50,6 @@ const dialogsReducer = (state: DialogsStateType = initialState, action: DialogsA
     }
 };
 
-export const updateNewMessageText = (newText: string) =>
-    ({type: UPDATE_NEW_MESSAGE_BODY, newMessageText: newText} as const)
 export const sendMessage = (newMessageBody: string) =>
     ({type: SEND_DIALOG_MESSAGE, newMessageBody} as const)
 

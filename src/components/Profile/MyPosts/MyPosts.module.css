@@ -18,8 +18,8 @@
     background-color: lightgray;
     min-height: 60px;
     padding: 10px;
-    margin-bottom: 15px;
     font-size: 18px;
+    border: 1px solid transparent;
     border-radius: 5px;
     word-wrap: break-word;
 }
@@ -27,16 +27,17 @@
     box-shadow: chartreuse 0 0 10px 1px;
 }
 
-.sendNewsBtn {
+.sendPostBtn {
     display: block;
     max-width: 10%;
     color: #fff;
     font-size: 20px;
+    margin-top: 15px;
     background-color: darkgreen;
     padding: 5px 20px 5px 20px;
     border-radius: 5px;
 }
-.sendNewsBtn:hover {
+.sendPostBtn:hover {
     background-color: #00aa00;
     color: #fff;
     text-shadow: #fff 0 0 4px;
