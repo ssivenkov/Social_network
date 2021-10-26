@@ -1,6 +1,8 @@
 import React from "react"
 import s from "./Login.module.css"
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
+import { Input } from "../common/FormsControls/FormsControls";
+import { maxLengthCreator, required } from "../../utils/validators/validator";
 
 type FormDataType = {
     login: string
@@ -8,32 +10,36 @@ type FormDataType = {
     rememberMe: boolean
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props: any) => {
+const maxLength100 = maxLengthCreator(100);
+
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}
               className={s.formContainer}
         >
             <div className={s.field}>
-                <Field type="text"
-                       name="login"
-                       component={"input"}
-                       placeholder="login"
+                <Field type={"text"}
+                       name={"login"}
+                       component={Input}
+                       validate={[required, maxLength100]}
+                       placeholder={"login"}
                        className={s.login}/>
             </div>
             <div className={s.field}>
-                <Field type="password"
-                       name="password"
-                       component={"input"}
-                       placeholder="password"
+                <Field type={"password"}
+                       name={"password"}
+                       component={Input}
+                       validate={[required, maxLength100]}
+                       placeholder={"password"}
                        className={s.password}/>
             </div>
             <div className={s.field}>
-                <Field type="checkbox"
-                       name="rememberMe"
+                <Field type={"checkbox"}
+                       name={"rememberMe"}
                        component={"input"}/> remember me
             </div>
             <div className={s.field}>
-                <button type="submit">
+                <button type={"submit"}>
                     Submit
                 </button>
             </div>
