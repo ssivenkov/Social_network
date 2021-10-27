@@ -17,7 +17,7 @@ type GetUsersResponseType = {
 type GetProfileResponseType = ProfileType
 
 type FollowResponseType = {
-    data: any
+    data: {}
     fieldsErrors: Array<any>
     messages: Array<any>
     resultCode: number
@@ -30,7 +30,7 @@ export const UsersAPI = {
     },
 
     getProfile(userId: number) {
-        console.warn('Obsolete method. Please use ProfileAPI object')
+        console.warn("Obsolete method. Please use ProfileAPI object");
         return ProfileAPI.getProfile(userId);
     },
 
@@ -57,12 +57,20 @@ export const ProfileAPI = {
     updateStatus(status: string) {
         return instance.put(`profile/status/`, {status: status})
             .then(response => response.data);
-    }
+    },
 }
 
 export const AuthAPI = {
     me() {
         return instance.get(`auth/me`)
+            .then(response => response.data);
+    },
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post(`auth/login`, {email, password, rememberMe})
+            .then(response => response.data);
+    },
+    logout() {
+        return instance.delete(`auth/login`)
             .then(response => response.data);
     },
 }
