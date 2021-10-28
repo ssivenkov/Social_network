@@ -1,5 +1,5 @@
 import React from "react"
-import s from "./Login.module.css"
+import s from "./Login.module.scss"
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { Input } from "../common/FormsControls/FormsControls";
 import { maxLengthCreator, required } from "../../utils/validators/validator";
