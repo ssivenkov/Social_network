@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./AvatarsItem.module.css";
+import s from "./AvatarsItem.module.scss";
 
 export type AvatarItemPropsType = {
   id: number

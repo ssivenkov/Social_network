@@ -1,11 +1,11 @@
 import React from "react";
-import s from "./MyPosts.module.css";
+import s from "./MyPosts.module.scss";
 import { Post } from "./Post/Post";
 import { MyPostsPropsType } from "./MyPostsContainer";
 import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { maxLengthCreator, required } from "../../../utils/validators/validator";
 import { Textarea } from "../../common/FormsControls/FormsControls";
-import style from "./MyPosts.module.css";
+import style from "./MyPosts.module.scss";
 
 type FormDataType = {
     newPostBody: string

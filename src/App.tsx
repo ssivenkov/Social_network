@@ -1,6 +1,6 @@
 import React from "react";
-import "./App.css";
-import "./Reset.css";
+import "./App.scss";
+import "./Reset.scss";
 import { Route } from "react-router-dom";
 import { News } from "./components/News/News";
 import { Music } from "./components/Music/Music";
