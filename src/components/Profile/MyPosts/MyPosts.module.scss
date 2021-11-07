@@ -1,0 +1,48 @@
+.myPostsSection {
+    margin-left: 10px;
+}
+
+.myPostsTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.newPostSection {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.newPostCreateField {
+    width: 55%;
+    background-color: lightgray;
+    min-height: 60px;
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    word-wrap: break-word;
+}
+.newPostCreateField:focus {
+    box-shadow: chartreuse 0 0 10px 1px;
+}
+
+.sendPostBtn {
+    display: block;
+    max-width: 10%;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 15px;
+    background-color: darkgreen;
+    padding: 5px 20px 5px 20px;
+    border-radius: 5px;
+}
+.sendPostBtn:hover {
+    background-color: #00aa00;
+    color: #fff;
+    text-shadow: #fff 0 0 4px;
+    box-shadow: #009900 0 0 15px;
+}
+
+.postsListSection {
+}
