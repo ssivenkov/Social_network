@@ -1,0 +1,40 @@
+.nav {
+    grid-area: n;
+    background-color: darkslateblue;
+}
+
+.nav_section {
+    padding: 10px;
+}
+
+.item a {
+    display: block;
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.item a.active {
+    color: gold;
+}
+
+.item a.activeSettings {
+    color: orangered;
+}
+
+.item a.activeFriends {
+    color: chartreuse;
+}
+
+.item a.bigFontSize {
+    font-size: 30px;
+}
+
+.item.margin {
+    margin-top: 2.5em;
+}
+
+.friendsContainer {
+    display: flex;
+    flex-direction: row;
+}
