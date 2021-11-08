@@ -10,6 +10,7 @@ import usersReducer, { UserActionsType } from "./reducers/usersReducer";
 import authReducer, { AuthActionsType } from "./reducers/authReducer";
 import thunkMiddleware, { ThunkAction } from "redux-thunk";
 import { reducer as formReducer } from "redux-form"
+import appReducer from "./reducers/appReducer";
 
 let RootReducer = combineReducers({
     profilePage: profileReducer,
@@ -18,6 +19,7 @@ let RootReducer = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
     form: formReducer,
+    app: appReducer,
 });
 
 type RootReducerType = typeof RootReducer;
