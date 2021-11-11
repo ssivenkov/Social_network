@@ -11,7 +11,7 @@ type FormDataType = {
     newPostBody: string
 }
 
-const maxLength10 = maxLengthCreator(10);
+const maxLength100 = maxLengthCreator(100);
 
 const NewPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
@@ -21,7 +21,7 @@ const NewPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     type={"text"}
                     name={"newPostBody"}
                     component={Textarea}
-                    validate={[required, maxLength10]}
+                    validate={[required, maxLength100]}
                     placeholder={"Share your news here ..."}
                     className={style.newPostCreateField}
                 />
