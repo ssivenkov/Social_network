@@ -5,6 +5,7 @@ import { RootStateType } from "../reduxStore";
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_STATUS = "SET-STATUS";
+const DELETE_POST = "DELETE-POST"
 
 export type PostsType = {
     id: number
@@ -52,10 +53,12 @@ let initialState = {
 export type AddPostActionType = ReturnType<typeof addPost>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 export type SetStatusActionType = ReturnType<typeof setStatus>
+export type DeletePostActionType = ReturnType<typeof deletePost>
 
 export type ProfileActionsType = AddPostActionType
     | SetUserProfileActionType
     | SetStatusActionType
+    | DeletePostActionType
 
 const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
@@ -83,6 +86,12 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
                 status: action.status,
             }
         }
+        case DELETE_POST: {
+            return {
+                ...state,
+                posts: state.posts.filter(p => p.id !== action.postId),
+            }
+        }
         default:
             return state;
     }
@@ -94,6 +103,8 @@ export const setUserProfile = (profile: null | ProfileType) =>
     ({type: SET_USER_PROFILE, profile} as const)
 export const setStatus = (status: string) =>
     ({type: SET_STATUS, status} as const)
+export const deletePost = (postId: number) =>
+    ({type: DELETE_POST, postId} as const)
 
 export const getUserProfile = (userId: number) => {
     return (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
