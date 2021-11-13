@@ -6,7 +6,7 @@ type PostType = {
     likesCount: number
 }
 
-export const Post = (props: PostType) => {
+export const Post: React.FC<PostType> = ({message, likesCount}) => {
     return (
         <div className={s.post_item}>
             <div className={s.avatar}>
@@ -15,9 +15,9 @@ export const Post = (props: PostType) => {
                     alt=""/>
             </div>
             <div className={s.textBlock}>
-                <p className={s.userMessage}>{props.message}</p>
+                <p className={s.userMessage}>{message}</p>
                 <div className={s.likesWrapper}>
-                    <span>likes: <span className={s.likesCount}>{props.likesCount}</span></span>
+                    <span>likes: <span className={s.likesCount}>{likesCount}</span></span>
                 </div>
             </div>
         </div>

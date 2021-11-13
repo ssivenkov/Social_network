@@ -3,7 +3,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { RootStateType } from "../reduxStore";
 import { FormAction, stopSubmit } from "redux-form";
 
-const SET_USER_DATA = "SET-USER-DATA"
+const SET_USER_DATA = "social_network/auth/SET-USER-DATA";
 
 export type AuthStateType = {
     userId: number | null
@@ -44,48 +44,34 @@ export const setAuthUserData = (
     ({type: SET_USER_DATA, data: {userId, email, login, isAuth}} as const);
 
 export const getAuthUserData = () => {
-    return (dispatch: ThunkDispatch<RootStateType, unknown, AuthActionsType>) => {
-        return AuthAPI.me()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    let {id, email, login} = data.data;
-                    dispatch(setAuthUserData(id, email, login, true));
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    return async (dispatch: ThunkDispatch<RootStateType, unknown, AuthActionsType>) => {
+        let response = await AuthAPI.me();
+        if (response.resultCode === 0) {
+            let {id, email, login} = response.data;
+            dispatch(setAuthUserData(id, email, login, true));
+        }
     }
 }
 
 export const login = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: ThunkDispatch<RootStateType, unknown, FormAction>) => {
-        AuthAPI.login(email, password, rememberMe)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(getAuthUserData());
-                } else {
-                    let message = data.messages.length > 0 ? data.messages[0] : "Some error";
-                    dispatch(stopSubmit("login", {_error: message}));
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    return async (dispatch: ThunkDispatch<RootStateType, unknown, FormAction>) => {
+        let response = await AuthAPI.login(email, password, rememberMe);
+        if (response.data.resultCode === 0) {
+            dispatch(getAuthUserData());
+        } else {
+            let message = response.messages.length > 0 ? response.messages[0] : "Some error";
+            dispatch(stopSubmit("login", {_error: message}));
+        }
+
     }
 }
 
 export const logout = () => {
-    return (dispatch: ThunkDispatch<RootStateType, unknown, AuthActionsType>) => {
-        AuthAPI.logout()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setAuthUserData(null, null, null, false));
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    return async (dispatch: ThunkDispatch<RootStateType, unknown, AuthActionsType>) => {
+        let response = await AuthAPI.logout()
+        if (response.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null, false));
+        }
     }
 }
 

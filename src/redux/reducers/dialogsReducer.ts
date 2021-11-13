@@ -1,6 +1,6 @@
 import { AvatarType, DialogType, MessageType } from "../../components/Dialogs/DialogsContainer";
 
-const SEND_DIALOG_MESSAGE = "SEND-DIALOG-MESSAGE";
+const SEND_DIALOG_MESSAGE = "social_network/dialogs/SEND-DIALOG-MESSAGE";
 
 export type DialogsStateType = {
     dialogs: Array<DialogType>

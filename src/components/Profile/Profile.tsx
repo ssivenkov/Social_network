@@ -3,14 +3,14 @@ import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 import { ProfilePropsType } from "./ProfileContainer";
 
-export const Profile = (props: ProfilePropsType) => {
-  return (
-    <div>
-      <ProfileInfo profile={props.profile}
-                   status={props.status}
-                   updateStatus={props.updateStatus}
-      />
-      <MyPostsContainer />
-    </div>
-  );
+export const Profile: React.FC<ProfilePropsType> = ({profile, status, updateStatus}) => {
+    return (
+        <div>
+            <ProfileInfo profile={profile}
+                         status={status}
+                         updateStatus={updateStatus}
+            />
+            <MyPostsContainer/>
+        </div>
+    );
 }

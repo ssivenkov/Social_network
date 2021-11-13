@@ -2,7 +2,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { RootStateType } from "../reduxStore";
 import { getAuthUserData } from "./authReducer";
 
-const INITIALIZED_SUCCESS = "INITIALIZED-SUCCESS"
+const INITIALIZED_SUCCESS = "social_network/app/INITIALIZED-SUCCESS";
 
 export type AuthStateType = {
     initialized: boolean
