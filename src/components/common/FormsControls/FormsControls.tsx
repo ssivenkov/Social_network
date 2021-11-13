@@ -1,13 +1,7 @@
 import React from "react";
 import s from "./FormsControls.module.scss"
 
-type FormsControlsPropsType = {
-    input: any
-    meta: any
-    children: any
-}
-
-export const FormControl = ({input, meta, ...props}: FormsControlsPropsType) => {
+export const FormControl: React.FC<any> = ({input, meta, ...props}) => {
     const hasError = meta.error && meta.touched;
     return (
         <div className={hasError ? s.formControlError : ''}>

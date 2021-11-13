@@ -2,10 +2,10 @@ import { ProfileAPI, UsersAPI } from "../../api/API";
 import { ThunkDispatch } from "redux-thunk";
 import { RootStateType } from "../reduxStore";
 
-const ADD_POST = "ADD-POST";
-const SET_USER_PROFILE = "SET-USER-PROFILE";
-const SET_STATUS = "SET-STATUS";
-const DELETE_POST = "DELETE-POST"
+const ADD_POST = "social_network/profile/ADD-POST";
+const SET_USER_PROFILE = "social_network/profile/SET-USER-PROFILE";
+const SET_STATUS = "social_network/profile/SET-STATUS";
+const DELETE_POST = "social_network/profile/DELETE-POST"
 
 export type PostsType = {
     id: number
@@ -68,11 +68,10 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
                 message: action.newPostText,
                 likesCount: 0,
             };
-            let stateCopy = {
+            return {
                 ...state,
                 posts: [...state.posts, newPost],
             };
-            return stateCopy;
         }
         case SET_USER_PROFILE: {
             return {
@@ -97,7 +96,7 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
     }
 };
 
-export const addPost = (newPostText: any) =>
+export const addPost = (newPostText: string) =>
     ({type: ADD_POST, newPostText} as const)
 export const setUserProfile = (profile: null | ProfileType) =>
     ({type: SET_USER_PROFILE, profile} as const)
@@ -107,41 +106,25 @@ export const deletePost = (postId: number) =>
     ({type: DELETE_POST, postId} as const)
 
 export const getUserProfile = (userId: number) => {
-    return (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        UsersAPI.getProfile(userId)
-            .then(data => {
-                dispatch(setUserProfile(data));
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
+        let response = await UsersAPI.getProfile(userId);
+        dispatch(setUserProfile(response));
     };
 }
 
 export const getStatus = (userId: number) => {
-    return (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        ProfileAPI.getStatus(userId)
-            .then(data => {
-                dispatch(setStatus(data));
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
+        let response = await ProfileAPI.getStatus(userId);
+        dispatch(setStatus(response));
     };
 }
 
 export const updateStatus = (status: string) => {
-    return (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        ProfileAPI.updateStatus(status)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setStatus(status));
-                }
-
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
+        let response = await ProfileAPI.updateStatus(status);
+        if (response.resultCode === 0) {
+            dispatch(setStatus(status));
+        }
     };
 }
 

@@ -5,8 +5,8 @@ import { AvatarType } from "../Dialogs/DialogsContainer";
 import AvatarMiniatureItem from "../Dialogs/AvatarsMiniatureItem/AvatarsMiniatureItem";
 import { NavPropsType } from "./NavContainer";
 
-export const Nav = (props: NavPropsType) => {
-  let friendsElements = props.friends
+export const Nav: React.FC<NavPropsType> = ({friends}) => {
+  let friendsElements = friends
     .map((el: AvatarType) => <AvatarMiniatureItem key={el.id} link={el.link} id={el.id} />);
 
   return <nav className={s.nav}>

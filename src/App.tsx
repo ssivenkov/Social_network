@@ -19,11 +19,11 @@ import { initializeApp } from "./redux/reducers/appReducer";
 import { Preloader } from "./components/common/Preloader/Preloader";
 
 type MapDispatchToPropsType = {
-    initializeApp: any
+    initializeApp: () => void
 }
 
 type MapStateToPropsType = {
-    initialized: any
+    initialized: boolean
 }
 
 const mapStateToProps = (state: RootStateType) => ({

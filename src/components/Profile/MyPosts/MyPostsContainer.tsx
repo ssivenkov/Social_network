@@ -5,7 +5,7 @@ import { RootStateType } from "../../../redux/reduxStore";
 import { Dispatch } from "redux";
 
 type DispatchToPropsType = {
-    addPost: (newPostText: any) => void
+    addPost: (newPostText: string) => void
 }
 
 type MapStateToPropsType = {
@@ -22,7 +22,7 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
 
 let mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => {
     return {
-        addPost: (newPostText: any) => {
+        addPost: (newPostText: string) => {
             dispatch(addPost(newPostText));
         },
     };

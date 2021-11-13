@@ -17,9 +17,9 @@ type FormDataType = {
 
 const maxLength100 = maxLengthCreator(100);
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}
+        <form onSubmit={handleSubmit}
               className={s.formContainer}
         >
             <div className={s.field}>
@@ -43,8 +43,8 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                        name={"rememberMe"}
                        component={"input"}/> remember me
             </div>
-            {props.error && <div className={inputErrorStyle.formSummaryError}>
-                {props.error}
+            {error && <div className={inputErrorStyle.formSummaryError}>
+                {error}
             </div>
             }
             <div className={s.field}>

@@ -6,9 +6,9 @@ export type AvatarItemPropsType = {
   link: string
 }
 
-const AvatarItem = (props: AvatarItemPropsType) => {
+const AvatarItem: React.FC<AvatarItemPropsType> = ({id, link}) => {
   return (
-    <div><img className={s.avatar} src={props.link} alt="" /></div>
+    <div><img className={s.avatar} src={link} alt="" /></div>
   );
 };
 

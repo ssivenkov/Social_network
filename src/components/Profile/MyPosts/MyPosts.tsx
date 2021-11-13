@@ -13,9 +13,9 @@ type FormDataType = {
 
 const maxLength100 = maxLengthCreator(100);
 
-const NewPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const NewPostForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field
                     type={"text"}
