@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 import profileReducer, {
     ProfileActionsType,
 } from "./reducers/profileReducer";
@@ -32,6 +32,9 @@ export type RootActionsType = ProfileActionsType
 
 export type RootThunk<ReturnType = void> = ThunkAction<ReturnType, RootStateType, unknown, RootActionsType>
 
-let store = createStore(RootReducer, applyMiddleware(thunkMiddleware));
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(RootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
+//let store = createStore(RootReducer, applyMiddleware(thunkMiddleware));
 
 export default store;

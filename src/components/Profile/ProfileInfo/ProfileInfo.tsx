@@ -35,7 +35,7 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, up
                 </div>
                 <div>
                     <div className={s.user_name}>{profile.fullName ? profile.fullName : "Name hidden"}</div>
-                    <ProfileStatus statusFromProps={status}
+                    <ProfileStatus status={status}
                                    updateStatus={updateStatus}
                     />
                     <div className={s.user_desc}>

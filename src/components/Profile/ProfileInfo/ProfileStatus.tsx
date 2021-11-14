@@ -1,42 +1,42 @@
 import React, { useEffect, useState } from "react";
 
 type ProfileInfoPropsType = {
-    statusFromProps: string
+    status: string
     updateStatus: (status: string) => void
 }
 
-const ProfileStatus: React.FC<ProfileInfoPropsType> = ({statusFromProps, updateStatus}) => {
+const ProfileStatus: React.FC<ProfileInfoPropsType> = ({status, updateStatus}) => {
     const [editMode, setEditMode] = useState<boolean>(false);
-    const [status, setStatus] = useState<string>(statusFromProps);
+    const [localStatus, setLocalStatus] = useState<string>(status);
 
     useEffect(() => {
-        setStatus(statusFromProps);
-    }, [statusFromProps])
+        setLocalStatus(status);
+    }, [status])
 
     const activateEditMode = () => {
-        setStatus(status);
+        setLocalStatus(localStatus);
         setEditMode(true);
     }
 
     const deactivateEditMode = () => {
         setEditMode(false);
-        updateStatus(status);
+        updateStatus(localStatus);
     }
 
     const onStatusChange = (statusString: string) => {
-        setStatus(statusString);
+        setLocalStatus(statusString);
     }
 
     return <div>
         {!editMode &&
         <div>
-            <span onClick={activateEditMode}>{status || "No status set"}</span>
+            <span onClick={activateEditMode}>{localStatus || "No status set"}</span>
         </div>
         }
         {editMode &&
         <div>
             <input autoFocus
-                   value={status}
+                   value={localStatus}
                    onBlur={deactivateEditMode}
                    onChange={(e) => onStatusChange(e.currentTarget.value)}
             >
