@@ -1,49 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent } from "react";
 
-type ProfileInfoPropsType = {
-    status: string
+type MapDispatchToPropsType = {
     updateStatus: (status: string) => void
 }
 
-const ProfileStatus: React.FC<ProfileInfoPropsType> = ({status, updateStatus}) => {
-    const [editMode, setEditMode] = useState<boolean>(false);
-    const [localStatus, setLocalStatus] = useState<string>(status);
+type MapStateToPropsType = {
+    status: string
+}
 
-    useEffect(() => {
-        setLocalStatus(status);
-    }, [status])
+export type ProfileStatusPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
-    const activateEditMode = () => {
-        setLocalStatus(localStatus);
-        setEditMode(true);
+class ProfileStatus extends React.Component<ProfileStatusPropsType> {
+    state = {
+        editMode: false,
+        status: this.props.status,
     }
 
-    const deactivateEditMode = () => {
-        setEditMode(false);
-        updateStatus(localStatus);
+    activateEditMode = () => {
+        this.setState({
+            editMode: true,
+        })
     }
 
-    const onStatusChange = (statusString: string) => {
-        setLocalStatus(statusString);
+    deactivateEditMode = () => {
+        this.setState({
+            editMode: false,
+        });
+        this.props.updateStatus(this.state.status);
     }
 
-    return <div>
-        {!editMode &&
-        <div>
-            <span onClick={activateEditMode}>{localStatus || "No status set"}</span>
-        </div>
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            status: e.currentTarget.value,
+        })
+    }
+
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
         }
-        {editMode &&
-        <div>
-            <input autoFocus
-                   value={localStatus}
-                   onBlur={deactivateEditMode}
-                   onChange={(e) => onStatusChange(e.currentTarget.value)}
-            >
-            </input>
+    }
+
+    render() {
+        return <div>
+            {!this.state.editMode ?
+                <div>
+                    <span onClick={this.activateEditMode}>{this.props.status || "---"}</span>
+                </div>
+                :
+                <div>
+                    <input autoFocus
+                           onChange={this.onStatusChange}
+                           onBlur={this.deactivateEditMode}
+                           value={this.state.status}>
+
+                    </input>
+                </div>
+            }
         </div>
-        }
-    </div>
+    }
 }
 
 export default ProfileStatus;
