@@ -1,10 +1,12 @@
 import React from "react";
 import s from './Friends.module.scss'
 
-export const Friends = () => {
+const Friends = () => {
     return  (
         <div>
             Friends
         </div>
     )
 }
+
+export default Friends;

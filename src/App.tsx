@@ -1,22 +1,24 @@
 import React from "react";
 import "./App.scss";
 import "./Reset.scss";
-import { BrowserRouter, Route, withRouter } from "react-router-dom";
-import { News } from "./components/News/News";
-import { Music } from "./components/Music/Music";
-import { Settings } from "./components/Settings/Settings";
-import { Friends } from "./components/Friends/Friends";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import { HashRouter, Route, withRouter } from "react-router-dom";
 import { NavContainer } from "./components/Nav/NavContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginPage from "./components/Login/Login";
 import { connect, Provider } from "react-redux";
 import { compose } from "redux";
 import store, { RootStateType } from "./redux/reduxStore";
 import { initializeApp } from "./redux/reducers/appReducer";
 import { Preloader } from "./components/common/Preloader/Preloader";
+import { withSuspense } from "./hoc/withSuspense";
+
+const News = React.lazy(() => import ("./components/News/News"));
+const Music = React.lazy(() => import ("./components/Music/Music"));
+const Settings = React.lazy(() => import ("./components/Settings/Settings"));
+const Friends = React.lazy(() => import ("./components/Friends/Friends"));
+const LoginPage = React.lazy(() => import ("./components/Login/Login"));
+const UsersContainer = React.lazy(() => import ("./components/Users/UsersContainer"));
+const DialogsContainer = React.lazy(() => import ("./components/Dialogs/DialogsContainer"));
+const ProfileContainer = React.lazy(() => import ("./components/Profile/ProfileContainer"));
 
 type MapDispatchToPropsType = {
     initializeApp: () => void
@@ -47,22 +49,14 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <NavContainer/>
                 <div className="global-wrapper-content">
-                    <Route path="/dialogs" render={() =>
-                        <DialogsContainer/>}
-                    />
-                    <Route exact path="/profile/:userId?" render={() =>
-                        <ProfileContainer/>}
-                    />
-                    <Route exact path="/users" render={() =>
-                        <UsersContainer/>}
-                    />
-                    <Route exact path="/login" render={() =>
-                        <LoginPage/>}
-                    />
-                    <Route exact path="/news" render={() => <News/>}/>
-                    <Route exact path="/music" render={() => <Music/>}/>
-                    <Route exact path="/settings" render={() => <Settings/>}/>
-                    <Route exact path="/friends" render={() => <Friends/>}/>
+                    <Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
+                    <Route exact path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
+                    <Route exact path="/users" render={withSuspense(UsersContainer)}/>
+                    <Route exact path="/login" render={withSuspense(LoginPage)}/>
+                    <Route exact path="/news" render={withSuspense(News)}/>
+                    <Route exact path="/music" render={withSuspense(Music)}/>
+                    <Route exact path="/settings" render={withSuspense(Settings)}/>
+                    <Route exact path="/friends" render={withSuspense(Friends)}/>
                 </div>
             </div>
         );
@@ -75,11 +69,11 @@ let AppContainer = compose<React.ComponentType>(
     (mapStateToProps, {initializeApp}))(App);
 
 const SocialNetworkApp = () => {
-    return <BrowserRouter>
+    return <HashRouter>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
 }
 
 export default SocialNetworkApp;

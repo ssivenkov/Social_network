@@ -25,8 +25,8 @@ export let Users: React.FC<UsersPropsType> = ({
     }
 
     return <div>
-        <Pagination totalUsersCount={totalUsersCount} currentPage={currentPage} onPageChanged={onPageChanged}
-                    pageSize={pageSize}/>
+        <Pagination totalItemsCount={totalUsersCount} currentPage={currentPage} onPageChanged={onPageChanged}
+                    pageSize={pageSize} portionSize={20}/>
         {
             users.map(u => <User key={u.id}
                                  user={u}
