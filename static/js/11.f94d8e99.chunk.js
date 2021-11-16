@@ -1,0 +1,2 @@
+(this.webpackJsonpsamurai=this.webpackJsonpsamurai||[]).push([[11],{304:function(s,t,i){"use strict";i.r(t);i(0);var n=i(2);t.default=function(){return Object(n.jsx)("div",{children:"Settings"})}}}]);
+//# sourceMappingURL=11.f94d8e99.chunk.js.map
