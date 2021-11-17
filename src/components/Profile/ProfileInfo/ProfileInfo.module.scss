@@ -11,6 +11,16 @@
     margin-bottom: 30px;
 }
 
+.user_avatar_section {
+    display: flex;
+    flex-direction: column;
+}
+
+.user_change_avatar_button {
+    max-width: 100px;
+    margin-top: 10px;
+}
+
 .user_avatar {
     width: 100px;
     height: 100px;

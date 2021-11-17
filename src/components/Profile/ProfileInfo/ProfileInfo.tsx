@@ -7,13 +7,21 @@ import ProfileStatus from "./ProfileStatus"
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType
+    isOwner: boolean
     status: string
     updateStatus: (status: string) => void
+    savePhoto: (photo: any) => void
 }
 
-export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) => {
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, isOwner, status, updateStatus, savePhoto}) => {
     if (!profile) {
         return <Preloader/>
+    }
+
+    const onMainPhotoSelected = (e: any) => {
+        if (e.target.files.length === 1) {
+            savePhoto(e.target.files[0]);
+        }
     }
 
     return (
@@ -26,12 +34,18 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, up
                 />
             </div>
             <div className={s.user_info_section}>
-                <div>
+                <div className={s.user_avatar_section}>
                     <img
                         className={s.user_avatar}
-                        src={profile.photos.large ? profile.photos.large : userPhoto}
+                        src={profile.photos.large || userPhoto}
                         alt={"User avatar " + profile.fullName}
                     />
+                    {
+                        isOwner && <input type={"file"}
+                                          className={s.user_change_avatar_button}
+                                          onChange={onMainPhotoSelected}
+                        />
+                    }
                 </div>
                 <div>
                     <div className={s.user_name}>{profile.fullName ? profile.fullName : "Name hidden"}</div>

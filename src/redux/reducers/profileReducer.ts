@@ -5,12 +5,18 @@ import { RootStateType } from "../reduxStore";
 const ADD_POST = "social_network/profile/ADD-POST";
 const SET_USER_PROFILE = "social_network/profile/SET-USER-PROFILE";
 const SET_STATUS = "social_network/profile/SET-STATUS";
-const DELETE_POST = "social_network/profile/DELETE-POST"
+const DELETE_POST = "social_network/profile/DELETE-POST";
+const SAVE_PHOTO_SUCCESS = "social_network/profile/SAVE-PHOTO-SUCCESS";
 
 export type PostsType = {
     id: number
     message: string
     likesCount: number
+}
+
+type PhotosType = {
+    small: string | null
+    large: string | null
 }
 
 export type ProfileType = {
@@ -28,16 +34,15 @@ export type ProfileType = {
     fullName: string | null
     lookingForAJob: boolean | null
     lookingForAJobDescription: string | null
-    photos: {
-        small: string | null
-        large: string | null
-    }
+    photos: PhotosType
     userId: number
 }
 
+// profile: ProfileType | null
 export type ProfileStateType = {
     posts: Array<PostsType>
-    profile: null | ProfileType
+    profile: any
+    isOwner: boolean
     status: string
 }
 
@@ -47,6 +52,7 @@ let initialState = {
         {id: 2, message: "Hello, welcome!", likesCount: 15},
     ],
     profile: null,
+    isOwner: false,
     status: "",
 }
 
@@ -54,11 +60,13 @@ export type AddPostActionType = ReturnType<typeof addPost>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 export type SetStatusActionType = ReturnType<typeof setStatus>
 export type DeletePostActionType = ReturnType<typeof deletePost>
+export type SetPhotoSuccessActionType = ReturnType<typeof setPhotoSuccess>
 
 export type ProfileActionsType = AddPostActionType
     | SetUserProfileActionType
     | SetStatusActionType
     | DeletePostActionType
+    | SetPhotoSuccessActionType
 
 const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
@@ -91,6 +99,12 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
                 posts: state.posts.filter(p => p.id !== action.postId),
             }
         }
+        case SAVE_PHOTO_SUCCESS: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos},
+            }
+        }
         default:
             return state;
     }
@@ -104,6 +118,8 @@ export const setStatus = (status: string) =>
     ({type: SET_STATUS, status} as const)
 export const deletePost = (postId: number) =>
     ({type: DELETE_POST, postId} as const)
+export const setPhotoSuccess = (photos: PhotosType) =>
+    ({type: SAVE_PHOTO_SUCCESS, photos} as const)
 
 export const getUserProfile = (userId: number) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
@@ -124,6 +140,16 @@ export const updateStatus = (status: string) => {
         let response = await ProfileAPI.updateStatus(status);
         if (response.resultCode === 0) {
             dispatch(setStatus(status));
+        }
+    };
+}
+
+export const savePhoto = (photoFile: File) => {
+    console.log(photoFile);
+    return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
+        let response = await ProfileAPI.savePhoto(photoFile);
+        if (response.resultCode === 0) {
+            dispatch(setPhotoSuccess(response.data.photos));
         }
     };
 }
