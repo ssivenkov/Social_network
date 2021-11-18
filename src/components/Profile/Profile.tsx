@@ -3,7 +3,10 @@ import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 import { ProfilePropsType } from "./ProfileContainer";
 
-export const Profile: React.FC<ProfilePropsType> = ({profile, isOwner, status, updateStatus, savePhoto}) => {
+export const Profile: React.FC<ProfilePropsType> = ({
+    profile, isOwner, status, updateStatus, savePhoto,
+    saveProfile,
+}) => {
     return (
         <div>
             <ProfileInfo profile={profile}
@@ -11,6 +14,7 @@ export const Profile: React.FC<ProfilePropsType> = ({profile, isOwner, status, u
                          status={status}
                          updateStatus={updateStatus}
                          savePhoto={savePhoto}
+                         saveProfile={saveProfile}
             />
             <MyPostsContainer/>
         </div>

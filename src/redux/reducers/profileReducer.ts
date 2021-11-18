@@ -38,10 +38,9 @@ export type ProfileType = {
     userId: number
 }
 
-// profile: ProfileType | null
 export type ProfileStateType = {
     posts: Array<PostsType>
-    profile: any
+    profile: ProfileType | null
     isOwner: boolean
     status: string
 }
@@ -102,7 +101,7 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
         case SAVE_PHOTO_SUCCESS: {
             return {
                 ...state,
-                profile: {...state.profile, photos: action.photos},
+                profile: {...state.profile!, photos: action.photos},
             }
         }
         default:
@@ -145,11 +144,20 @@ export const updateStatus = (status: string) => {
 }
 
 export const savePhoto = (photoFile: File) => {
-    console.log(photoFile);
     return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
         let response = await ProfileAPI.savePhoto(photoFile);
         if (response.resultCode === 0) {
             dispatch(setPhotoSuccess(response.data.photos));
+        }
+    };
+}
+
+export const saveProfile = (profile: any) => {
+    return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>, getState: any) => {
+        const userId = getState().auth.userId;
+        let response = await ProfileAPI.saveProfile(profile);
+        if (response.resultCode === 0) {
+            dispatch(getUserProfile(userId));
         }
     };
 }

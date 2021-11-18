@@ -2,7 +2,14 @@ import React from "react";
 import { Profile } from "./Profile";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { getUserProfile, getStatus, updateStatus, ProfileType, savePhoto } from "../../redux/reducers/profileReducer";
+import {
+    getUserProfile,
+    getStatus,
+    updateStatus,
+    ProfileType,
+    savePhoto,
+    saveProfile,
+} from "../../redux/reducers/profileReducer";
 import { RootStateType } from "../../redux/reduxStore";
 import { compose } from "redux";
 
@@ -19,6 +26,7 @@ type MapDispatchToPropsType = {
     getStatus: (userId: number) => void
     updateStatus: (status: string) => void
     savePhoto: (photo: any) => void
+    saveProfile: (photo: any) => void
 }
 
 type MatchParamsType = {
@@ -77,6 +85,6 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
 
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, RootStateType>
-    (mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto}),
+    (mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile}),
     withRouter,
 )(ProfileContainer);
