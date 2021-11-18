@@ -1,0 +1,2 @@
+(this.webpackJsonpsamurai=this.webpackJsonpsamurai||[]).push([[10],{303:function(s,i,t){"use strict";t.r(i);t(0);var a=t(2);i.default=function(){return Object(a.jsx)("div",{children:"News"})}}}]);
+//# sourceMappingURL=10.2b36c13e.chunk.js.map
