@@ -1,7 +1,7 @@
 import React from "react"
 import s from "./Login.module.scss"
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
-import { Input } from "../common/FormsControls/FormsControls";
+import { createField, Input } from "../common/FormsControls/FormsControls";
 import { maxLengthCreator, required } from "../../utils/validators/validator";
 import { login } from "../../redux/reducers/authReducer";
 import { connect } from "react-redux";
@@ -22,27 +22,31 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
         <form onSubmit={handleSubmit}
               className={s.formContainer}
         >
-            <div className={s.field}>
+            {createField("Email", "email", [required], Input, {}, "", s.field, s.login)}
+            {/*<div className={s.field}>
                 <Field type={"text"}
                        name={"email"}
                        component={Input}
                        validate={[required, maxLength100]}
                        placeholder={"Email"}
                        className={s.login}/>
-            </div>
-            <div className={s.field}>
+            </div>*/}
+            {createField("Password", "password", [required, maxLength100], Input, {}, "", s.field, s.password)}
+            {/*<div className={s.field}>
                 <Field type={"password"}
                        name={"password"}
                        component={Input}
                        validate={[required, maxLength100]}
                        placeholder={"Password"}
                        className={s.password}/>
-            </div>
-            <div className={s.field}>
+            </div>*/}
+            {createField("Password", "rememberMe", [], Input, {type: "checkbox"}, "remember me", s.field, "")}
+            {/*<div className={s.field}>
                 <Field type={"checkbox"}
                        name={"rememberMe"}
                        component={"input"}/> remember me
-            </div>
+            </div>*/}
+
             {error && <div className={inputErrorStyle.formSummaryError}>
                 {error}
             </div>
@@ -56,7 +60,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
     )
 }
 
-const LoginReduxForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
+const LoginReduxForm = reduxForm<FormDataType>({form: "login"})(LoginForm);
 
 type LoginPropsType = {
     login: (email: string, password: string, rememberMe: boolean) => void

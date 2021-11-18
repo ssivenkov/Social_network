@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./ProfileInfo.module.scss";
 import { Preloader } from "../../common/Preloader/Preloader";
 import userPhoto from "../../../assets/images/user.png";
 import { ProfileType } from "../../../redux/reducers/profileReducer";
 import ProfileStatus from "./ProfileStatus"
+import ProfileDataFormReduxForm from "./ProfileDataForm";
+import ProfileDataForm from "./ProfileDataForm";
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType
@@ -11,9 +13,43 @@ type ProfileInfoPropsType = {
     status: string
     updateStatus: (status: string) => void
     savePhoto: (photo: any) => void
+    saveProfile: any
 }
 
-export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, isOwner, status, updateStatus, savePhoto}) => {
+export const infoIsAbsent = "information is absent";
+type ContactType = {
+    contactTitle: string
+    contactValue: string
+}
+
+const Contact: React.FC<ContactType> = ({contactTitle, contactValue}) => {
+    return <div>
+        {contactTitle}: {contactValue}
+    </div>
+}
+
+const ProfileData: React.FC<any> = ({profile, isOwner, enableEditMode}) => {
+    return <div className={s.user_desc}>
+        {isOwner && <div>
+            <button onClick={enableEditMode}>Edit</button>
+        </div>}
+        <div className={s.user_name}>{profile.fullName ? profile.fullName : infoIsAbsent}</div>
+        <div>Looking for a job: {profile.lookingForAJob ? "yes" : "no"}</div>
+        <div>Skills: {profile.lookingForAJobDescription ? profile.lookingForAJobDescription : infoIsAbsent}</div>
+        <div>About me: {profile.aboutMe ? profile.aboutMe : infoIsAbsent}</div>
+        <div>
+            <span>Contacts: </span>
+            {Object.keys(profile.contacts).map(key => {
+                // @ts-ignore
+                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+            })}
+        </div>
+    </div>
+}
+
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, isOwner, status, updateStatus, savePhoto, saveProfile}) => {
+    let [editMode, setEditMode] = useState<boolean>(false);
+
     if (!profile) {
         return <Preloader/>
     }
@@ -22,6 +58,11 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, isOwner, s
         if (e.target.files.length === 1) {
             savePhoto(e.target.files[0]);
         }
+    }
+
+    const onSubmit = (profile: any) => {
+        saveProfile(profile);
+        setEditMode(false);
     }
 
     return (
@@ -48,38 +89,19 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, isOwner, s
                     }
                 </div>
                 <div>
-                    <div className={s.user_name}>{profile.fullName ? profile.fullName : "Name hidden"}</div>
                     <ProfileStatus status={status}
                                    updateStatus={updateStatus}
                     />
-                    <div className={s.user_desc}>
-                        <div>{profile.lookingForAJob === true ? "Looking for a job" : ""}</div>
-                        <div>{profile.lookingForAJobDescription ? profile.lookingForAJobDescription : ""}</div>
-                        <div>{profile.aboutMe ? "About me: " + profile.aboutMe : ""}</div>
-                        {
-                            profile.contacts.facebook
-                            || profile.contacts.website
-                            || profile.contacts.vk
-                            || profile.contacts.twitter
-                            || profile.contacts.instagram
-                            || profile.contacts.youtube
-                            || profile.contacts.github
-                            || profile.contacts.mainLink
-                                ? <div>Contacts:
-                                    <div>
-                                        <div>{profile.contacts.facebook ? "Facebook: " + profile.contacts.facebook : ""}</div>
-                                        <div>{profile.contacts.website ? "Website: " + profile.contacts.website : ""}</div>
-                                        <div>{profile.contacts.vk ? "VK: " + profile.contacts.vk : ""}</div>
-                                        <div>{profile.contacts.twitter ? "Twitter: " + profile.contacts.twitter : ""}</div>
-                                        <div>{profile.contacts.instagram ? "Instagram: " + profile.contacts.instagram : ""}</div>
-                                        <div>{profile.contacts.youtube ? "YouTube: " + profile.contacts.youtube : ""}</div>
-                                        <div>{profile.contacts.github ? "GitHub: " + profile.contacts.github : ""}</div>
-                                        <div>{profile.contacts.mainLink ? "Main link: " + profile.contacts.mainLink : ""}</div>
-                                    </div>
-                                </div>
-                                : ""
-                        }
-                    </div>
+                    {editMode
+                        ? <ProfileDataFormReduxForm onSubmit={onSubmit}
+                                                    profile={profile}
+                                                    initialValues={profile}
+                                                    disableEditMode={() => setEditMode(false)}
+                        />
+                        : <ProfileData profile={profile}
+                                       isOwner={isOwner}
+                                       enableEditMode={() => setEditMode(true)}
+                        />}
                 </div>
             </div>
         </div>
