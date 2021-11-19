@@ -3,7 +3,7 @@ export type FriendsType = {
     link: string
 }
 
-export type SidebarFriendsStateType = {
+type SidebarFriendsStateType = {
     friends: FriendsType[]
 }
 

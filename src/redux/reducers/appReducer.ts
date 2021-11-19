@@ -4,31 +4,26 @@ import { getAuthUserData } from "./authReducer";
 
 const INITIALIZED_SUCCESS = "social_network/app/INITIALIZED-SUCCESS";
 
-export type AuthStateType = {
+type AppStateType = {
     initialized: boolean
-    email: string | null
-    login: string | null
-    isAuth: boolean
 }
 
 let initialState = {
     initialized: false,
-    email: null,
-    login: null,
-    isAuth: false,
 }
 
 type SetUserDataActionType = ReturnType<typeof initializedSuccess>
 
 export type InitializeActionsType = SetUserDataActionType
 
-export const appReducer = (state: AuthStateType = initialState, action: InitializeActionsType): AuthStateType => {
+export const appReducer = (state: AppStateType = initialState, action: InitializeActionsType): AppStateType => {
     switch (action.type) {
-        case INITIALIZED_SUCCESS:
+        case INITIALIZED_SUCCESS: {
             return {
                 ...state,
                 initialized: true,
             }
+        }
         default:
             return state;
     }
@@ -42,8 +37,8 @@ export const initializeApp = () => {
         let promise = dispatch(getAuthUserData());
         Promise.all([promise])
             .then(() => {
-            dispatch(initializedSuccess());
-        });
+                dispatch(initializedSuccess());
+            })
     }
 }
 

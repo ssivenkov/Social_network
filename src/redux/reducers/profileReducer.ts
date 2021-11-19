@@ -1,6 +1,7 @@
 import { ProfileAPI, UsersAPI } from "../../api/API";
 import { ThunkDispatch } from "redux-thunk";
 import { RootStateType } from "../reduxStore";
+import { FormAction, stopSubmit } from "redux-form";
 
 const ADD_POST = "social_network/profile/ADD-POST";
 const SET_USER_PROFILE = "social_network/profile/SET-USER-PROFILE";
@@ -38,7 +39,7 @@ export type ProfileType = {
     userId: number
 }
 
-export type ProfileStateType = {
+type ProfileStateType = {
     posts: Array<PostsType>
     profile: ProfileType | null
     isOwner: boolean
@@ -55,11 +56,11 @@ let initialState = {
     status: "",
 }
 
-export type AddPostActionType = ReturnType<typeof addPost>
-export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
-export type SetStatusActionType = ReturnType<typeof setStatus>
-export type DeletePostActionType = ReturnType<typeof deletePost>
-export type SetPhotoSuccessActionType = ReturnType<typeof setPhotoSuccess>
+type AddPostActionType = ReturnType<typeof addPost>
+type SetUserProfileActionType = ReturnType<typeof setUserProfile>
+type SetStatusActionType = ReturnType<typeof setStatus>
+type DeletePostActionType = ReturnType<typeof deletePost>
+type SetPhotoSuccessActionType = ReturnType<typeof setPhotoSuccess>
 
 export type ProfileActionsType = AddPostActionType
     | SetUserProfileActionType
@@ -122,21 +123,21 @@ export const setPhotoSuccess = (photos: PhotosType) =>
 
 export const getUserProfile = (userId: number) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        let response = await UsersAPI.getProfile(userId);
+        const response = await UsersAPI.getProfile(userId);
         dispatch(setUserProfile(response));
     };
 }
 
 export const getStatus = (userId: number) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        let response = await ProfileAPI.getStatus(userId);
+        const response = await ProfileAPI.getStatus(userId);
         dispatch(setStatus(response));
     };
 }
 
 export const updateStatus = (status: string) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        let response = await ProfileAPI.updateStatus(status);
+        const response = await ProfileAPI.updateStatus(status);
         if (response.resultCode === 0) {
             dispatch(setStatus(status));
         }
@@ -145,19 +146,31 @@ export const updateStatus = (status: string) => {
 
 export const savePhoto = (photoFile: File) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        let response = await ProfileAPI.savePhoto(photoFile);
+        const response = await ProfileAPI.savePhoto(photoFile);
         if (response.resultCode === 0) {
             dispatch(setPhotoSuccess(response.data.photos));
         }
     };
 }
 
-export const saveProfile = (profile: any) => {
-    return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>, getState: any) => {
+export const saveProfile = (profile: ProfileType) => {
+    return async (dispatch: ThunkDispatch<RootStateType, unknown, FormAction>, getState: any) => {
         const userId = getState().auth.userId;
-        let response = await ProfileAPI.saveProfile(profile);
+        const response = await ProfileAPI.saveProfile(profile);
         if (response.resultCode === 0) {
-            dispatch(getUserProfile(userId));
+            await dispatch(getUserProfile(userId));
+        } else {
+            let listOfSitesWithErrors = response.messages.map((el: string) => {
+                return (el.toLowerCase()).match(/(?<=>)\D+[^)]/ig)![0];
+            })
+            listOfSitesWithErrors = listOfSitesWithErrors.join(", ");
+            if (response.messages.length === 1) {
+                dispatch(stopSubmit("edit-profile", {_error: `Invalid url format in ${listOfSitesWithErrors} input`}));
+            } else {
+                dispatch(stopSubmit("edit-profile", {_error: `Invalid url format in inputs: ${listOfSitesWithErrors}`}));
+            }
+            // dispatch(stopSubmit("edit-profile", {"contacts": {"facebook": response.messages[0]}}));
+            return Promise.reject(response.messages);
         }
     };
 }

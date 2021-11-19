@@ -25,8 +25,8 @@ type MapDispatchToPropsType = {
     getUserProfile: (userId: number) => void
     getStatus: (userId: number) => void
     updateStatus: (status: string) => void
-    savePhoto: (photo: any) => void
-    saveProfile: (photo: any) => void
+    savePhoto: (photoFile: File) => void
+    saveProfile: (profile: ProfileType) => void
 }
 
 type MatchParamsType = {

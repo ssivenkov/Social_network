@@ -22,7 +22,7 @@ export type UserType = {
     uniqueUrlName: string | null
 }
 
-export type UsersStateType = {
+type UsersStateType = {
     users: Array<UserType>
     pageSize: number
     totalUsersCount: number

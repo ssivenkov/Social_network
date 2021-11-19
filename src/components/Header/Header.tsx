@@ -11,7 +11,9 @@ export const Header: React.FC<HeaderPropsType> = ({isAuth, login, logout}) => {
 
             <div className={s.loginBlock}>
                 {isAuth ?
-                    <div>{login} - <button onClick={logout}>Log out</button></div>
+                    <div>
+                        {login} - <NavLink onClick={logout} to={"/login"}>Log out</NavLink>
+                    </div>
                     : <NavLink to={"/login"}>Login</NavLink>}
             </div>
         </header>
