@@ -5,14 +5,13 @@ import userPhoto from "../../../assets/images/user.png";
 import { ProfileType } from "../../../redux/reducers/profileReducer";
 import ProfileStatus from "./ProfileStatus"
 import ProfileDataFormReduxForm from "./ProfileDataForm";
-import ProfileDataForm from "./ProfileDataForm";
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType
     isOwner: boolean
     status: string
     updateStatus: (status: string) => void
-    savePhoto: (photo: any) => void
+    savePhoto: (photoFile: File) => void
     saveProfile: any
 }
 
@@ -40,14 +39,20 @@ const ProfileData: React.FC<any> = ({profile, isOwner, enableEditMode}) => {
         <div>
             <span>Contacts: </span>
             {Object.keys(profile.contacts).map(key => {
-                // @ts-ignore
                 return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
             })}
         </div>
     </div>
 }
 
-export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, isOwner, status, updateStatus, savePhoto, saveProfile}) => {
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
+    profile,
+    isOwner,
+    status,
+    updateStatus,
+    savePhoto,
+    saveProfile,
+}) => {
     let [editMode, setEditMode] = useState<boolean>(false);
 
     if (!profile) {
@@ -55,14 +60,17 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, isOwner, s
     }
 
     const onMainPhotoSelected = (e: any) => {
+        console.log(e);
         if (e.target.files.length === 1) {
             savePhoto(e.target.files[0]);
         }
     }
 
     const onSubmit = (profile: any) => {
-        saveProfile(profile);
-        setEditMode(false);
+        saveProfile(profile)
+            .then(() => {
+                setEditMode(false);
+            })
     }
 
     return (
@@ -96,12 +104,12 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, isOwner, s
                         ? <ProfileDataFormReduxForm onSubmit={onSubmit}
                                                     profile={profile}
                                                     initialValues={profile}
-                                                    disableEditMode={() => setEditMode(false)}
                         />
                         : <ProfileData profile={profile}
                                        isOwner={isOwner}
                                        enableEditMode={() => setEditMode(true)}
-                        />}
+                        />
+                    }
                 </div>
             </div>
         </div>

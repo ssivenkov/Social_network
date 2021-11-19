@@ -2,7 +2,7 @@ import { AvatarType, DialogType, MessageType } from "../../components/Dialogs/Di
 
 const SEND_DIALOG_MESSAGE = "social_network/dialogs/SEND-DIALOG-MESSAGE";
 
-export type DialogsStateType = {
+type DialogsStateType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
     avatars: Array<AvatarType>
