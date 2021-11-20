@@ -123,54 +123,74 @@ export const setPhotoSuccess = (photos: PhotosType) =>
 
 export const getUserProfile = (userId: number) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        const response = await UsersAPI.getProfile(userId);
-        dispatch(setUserProfile(response));
+        try {
+            const response = await UsersAPI.getProfile(userId);
+            dispatch(setUserProfile(response));
+        } catch (error) {
+            console.log(`Error getting user profile. ${error}`);
+        }
     };
 }
 
 export const getStatus = (userId: number) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        const response = await ProfileAPI.getStatus(userId);
-        dispatch(setStatus(response));
+        try {
+            const response = await ProfileAPI.getStatus(userId);
+            dispatch(setStatus(response));
+        } catch (error) {
+            console.log(`Error getting status. ${error}`);
+        }
     };
 }
 
 export const updateStatus = (status: string) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        const response = await ProfileAPI.updateStatus(status);
-        if (response.resultCode === 0) {
-            dispatch(setStatus(status));
+        try {
+            const response = await ProfileAPI.updateStatus(status);
+            if (response.resultCode === 0) {
+                dispatch(setStatus(status));
+            }
+        } catch (error) {
+            console.log(`Error updating status. ${error}`);
         }
     };
 }
 
 export const savePhoto = (photoFile: File) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, ProfileActionsType>) => {
-        const response = await ProfileAPI.savePhoto(photoFile);
-        if (response.resultCode === 0) {
-            dispatch(setPhotoSuccess(response.data.photos));
+        try {
+            const response = await ProfileAPI.savePhoto(photoFile);
+            if (response.resultCode === 0) {
+                dispatch(setPhotoSuccess(response.data.photos));
+            }
+        } catch (error) {
+            console.log(`Error save avatar. ${error}`);
         }
     };
 }
 
 export const saveProfile = (profile: ProfileType) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, FormAction>, getState: any) => {
-        const userId = getState().auth.userId;
-        const response = await ProfileAPI.saveProfile(profile);
-        if (response.resultCode === 0) {
-            await dispatch(getUserProfile(userId));
-        } else {
-            let listOfSitesWithErrors = response.messages.map((el: string) => {
-                return (el.toLowerCase()).match(/(?<=>)\D+[^)]/ig)![0];
-            })
-            listOfSitesWithErrors = listOfSitesWithErrors.join(", ");
-            if (response.messages.length === 1) {
-                dispatch(stopSubmit("edit-profile", {_error: `Invalid url format in ${listOfSitesWithErrors} input`}));
+        try {
+            const userId = getState().auth.userId;
+            const response = await ProfileAPI.saveProfile(profile);
+            if (response.resultCode === 0) {
+                await dispatch(getUserProfile(userId));
             } else {
-                dispatch(stopSubmit("edit-profile", {_error: `Invalid url format in inputs: ${listOfSitesWithErrors}`}));
+                let listOfSitesWithErrors = response.messages.map((el: string) => {
+                    return (el.toLowerCase()).match(/(?<=>)\D+[^)]/ig)![0];
+                })
+                listOfSitesWithErrors = listOfSitesWithErrors.join(", ");
+                if (response.messages.length === 1) {
+                    dispatch(stopSubmit("edit-profile", {_error: `Invalid url format in ${listOfSitesWithErrors} input`}));
+                } else {
+                    dispatch(stopSubmit("edit-profile", {_error: `Invalid url format in inputs: ${listOfSitesWithErrors}`}));
+                }
+                // dispatch(stopSubmit("edit-profile", {"contacts": {"facebook": response.messages[0]}}));
+                return Promise.reject(response.messages);
             }
-            // dispatch(stopSubmit("edit-profile", {"contacts": {"facebook": response.messages[0]}}));
-            return Promise.reject(response.messages);
+        } catch (error) {
+            console.log(`Error saving profile information. ${error}`);
         }
     };
 }

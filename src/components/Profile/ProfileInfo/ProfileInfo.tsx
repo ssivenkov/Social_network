@@ -60,7 +60,6 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
     }
 
     const onMainPhotoSelected = (e: any) => {
-        console.log(e);
         if (e.target.files.length === 1) {
             savePhoto(e.target.files[0]);
         }

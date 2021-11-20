@@ -34,11 +34,15 @@ export const initializedSuccess = () =>
 
 export const initializeApp = () => {
     return (dispatch: ThunkDispatch<RootStateType, unknown, InitializeActionsType>) => {
-        let promise = dispatch(getAuthUserData());
-        Promise.all([promise])
-            .then(() => {
-                dispatch(initializedSuccess());
-            })
+        try {
+            let promise = dispatch(getAuthUserData());
+            Promise.all([promise])
+                .then(() => {
+                    dispatch(initializedSuccess());
+                })
+        } catch (error) {
+            console.log(`Error initialization app. ${error}`);
+        }
     }
 }
 
