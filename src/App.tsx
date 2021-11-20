@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.scss";
 import "./Reset.scss";
-import { HashRouter, Route, withRouter } from "react-router-dom";
+import { HashRouter, Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { NavContainer } from "./components/Nav/NavContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import { connect, Provider } from "react-redux";
@@ -15,6 +15,7 @@ const News = React.lazy(() => import ("./components/News/News"));
 const Music = React.lazy(() => import ("./components/Music/Music"));
 const Settings = React.lazy(() => import ("./components/Settings/Settings"));
 const Friends = React.lazy(() => import ("./components/Friends/Friends"));
+const Page404 = React.lazy(() => import ("./components/Page404/Page404"));
 const LoginPage = React.lazy(() => import ("./components/Login/Login"));
 const UsersContainer = React.lazy(() => import ("./components/Users/UsersContainer"));
 const DialogsContainer = React.lazy(() => import ("./components/Dialogs/DialogsContainer"));
@@ -49,14 +50,18 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <NavContainer/>
                 <div className="global-wrapper-content">
-                    <Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
-                    <Route exact path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
-                    <Route exact path="/users" render={withSuspense(UsersContainer)}/>
-                    <Route exact path="/login" render={withSuspense(LoginPage)}/>
-                    <Route exact path="/news" render={withSuspense(News)}/>
-                    <Route exact path="/music" render={withSuspense(Music)}/>
-                    <Route exact path="/settings" render={withSuspense(Settings)}/>
-                    <Route exact path="/friends" render={withSuspense(Friends)}/>
+                    <Switch>
+                        <Route exact path="/" render={() => <Redirect to={"/profile"}/>}/>
+                        <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
+                        <Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
+                        <Route path="/users" render={withSuspense(UsersContainer)}/>
+                        <Route path="/login" render={withSuspense(LoginPage)}/>
+                        <Route path="/news" render={withSuspense(News)}/>
+                        <Route path="/music" render={withSuspense(Music)}/>
+                        <Route path="/settings" render={withSuspense(Settings)}/>
+                        <Route path="/friends" render={withSuspense(Friends)}/>
+                        <Route path="/*" render={withSuspense(Page404)}/>
+                    </Switch>
                 </div>
             </div>
         );

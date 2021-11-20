@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import s from "./Pagination.module.css";
+import cn from 'classnames';
 
 type PaginationPropsType = {
     totalItemsCount: number
@@ -35,7 +36,7 @@ export let Pagination: React.FC<PaginationPropsType> = ({
             .map(p => {
                 return <span key={p}
                              onClick={() => {onPageChanged(p)}}
-                             className={currentPage === p ? s.selectPage : ""}>{p}</span>
+                             className={cn(s.page, {[s.selectPage]: currentPage === p})}>{p}</span>
             })}
         {portionCount > portionNumber &&
         <button onClick={() => setPortionNumber(portionNumber + 1)}>Next</button>}

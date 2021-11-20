@@ -30,7 +30,6 @@ export const UsersAPI = {
     },
 
     getProfile(userId: number) {
-        console.warn("Obsolete method. Please use ProfileAPI object");
         return ProfileAPI.getProfile(userId);
     },
 
