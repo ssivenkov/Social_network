@@ -2,10 +2,11 @@ import React from "react";
 import s from "./MyPosts.module.scss";
 import style from "./MyPosts.module.scss";
 import { Post } from "./Post/Post";
-import { MyPostsPropsType } from "./MyPostsContainer";
+import { MyPostsCommonPropsType, MyPostsConnectPropsType } from "./MyPostsContainer";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { maxLengthCreator, required } from "../../../utils/validators/validator";
 import { Textarea } from "../../common/FormsControls/FormsControls";
+import Button from "../../common/Button/Button";
 
 type FormDataType = {
     newPostBody: string
@@ -27,29 +28,31 @@ const NewPostForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) 
                 />
             </div>
             <div>
-                <button type={"submit"}
+                <Button type={"submit"}
                         className={s.sendPostBtn}>
                     Send
-                </button>
+                </Button>
             </div>
         </form>
     )
 }
 
-const NewPostReduxForm = reduxForm<FormDataType>({form: "post"})(NewPostForm)
+const NewPostReduxForm = reduxForm<FormDataType>({form: "post"})(NewPostForm);
 
-export const MyPosts = React.memo((props: MyPostsPropsType) => {
-    let postsElements = props.posts.map((p) =>
-        <Post key={p.id}
-              message={p.message}
-              likesCount={p.likesCount}
+export const MyPosts = React.memo((props: MyPostsConnectPropsType & MyPostsCommonPropsType) => {
+    let postsElements = props.posts.map((post, index) =>
+        <Post key={index}
+              message={post.message}
+              likesCount={post.likesCount}
+              userAvatar={props.userAvatar}
         />,
     );
 
     const addNewPost = (formData: FormDataType) => {
-        props.addPost(formData.newPostBody)
+        props.addPost(formData.newPostBody);
     }
 
+    if (!props.isOwner) return null;
     return (
         <div className={s.myPostsSection}>
             <h3 className={s.myPostsTitle}>My posts</h3>

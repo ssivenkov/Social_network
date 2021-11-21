@@ -7,6 +7,7 @@ import { DialogsPropsType } from "./DialogsContainer";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { Textarea } from "../common/FormsControls/FormsControls";
 import { maxLengthCreator, required } from "../../utils/validators/validator";
+import Button from "../common/Button/Button";
 
 type FormDataType = {
     newMessageBody: string
@@ -28,10 +29,10 @@ const NewMessageForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit
                 />
             </div>
             <div>
-                <button type={"submit"}
+                <Button type={"submit"}
                         className={s.sendButton}>
                     Send
-                </button>
+                </Button>
             </div>
         </form>
     )

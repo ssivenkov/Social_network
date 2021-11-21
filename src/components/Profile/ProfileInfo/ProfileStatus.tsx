@@ -6,20 +6,26 @@ type MapDispatchToPropsType = {
 
 type MapStateToPropsType = {
     status: string
+    isOwner: boolean
 }
 
 export type ProfileStatusPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
-class ProfileStatus extends React.Component<ProfileStatusPropsType> {
+type StateType = { editMode: boolean, status: string, isOwner: boolean };
+
+class ProfileStatus extends React.Component<ProfileStatusPropsType, StateType> {
     state = {
         editMode: false,
         status: this.props.status,
+        isOwner: this.props.isOwner,
     }
 
     activateEditMode = () => {
-        this.setState({
-            editMode: true,
-        })
+        if (this.state.isOwner) {
+            this.setState({
+                editMode: true,
+            })
+        }
     }
 
     deactivateEditMode = () => {
@@ -35,10 +41,10 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         })
     }
 
-    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>) {
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>) {
         if (prevProps.status !== this.props.status) {
             this.setState({
-                status: this.props.status
+                status: this.props.status,
             })
         }
     }
@@ -47,7 +53,7 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         return <div>
             {!this.state.editMode ?
                 <div>
-                    <span onClick={this.activateEditMode}>{this.props.status || ""}</span>
+                    <span onClick={this.activateEditMode}>{this.props.status || "Status is not set"}</span>
                 </div>
                 :
                 <div>

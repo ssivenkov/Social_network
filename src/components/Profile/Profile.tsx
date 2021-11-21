@@ -4,8 +4,7 @@ import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 import { ProfilePropsType } from "./ProfileContainer";
 
 export const Profile: React.FC<ProfilePropsType> = ({
-    profile, isOwner, status, updateStatus, savePhoto,
-    saveProfile,
+    profile, isOwner, status, updateStatus, savePhoto, saveProfile
 }) => {
     return (
         <div>
@@ -16,7 +15,9 @@ export const Profile: React.FC<ProfilePropsType> = ({
                          savePhoto={savePhoto}
                          saveProfile={saveProfile}
             />
-            <MyPostsContainer/>
+            <MyPostsContainer isOwner={isOwner}
+                              userAvatar={profile?.photos.small}
+            />
         </div>
     );
 }

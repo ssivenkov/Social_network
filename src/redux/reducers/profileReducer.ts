@@ -1,5 +1,5 @@
 import { ProfileAPI, UsersAPI } from "../../api/API";
-import { ThunkDispatch } from "redux-thunk";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { RootStateType } from "../reduxStore";
 import { FormAction, stopSubmit } from "redux-form";
 
@@ -20,18 +20,20 @@ type PhotosType = {
     large: string | null
 }
 
+export type ProfileContacts = {
+    facebook: string | null
+    github: string | null
+    instagram: string | null
+    mainLink: string | null
+    twitter: string | null
+    vk: string | null
+    website: string | null
+    youtube: string | null
+}
+
 export type ProfileType = {
     aboutMe: string | null
-    contacts: {
-        facebook: string | null
-        github: string | null
-        instagram: string | null
-        mainLink: string | null
-        twitter: string | null
-        vk: string | null
-        website: string | null
-        youtube: string | null
-    }
+    contacts: ProfileContacts
     fullName: string | null
     lookingForAJob: boolean | null
     lookingForAJobDescription: string | null
@@ -52,7 +54,7 @@ let initialState = {
         {id: 2, message: "Hello, welcome!", likesCount: 15},
     ],
     profile: null,
-    isOwner: false,
+    isOwner: false, // not use, need for TS
     status: "",
 }
 
@@ -72,13 +74,13 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
     switch (action.type) {
         case ADD_POST: {
             let newPost: PostsType = {
-                id: 3,
+                id: state.posts.length + 1,
                 message: action.newPostText,
                 likesCount: 0,
             };
             return {
                 ...state,
-                posts: [...state.posts, newPost],
+                posts: [newPost, ...state.posts],
             };
         }
         case SET_USER_PROFILE: {
@@ -169,12 +171,14 @@ export const savePhoto = (photoFile: File) => {
     };
 }
 
-export const saveProfile = (profile: ProfileType) => {
-    return async (dispatch: ThunkDispatch<RootStateType, unknown, FormAction>, getState: any) => {
+export type SaveProfileThunkType = ThunkAction<Promise<any>, RootStateType, unknown, FormAction>
+
+export const saveProfile = (profile: ProfileType): SaveProfileThunkType => {
+    return async (dispatch: ThunkDispatch<RootStateType, unknown, FormAction>, getState: () => RootStateType) => {
         try {
             const userId = getState().auth.userId;
             const response = await ProfileAPI.saveProfile(profile);
-            if (response.resultCode === 0) {
+            if (response.resultCode === 0 && userId) {
                 await dispatch(getUserProfile(userId));
             } else {
                 let listOfSitesWithErrors = response.messages.map((el: string) => {
@@ -182,9 +186,11 @@ export const saveProfile = (profile: ProfileType) => {
                 })
                 listOfSitesWithErrors = listOfSitesWithErrors.join(", ");
                 if (response.messages.length === 1) {
-                    dispatch(stopSubmit("edit-profile", {_error: `Invalid url format in ${listOfSitesWithErrors} input`}));
+                    dispatch(stopSubmit("edit-profile",
+                        {_error: `Invalid url format in ${listOfSitesWithErrors} input`}));
                 } else {
-                    dispatch(stopSubmit("edit-profile", {_error: `Invalid url format in inputs: ${listOfSitesWithErrors}`}));
+                    dispatch(stopSubmit("edit-profile",
+                        {_error: `Invalid url format in inputs: ${listOfSitesWithErrors}`}));
                 }
                 // dispatch(stopSubmit("edit-profile", {"contacts": {"facebook": response.messages[0]}}));
                 return Promise.reject(response.messages);
