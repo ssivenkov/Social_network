@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import s from "./ProfileInfo.module.scss";
 import { Preloader } from "../../common/Preloader/Preloader";
-import userPhoto from "../../../assets/images/user.png";
-import { ProfileType } from "../../../redux/reducers/profileReducer";
+import AnonymousUserPhoto from "../../../assets/images/user.png";
+import { ProfileContacts, ProfileType } from "../../../redux/reducers/profileReducer";
 import ProfileStatus from "./ProfileStatus"
 import ProfileDataFormReduxForm from "./ProfileDataForm";
+import Button from "../../common/Button/Button";
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType
@@ -12,13 +13,12 @@ type ProfileInfoPropsType = {
     status: string
     updateStatus: (status: string) => void
     savePhoto: (photoFile: File) => void
-    saveProfile: any
+    saveProfile: (profile: ProfileType) => any
 }
 
-export const infoIsAbsent = "information is absent";
 type ContactType = {
     contactTitle: string
-    contactValue: string
+    contactValue: string | null
 }
 
 const Contact: React.FC<ContactType> = ({contactTitle, contactValue}) => {
@@ -27,21 +27,37 @@ const Contact: React.FC<ContactType> = ({contactTitle, contactValue}) => {
     </div>
 }
 
-const ProfileData: React.FC<any> = ({profile, isOwner, enableEditMode}) => {
+type ProfileDataPropsType = {
+    profile: ProfileType
+    isOwner: boolean
+    enableEditMode: () => void
+}
+
+const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, enableEditMode}) => {
     return <div className={s.user_desc}>
         {isOwner && <div>
-            <button onClick={enableEditMode}>Edit</button>
+            <Button onClick={enableEditMode}>
+                Edit info
+            </Button>
         </div>}
-        <div className={s.user_name}>{profile.fullName ? profile.fullName : infoIsAbsent}</div>
+        <div className={s.user_name}>{profile.fullName ? profile.fullName : "information is absent"}</div>
         <div>Looking for a job: {profile.lookingForAJob ? "yes" : "no"}</div>
-        <div>Skills: {profile.lookingForAJobDescription ? profile.lookingForAJobDescription : infoIsAbsent}</div>
-        <div>About me: {profile.aboutMe ? profile.aboutMe : infoIsAbsent}</div>
-        <div>
-            <span>Contacts: </span>
-            {Object.keys(profile.contacts).map(key => {
-                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
-            })}
-        </div>
+        {profile.lookingForAJobDescription && <div>Skills: {profile.lookingForAJobDescription}</div>}
+        {profile.aboutMe && <div>About me: {profile.lookingForAJobDescription}</div>}
+        {/* if there is at least 1 filled contact then perform the render */
+            !Object.keys(profile.contacts).map(key => {return profile.contacts[key as keyof ProfileContacts]})
+                .every(el => el === null) &&
+            <div>
+                <span>Contacts: </span>
+                {Object.keys(profile.contacts).map(key => {
+                    return profile.contacts[key as keyof ProfileContacts]
+                        ? <Contact key={key}
+                                   contactTitle={key}
+                                   contactValue={profile.contacts[key as keyof ProfileContacts]}/>
+                        : null
+                })}
+            </div>
+        }
     </div>
 }
 
@@ -59,13 +75,13 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
         return <Preloader/>
     }
 
-    const onMainPhotoSelected = (e: any) => {
-        if (e.target.files.length === 1) {
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length === 1) {
             savePhoto(e.target.files[0]);
         }
     }
 
-    const onSubmit = (profile: any) => {
+    const onSubmit = (profile: ProfileType) => {
         saveProfile(profile)
             .then(() => {
                 setEditMode(false);
@@ -85,8 +101,8 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
                 <div className={s.user_avatar_section}>
                     <img
                         className={s.user_avatar}
-                        src={profile.photos.large || userPhoto}
-                        alt={"User avatar " + profile.fullName}
+                        src={profile.photos.large || AnonymousUserPhoto}
+                        alt={profile.fullName + " user avatar"}
                     />
                     {
                         isOwner && <input type={"file"}
@@ -98,6 +114,7 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
                 <div>
                     <ProfileStatus status={status}
                                    updateStatus={updateStatus}
+                                   isOwner={isOwner}
                     />
                     {editMode
                         ? <ProfileDataFormReduxForm onSubmit={onSubmit}

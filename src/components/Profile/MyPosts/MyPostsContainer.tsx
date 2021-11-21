@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { RootStateType } from "../../../redux/reduxStore";
 import { Dispatch } from "redux";
 
-type DispatchToPropsType = {
+type MapDispatchToPropsType = {
     addPost: (newPostText: string) => void
 }
 
@@ -12,7 +12,7 @@ type MapStateToPropsType = {
     posts: PostsType[],
 }
 
-export type MyPostsPropsType = MapStateToPropsType & DispatchToPropsType;
+export type MyPostsConnectPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
@@ -20,7 +20,7 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     };
 };
 
-let mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         addPost: (newPostText: string) => {
             dispatch(addPost(newPostText));
@@ -28,5 +28,10 @@ let mapDispatchToProps = (dispatch: Dispatch): DispatchToPropsType => {
     };
 };
 
-export const MyPostsContainer = connect<MapStateToPropsType, DispatchToPropsType, {}, RootStateType>
+export type MyPostsCommonPropsType = {
+    isOwner: boolean,
+    userAvatar: string | null | undefined,
+}
+
+export const MyPostsContainer = connect<MapStateToPropsType, MapDispatchToPropsType, MyPostsCommonPropsType, RootStateType>
 (mapStateToProps, mapDispatchToProps)(MyPosts);

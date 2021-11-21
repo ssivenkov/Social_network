@@ -3,6 +3,7 @@ import s from "./User.module.scss";
 import userPhoto from "../../../assets/images/user.png";
 import { NavLink } from "react-router-dom";
 import { UserType } from "../../../redux/reducers/usersReducer";
+import Button from "../../common/Button/Button";
 
 export type UserPropsType = {
     user: UserType
@@ -16,19 +17,21 @@ export let User: React.FC<UserPropsType> = ({user, follow, unFollow, followingIn
         <div>
             <div>
                 <NavLink to={"/profile/" + user.id}>
-                    <img className={s.avatar} src={user.photos.small != null
-                        ? user.photos.small
-                        : userPhoto} alt="User"/>
+                    <img className={s.avatar}
+                         src={user.photos.small != null
+                             ? user.photos.small
+                             : userPhoto}
+                         alt="User"/>
                 </NavLink>
             </div>
             <div>
                 {user.followed
-                    ? <button disabled={followingInProgress.some((id: any) => id === user.id)}
+                    ? <Button disabled={followingInProgress.some((id: number) => id === user.id)}
                               className={s.button}
-                              onClick={() => {unFollow(user.id)}}>Unfollow</button>
-                    : <button disabled={followingInProgress.some((id: any) => id === user.id)}
+                              onClick={() => {unFollow(user.id)}}>Unfollow</Button>
+                    : <Button disabled={followingInProgress.some((id: number) => id === user.id)}
                               className={s.button}
-                              onClick={() => {follow(user.id)}}>Follow</button>
+                              onClick={() => {follow(user.id)}}>Follow</Button>
                 }
             </div>
         </div>

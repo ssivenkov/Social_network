@@ -11,7 +11,7 @@ type AuthStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
-    captchaUrl: null | string,
+    captchaUrl: string | null,
 }
 
 let initialState = {

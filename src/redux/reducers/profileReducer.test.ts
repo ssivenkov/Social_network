@@ -6,6 +6,7 @@ let state = {
         {id: 2, message: "Hello, welcome!", likesCount: 15},
     ],
     profile: null,
+    isOwner: false,
     status: "",
 }
 
