@@ -29,6 +29,11 @@ export const UsersAPI = {
             .then(response => response.data);
     },
 
+    getFriends(currentPage = 1, pageSize = 1) {
+        return instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}&friend=true`)
+            .then(response => response.data);
+    },
+
     getProfile(userId: number) {
         return ProfileAPI.getProfile(userId);
     },

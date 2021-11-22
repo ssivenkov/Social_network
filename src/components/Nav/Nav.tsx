@@ -20,6 +20,9 @@ export const Nav: React.FC<NavPropsType> = ({friends}) => {
       <div className={`${s.item}`}>
         <NavLink activeClassName={s.active} to="/users">Users</NavLink>
       </div>
+      <div className={`${s.item}`}>
+        <NavLink activeClassName={s.activeFriends} to="/friends">Friends</NavLink>
+      </div>
       <div className={s.item}>
         <NavLink activeClassName={s.active} to="/news">News</NavLink>
       </div>
@@ -29,11 +32,8 @@ export const Nav: React.FC<NavPropsType> = ({friends}) => {
       <div className={`${s.item} ${s.margin}`}>
         <NavLink activeClassName={s.activeSettings} to="/settings">Settings</NavLink>
       </div>
-      <div className={`${s.item} ${s.margin}`}>
-        <NavLink className={s.bigFontSize} activeClassName={s.activeFriends} to="/friends">Friends</NavLink>
-        <div className={s.friendsContainer}>
-          {friendsElements}
-        </div>
+      <div className={s.friendsContainer}>
+        {friendsElements}
       </div>
     </div>
   </nav>;

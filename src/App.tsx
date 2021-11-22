@@ -13,8 +13,8 @@ import { withSuspense } from "./hoc/withSuspense";
 
 const News = React.lazy(() => import ("./components/News/News"));
 const Music = React.lazy(() => import ("./components/Music/Music"));
-const Settings = React.lazy(() => import ("./components/Settings/Settings"));
-const Friends = React.lazy(() => import ("./components/Friends/Friends"));
+const SettingsContainer = React.lazy(() => import ("./components/Settings/SettingsContainer"));
+const FriendsContainer = React.lazy(() => import ("./components/Friends/FriendsContainer"));
 const Page404 = React.lazy(() => import ("./components/Page404/Page404"));
 const LoginPage = React.lazy(() => import ("./components/Login/Login"));
 const UsersContainer = React.lazy(() => import ("./components/Users/UsersContainer"));
@@ -58,8 +58,8 @@ class App extends React.Component<AppPropsType> {
                         <Route path="/login" render={withSuspense(LoginPage)}/>
                         <Route path="/news" render={withSuspense(News)}/>
                         <Route path="/music" render={withSuspense(Music)}/>
-                        <Route path="/settings" render={withSuspense(Settings)}/>
-                        <Route path="/friends" render={withSuspense(Friends)}/>
+                        <Route path="/settings" render={withSuspense(SettingsContainer)}/>
+                        <Route path="/friends" render={withSuspense(FriendsContainer)}/>
                         <Route path="/*" render={withSuspense(Page404)}/>
                     </Switch>
                 </div>
