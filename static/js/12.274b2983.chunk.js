@@ -1,0 +1,2 @@
+(this.webpackJsonpsamurai=this.webpackJsonpsamurai||[]).push([[12],{313:function(r,n,s){"use strict";s.r(n);s(0);var t=s(2);n.default=function(){return Object(t.jsx)("div",{children:"Error 404 - not found"})}}}]);
+//# sourceMappingURL=12.274b2983.chunk.js.map

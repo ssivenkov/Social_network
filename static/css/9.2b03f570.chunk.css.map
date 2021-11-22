@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/Music/Music.module.scss"],"names":[],"mappings":"AAAA,wBACI,YAAA,CACA,+BAAA,CACA,kBAAA,CACA,oBAAA","file":"9.2b03f570.chunk.css","sourcesContent":[".container {\r\n    display: grid;\r\n    grid-template: 1fr / repeat(2, 1fr);\r\n    align-items: center;\r\n    justify-items: center;\r\n}"]}

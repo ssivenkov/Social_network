@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/Page404/Page404.tsx"],"names":["Page404"],"mappings":"qGAAA,uBAQeA,UANC,WACZ,OACI","file":"static/js/12.274b2983.chunk.js","sourcesContent":["import React from \"react\";\r\n\r\nconst Page404 = () => {\r\n    return (\r\n        <div>Error 404 - not found</div>\r\n    )\r\n}\r\n\r\nexport default Page404;"],"sourceRoot":""}
