@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import s from "./Pagination.module.css";
-import cn from 'classnames';
+import s from "./Pagination.module.scss";
+import cn from "classnames";
 
 type PaginationPropsType = {
     totalItemsCount: number

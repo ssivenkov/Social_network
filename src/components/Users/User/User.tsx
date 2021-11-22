@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./User.module.scss";
-import userPhoto from "../../../assets/images/user.png";
+import anonymousUserPhoto from "../../../assets/images/user.png";
 import { NavLink } from "react-router-dom";
 import { UserType } from "../../../redux/reducers/usersReducer";
 import Button from "../../common/Button/Button";
@@ -10,9 +10,10 @@ export type UserPropsType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     followingInProgress: Array<number>
+    isOwner: number | null
 }
 
-export let User: React.FC<UserPropsType> = ({user, follow, unFollow, followingInProgress}) => {
+export let User: React.FC<UserPropsType> = ({user, follow, unFollow, followingInProgress, isOwner}) => {
     return <div className={s.container}>
         <div>
             <div>
@@ -20,10 +21,11 @@ export let User: React.FC<UserPropsType> = ({user, follow, unFollow, followingIn
                     <img className={s.avatar}
                          src={user.photos.small != null
                              ? user.photos.small
-                             : userPhoto}
-                         alt="User"/>
+                             : anonymousUserPhoto}
+                         alt="User avatar"/>
                 </NavLink>
             </div>
+            {isOwner &&
             <div>
                 {user.followed
                     ? <Button disabled={followingInProgress.some((id: number) => id === user.id)}
@@ -34,6 +36,7 @@ export let User: React.FC<UserPropsType> = ({user, follow, unFollow, followingIn
                               onClick={() => {follow(user.id)}}>Follow</Button>
                 }
             </div>
+            }
         </div>
         <div>
             <div>

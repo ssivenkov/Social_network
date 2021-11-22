@@ -9,6 +9,16 @@
     margin-top: 9px;
 }
 
+.infoContainer {
+    display: flex;
+}
+
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
 .loginBlock {
     float: right;
 }

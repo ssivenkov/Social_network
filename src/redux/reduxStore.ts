@@ -5,7 +5,7 @@ import profileReducer, {
 import dialogsReducer, {
     DialogsActionsType,
 } from "./reducers/dialogsReducer";
-import sidebarFriendsReducer from "./reducers/sidebarFriendsReducer";
+import friendsReducer from "./reducers/friendsReducer";
 import usersReducer, { UserActionsType } from "./reducers/usersReducer";
 import authReducer, { AuthActionsType } from "./reducers/authReducer";
 import thunkMiddleware, { ThunkAction } from "redux-thunk";
@@ -15,7 +15,7 @@ import appReducer, { InitializeActionsType } from "./reducers/appReducer";
 let RootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
-    sidebarFriends: sidebarFriendsReducer,
+    sidebarFriends: friendsReducer,
     usersPage: usersReducer,
     auth: authReducer,
     form: formReducer,

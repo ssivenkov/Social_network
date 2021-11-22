@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { Nav } from "./Nav";
 import { Dispatch } from "redux";
 import { RootStateType } from "../../redux/reduxStore";
-import { FriendsType } from "../../redux/reducers/sidebarFriendsReducer";
+import { FriendsType } from "../../redux/reducers/friendsReducer";
 
 type DispatchToPropsType = {}
 

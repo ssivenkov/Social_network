@@ -1,10 +1,10 @@
+import React from "react";
 import { connect } from "react-redux";
 import {
-    setCurrentPage, UserType, getUsers, follow, unFollow,
+    setCurrentPage, UserType, follow, unFollow, getFriends,
 } from "../../redux/reducers/usersReducer";
 import { RootStateType } from "../../redux/reduxStore";
-import React from "react";
-import { Users } from "./Users";
+import { Friends } from "./Friends";
 import { Preloader } from "../common/Preloader/Preloader";
 import { compose } from "redux";
 import {
@@ -15,9 +15,9 @@ import {
 } from "../../redux/selectors/userSelector";
 
 type MapStateToPropsType = {
-    users: Array<UserType>
+    friends: Array<UserType>
     pageSize: number
-    totalUsersCount: number
+    totalFriendsCount: number
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
@@ -26,9 +26,9 @@ type MapStateToPropsType = {
 
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
-        users: getUsersSelector(state),
+        friends: getUsersSelector(state),
         pageSize: getPageSizeSelector(state),
-        totalUsersCount: getTotalUsersCountSelector(state),
+        totalFriendsCount: getTotalUsersCountSelector(state),
         currentPage: getCurrentPageSelector(state),
         isFetching: getIsFetchingSelector(state),
         followingInProgress: getFollowingInProgressSelector(state),
@@ -37,38 +37,38 @@ let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
 };
 
 type MapDispatchToPropsType = {
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
+    follow: (friendId: number) => void
+    unFollow: (friendId: number) => void
     setCurrentPage: (pageNumber: number) => void
-    getUsers: (page: number, pageSize: number) => void
+    getFriends: (page: number, pageSize: number) => void
 }
 
-export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType;
+export type FriendsContainerPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
-class UsersContainer extends React.Component<UsersPropsType> {
+class FriendsContainer extends React.Component<FriendsContainerPropsType> {
     componentDidMount() {
         const {currentPage, pageSize} = this.props;
-        this.props.getUsers(currentPage, pageSize);
+        this.props.getFriends(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber: number) => {
         const {setCurrentPage, pageSize} = this.props;
         setCurrentPage(pageNumber);
-        this.props.getUsers(pageNumber, pageSize);
+        this.props.getFriends(pageNumber, pageSize);
     }
 
     render() {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
-            <Users totalUsersCount={this.props.totalUsersCount}
-                   pageSize={this.props.pageSize}
-                   currentPage={this.props.currentPage}
-                   onPageChanged={this.onPageChanged}
-                   users={this.props.users}
-                   follow={this.props.follow}
-                   unFollow={this.props.unFollow}
-                   followingInProgress={this.props.followingInProgress}
-                   isOwner={this.props.isOwner}
+            <Friends totalFriendsCount={this.props.totalFriendsCount}
+                     pageSize={this.props.pageSize}
+                     currentPage={this.props.currentPage}
+                     onPageChanged={this.onPageChanged}
+                     friends={this.props.friends}
+                     follow={this.props.follow}
+                     unFollow={this.props.unFollow}
+                     followingInProgress={this.props.followingInProgress}
+                     isOwner={this.props.isOwner}
             />
         </>
     }
@@ -76,5 +76,5 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, RootStateType>
-    (mapStateToProps, {setCurrentPage, getUsers, follow, unFollow}),
-)(UsersContainer)
+    (mapStateToProps, {setCurrentPage, getFriends, follow, unFollow}),
+)(FriendsContainer)

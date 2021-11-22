@@ -7,11 +7,13 @@ import { RootStateType } from "../../redux/reduxStore";
 type MapStateToPropsType = {
     login: string | null
     isAuth: boolean
+    userAvatar: string | null | undefined,
 }
 
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
     login: state.auth.login,
     isAuth: state.auth.isAuth,
+    userAvatar: state.profilePage.profile?.photos.small,
 })
 
 type MapDispatchToPropsType = {
