@@ -5,8 +5,9 @@ import profileReducer, {
 import dialogsReducer, {
     DialogsActionsType,
 } from "./reducers/dialogsReducer";
-import friendsReducer from "./reducers/friendsReducer";
+import sidebarFriendsReducer from "./reducers/sidebarFriendsReducer";
 import usersReducer, { UserActionsType } from "./reducers/usersReducer";
+import friendsReducer, { FriendActionsType } from "./reducers/friendsReducer";
 import authReducer, { AuthActionsType } from "./reducers/authReducer";
 import thunkMiddleware, { ThunkAction } from "redux-thunk";
 import { reducer as formReducer } from "redux-form"
@@ -15,8 +16,9 @@ import appReducer, { InitializeActionsType } from "./reducers/appReducer";
 let RootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
-    sidebarFriends: friendsReducer,
+    sidebarFriends: sidebarFriendsReducer,
     usersPage: usersReducer,
+    friendsPage: friendsReducer,
     auth: authReducer,
     form: formReducer,
     app: appReducer,
@@ -28,6 +30,7 @@ export type RootStateType = ReturnType<RootReducerType>
 export type RootActionsType = ProfileActionsType
     | DialogsActionsType
     | UserActionsType
+    | FriendActionsType
     | AuthActionsType
     | InitializeActionsType
 

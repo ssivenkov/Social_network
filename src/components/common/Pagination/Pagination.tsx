@@ -29,16 +29,27 @@ export let Pagination: React.FC<PaginationPropsType> = ({
     let rightPortionPageNumber = portionNumber * portionSize;
 
     return <div>
-        {portionNumber > 1 &&
-        <button onClick={() => setPortionNumber(portionNumber - 1)}>Prev</button>}
+        <button disabled={portionNumber <= 1}
+                onClick={() => setPortionNumber(portionNumber - 1)}>Prev list
+        </button>
+        <button disabled={currentPage <= 1}
+                onClick={() => onPageChanged(currentPage - 1)}>Prev
+        </button>
+
         {pages
             .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
             .map(p => {
                 return <span key={p}
                              onClick={() => {onPageChanged(p)}}
                              className={cn(s.page, {[s.selectPage]: currentPage === p})}>{p}</span>
-            })}
-        {portionCount > portionNumber &&
-        <button onClick={() => setPortionNumber(portionNumber + 1)}>Next</button>}
+            })
+        }
+
+        <button disabled={currentPage >= pagesCount}
+                onClick={() => onPageChanged(currentPage + 1)}>Next
+        </button>
+        <button disabled={portionCount <= portionNumber}
+                onClick={() => setPortionNumber(portionNumber + 1)}>Next list
+        </button>
     </div>
 }

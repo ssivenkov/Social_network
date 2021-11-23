@@ -133,21 +133,6 @@ export const getUsers = (page: number, pageSize: number) => {
     }
 }
 
-export const getFriends = (page: number, pageSize: number) => {
-    return async (dispatch: ThunkDispatch<RootStateType, unknown, UserActionsType>) => {
-        try {
-            dispatch(toggleIsFetching(true));
-            dispatch(setCurrentPage(page));
-            let response = await UsersAPI.getFriends(page, pageSize);
-            dispatch(toggleIsFetching(false));
-            dispatch(setUsers(response.items));
-            dispatch(setTotalUsersCount(response.totalCount));
-        } catch (error) {
-            console.log(`Error getting users. ${error}`);
-        }
-    }
-}
-
 export const follow = (userId: number) => {
     return async (dispatch: ThunkDispatch<RootStateType, unknown, UserActionsType>) => {
         try {
