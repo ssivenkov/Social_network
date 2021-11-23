@@ -11,7 +11,6 @@ import { initializeApp } from "./redux/reducers/appReducer";
 import { Preloader } from "./components/common/Preloader/Preloader";
 import { withSuspense } from "./hoc/withSuspense";
 
-const News = React.lazy(() => import ("./components/News/News"));
 const Music = React.lazy(() => import ("./components/Music/Music"));
 const SettingsContainer = React.lazy(() => import ("./components/Settings/SettingsContainer"));
 const FriendsContainer = React.lazy(() => import ("./components/Friends/FriendsContainer"));
@@ -56,7 +55,6 @@ class App extends React.Component<AppPropsType> {
                         <Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
                         <Route path="/users" render={withSuspense(UsersContainer)}/>
                         <Route path="/login" render={withSuspense(LoginPage)}/>
-                        <Route path="/news" render={withSuspense(News)}/>
                         <Route path="/music" render={withSuspense(Music)}/>
                         <Route path="/settings" render={withSuspense(SettingsContainer)}/>
                         <Route path="/friends" render={withSuspense(FriendsContainer)}/>

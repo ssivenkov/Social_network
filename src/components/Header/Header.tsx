@@ -4,7 +4,7 @@ import s from "./Header.module.scss";
 import { HeaderPropsType } from "./HeaderContainer";
 import AnonymousUserPhoto from "../../assets/images/user.png";
 
-export const Header: React.FC<HeaderPropsType> = ({isAuth, login, logout, userAvatar}) => {
+export const Header: React.FC<HeaderPropsType> = ({isAuth, login, logout, profileSmallPhoto}) => {
     return (
         <header className={s.header}>
             <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/7126be64448945.Y3JvcCw1MjEwLDQwNzgsMCw0MjQ.png"
@@ -15,8 +15,8 @@ export const Header: React.FC<HeaderPropsType> = ({isAuth, login, logout, userAv
                     <div className={s.infoContainer}>
                         <div className={s.avatar}>
                             <img
-                                src={userAvatar || AnonymousUserPhoto}
-                                alt="user avatar"/>
+                                src={profileSmallPhoto || AnonymousUserPhoto}
+                                alt="you small avatar"/>
                         </div>
                         {login} <NavLink onClick={logout} to={"/login"}>Log out</NavLink>
                     </div>

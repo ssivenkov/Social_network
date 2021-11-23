@@ -54,6 +54,10 @@ export const ProfileAPI = {
         return instance.get<GetProfileResponseType>(`profile/${userId}`)
             .then(response => response.data);
     },
+    getProfileSmallPhoto(userId: number) {
+        return instance.get<GetProfileResponseType>(`profile/${userId}`)
+            .then(response => response.data.photos.small);
+    },
     getStatus(userId: number) {
         return instance.get(`profile/status/` + userId)
             .then(response => response.data);

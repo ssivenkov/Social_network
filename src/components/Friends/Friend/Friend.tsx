@@ -2,11 +2,11 @@ import React from "react";
 import s from "./Friend.module.scss";
 import anonymousFriendPhoto from "../../../assets/images/user.png";
 import { NavLink } from "react-router-dom";
-import { UserType } from "../../../redux/reducers/usersReducer";
+import { FriendType } from "../../../redux/reducers/friendsReducer";
 import Button from "../../common/Button/Button";
 
 type FriendPropsType = {
-    friend: UserType
+    friend: FriendType
     follow: (friendId: number) => void
     unFollow: (friendId: number) => void
     followingInProgress: Array<number>

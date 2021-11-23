@@ -43,7 +43,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, enableEd
         <div className={s.user_name}>{profile.fullName ? profile.fullName : "information is absent"}</div>
         <div>Looking for a job: {profile.lookingForAJob ? "yes" : "no"}</div>
         {profile.lookingForAJobDescription && <div>Skills: {profile.lookingForAJobDescription}</div>}
-        {profile.aboutMe && <div>About me: {profile.lookingForAJobDescription}</div>}
+        {profile.aboutMe && <div>About me: {profile.aboutMe}</div>}
         {/* if there is at least 1 filled contact then perform the render */
             !Object.keys(profile.contacts).map(key => {return profile.contacts[key as keyof ProfileContacts]})
                 .every(el => el === null) &&

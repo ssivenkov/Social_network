@@ -1,21 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-    setCurrentPage, UserType, follow, unFollow, getFriends,
-} from "../../redux/reducers/usersReducer";
+import { follow, FriendType, getFriends, setCurrentPage, unFollow } from "../../redux/reducers/friendsReducer";
 import { RootStateType } from "../../redux/reduxStore";
 import { Friends } from "./Friends";
 import { Preloader } from "../common/Preloader/Preloader";
 import { compose } from "redux";
 import {
-    getCurrentPageSelector, getFollowingInProgressSelector, getIsFetchingSelector,
-    getPageSizeSelector,
-    getTotalUsersCountSelector,
-    getUsersSelector,
-} from "../../redux/selectors/userSelector";
+    getCurrentPageSelector, getFollowingInProgressSelector, getFriendsSelector, getIsFetchingSelector,
+    getPageSizeSelector, getTotalFriendsCountSelector,
+} from "../../redux/selectors/friendSelector";
 
 type MapStateToPropsType = {
-    friends: Array<UserType>
+    friends: Array<FriendType>
     pageSize: number
     totalFriendsCount: number
     currentPage: number
@@ -26,9 +22,9 @@ type MapStateToPropsType = {
 
 let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
-        friends: getUsersSelector(state),
+        friends: getFriendsSelector(state),
         pageSize: getPageSizeSelector(state),
-        totalFriendsCount: getTotalUsersCountSelector(state),
+        totalFriendsCount: getTotalFriendsCountSelector(state),
         currentPage: getCurrentPageSelector(state),
         isFetching: getIsFetchingSelector(state),
         followingInProgress: getFollowingInProgressSelector(state),

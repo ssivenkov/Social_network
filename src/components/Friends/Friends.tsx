@@ -1,5 +1,5 @@
 import React from "react";
-import { UserType } from "../../redux/reducers/usersReducer";
+import { FriendType } from "../../redux/reducers/friendsReducer";
 import { Pagination } from "../common/Pagination/Pagination";
 import { Friend } from "./Friend/Friend";
 
@@ -8,7 +8,7 @@ export type FriendsPropsType = {
     pageSize: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
-    friends: Array<UserType>
+    friends: Array<FriendType>
     follow: (friendId: number) => void
     unFollow: (friendId: number) => void
     followingInProgress: Array<number>
@@ -27,7 +27,8 @@ export let Friends: React.FC<FriendsPropsType> = ({
 
     return <div>
         <Pagination totalItemsCount={totalFriendsCount} currentPage={currentPage} onPageChanged={onPageChanged}
-                    pageSize={pageSize} portionSize={20}/>
+                    pageSize={pageSize} portionSize={15}
+        />
         {
             friends.length === 0
                 ? <div>The users you are following will be displayed here</div>

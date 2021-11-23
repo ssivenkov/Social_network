@@ -1,17 +1,13 @@
-import { connect } from "react-redux";
-import {
-    setCurrentPage, UserType, getUsers, follow, unFollow,
-} from "../../redux/reducers/usersReducer";
-import { RootStateType } from "../../redux/reduxStore";
 import React from "react";
+import { connect } from "react-redux";
+import { setCurrentPage, UserType, getUsers, follow, unFollow } from "../../redux/reducers/usersReducer";
+import { RootStateType } from "../../redux/reduxStore";
 import { Users } from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
 import { compose } from "redux";
 import {
-    getCurrentPageSelector, getFollowingInProgressSelector, getIsFetchingSelector,
-    getPageSizeSelector,
-    getTotalUsersCountSelector,
-    getUsersSelector,
+    getCurrentPageSelector, getFollowingInProgressSelector, getIsFetchingSelector, getPageSizeSelector,
+    getTotalUsersCountSelector, getUsersSelector,
 } from "../../redux/selectors/userSelector";
 
 type MapStateToPropsType = {

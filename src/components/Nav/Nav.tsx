@@ -24,9 +24,6 @@ export const Nav: React.FC<NavPropsType> = ({friends}) => {
         <NavLink activeClassName={s.activeFriends} to="/friends">Friends</NavLink>
       </div>
       <div className={s.item}>
-        <NavLink activeClassName={s.active} to="/news">News</NavLink>
-      </div>
-      <div className={s.item}>
         <NavLink activeClassName={s.active} to="/music">Music</NavLink>
       </div>
       <div className={`${s.item} ${s.margin}`}>

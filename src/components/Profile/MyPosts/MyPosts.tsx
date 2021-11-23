@@ -3,9 +3,9 @@ import s from "./MyPosts.module.scss";
 import style from "./MyPosts.module.scss";
 import { Post } from "./Post/Post";
 import { MyPostsCommonPropsType, MyPostsConnectPropsType } from "./MyPostsContainer";
-import { Field, InjectedFormProps, reduxForm } from "redux-form";
+import { InjectedFormProps, reduxForm } from "redux-form";
 import { maxLengthCreator, required } from "../../../utils/validators/validator";
-import { Textarea } from "../../common/FormsControls/FormsControls";
+import { createField, Textarea } from "../../common/FormsControls/FormsControls";
 import Button from "../../common/Button/Button";
 
 type FormDataType = {
@@ -17,16 +17,7 @@ const maxLength100 = maxLengthCreator(100);
 const NewPostForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <Field
-                    type={"text"}
-                    name={"newPostBody"}
-                    component={Textarea}
-                    validate={[required, maxLength100]}
-                    placeholder={"Share your news here ..."}
-                    className={style.newPostCreateField}
-                />
-            </div>
+            {createField("Share your news here ...", "newPostBody", [required, maxLength100], Textarea, {}, "", "", style.newPostCreateField)}
             <div>
                 <Button type={"submit"}
                         className={s.sendPostBtn}>
