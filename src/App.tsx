@@ -45,21 +45,23 @@ class App extends React.Component<AppPropsType> {
         }
 
         return (
-            <div className="global-wrapper">
+            <div>
                 <HeaderContainer/>
-                <NavContainer/>
-                <div className="global-wrapper-content">
-                    <Switch>
-                        <Route exact path="/" render={() => <Redirect to={"/profile"}/>}/>
-                        <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
-                        <Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
-                        <Route path="/users" render={withSuspense(UsersContainer)}/>
-                        <Route path="/login" render={withSuspense(LoginPage)}/>
-                        <Route path="/music" render={withSuspense(Music)}/>
-                        <Route path="/settings" render={withSuspense(SettingsContainer)}/>
-                        <Route path="/friends" render={withSuspense(FriendsContainer)}/>
-                        <Route path="/*" render={withSuspense(Page404)}/>
-                    </Switch>
+                <div className="main-wrapper">
+                    <NavContainer/>
+                    <div className="main-content">
+                        <Switch>
+                            <Route exact path="/" render={() => <Redirect to={"/profile"}/>}/>
+                            <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
+                            <Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
+                            <Route path="/users" render={withSuspense(UsersContainer)}/>
+                            <Route path="/login" render={withSuspense(LoginPage)}/>
+                            <Route path="/music" render={withSuspense(Music)}/>
+                            <Route path="/settings" render={withSuspense(SettingsContainer)}/>
+                            <Route path="/friends" render={withSuspense(FriendsContainer)}/>
+                            <Route path="/*" render={withSuspense(Page404)}/>
+                        </Switch>
+                    </div>
                 </div>
             </div>
         );

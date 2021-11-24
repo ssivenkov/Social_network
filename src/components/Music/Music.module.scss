@@ -3,4 +3,13 @@
     grid-template: 1fr / repeat(2, 1fr);
     align-items: center;
     justify-items: center;
+    background-color: #111;
+}
+
+.roundBorderLeft {
+    border-radius: 8px 0 0 0;
+}
+
+.roundBorderRight {
+    border-radius: 0 8px 0 0;
 }
