@@ -12,37 +12,41 @@ export type ProfileDataFormPropsType = {
 
 const ProfileDataForm: ComponentType<ProfileDataFormPropsType & InjectedFormProps<ProfileType, ProfileDataFormPropsType, string>> =
     ({handleSubmit, profile, error}) => {
-        return <form onSubmit={handleSubmit} className={s.user_desc}>
+        return <form onSubmit={handleSubmit} className={s.editFormContainer}>
             <div>
-                <Button type={"submit"}>
-                    Save info
-                </Button>
-            </div>
-            {error && <div className={inputErrorStyle.formSummaryError}>
-                {error}
-            </div>
-            }
-            <div className={s.user_name}>
-                <span>Full name: </span>
-                {createField("Full name", "fullName", [], Input, {}, "", "", "")}
+                <div>
+                    <Button type={"submit"} className={s.button}>
+                        Save info
+                    </Button>
+                </div>
+                {error && <div className={inputErrorStyle.formSummaryError}>
+                    {error}
+                </div>
+                }
+                <div className={s.userInfoText}>
+                    <span className={s.userInfoText}>Full name: </span>
+                    {createField("Full name", "fullName", [], Input, {}, "", "", s.editModeInput)}
+                </div>
+                <div className={s.flexContainer}>
+                    <span className={s.userInfoText}>Looking for a job: </span>
+                    <div className={s.editModeInput}>
+                        {createField("", "lookingForAJob", [], Input, {type: "checkbox"}, "", "", "")}
+                    </div>
+                </div>
+                <div>
+                    <span className={s.userInfoText}>Skills: </span>
+                    {createField("Skills", "lookingForAJobDescription", [], Textarea, {}, "", "", s.editModeInput)}
+                </div>
+                <div>
+                    <span className={s.userInfoText}>About me: </span>
+                    {createField("About me", "aboutMe", [], Textarea, {}, "", "", s.editModeInput)}
+                </div>
             </div>
             <div>
-                <span>Looking for a job: </span>
-                {createField("", "lookingForAJob", [], Input, {type: "checkbox"}, "", "", "")}
-            </div>
-            <div>
-                <span>Skills: </span>
-                {createField("Skills", "lookingForAJobDescription", [], Textarea, {}, "", "", "")}
-            </div>
-            <div>
-                <span>About me: </span>
-                {createField("About me", "aboutMe", [], Textarea, {}, "", "", "")}
-            </div>
-            <div>
-                <span>Contacts: </span>
+                <span className={s.editModeContacts}>Contacts</span>
                 {Object.keys(profile.contacts).map(key => {
                     return <div key={key}>
-                        {key}: {createField(key, `contacts.${key}`, [], Input, {}, "", "", "")}
+                        {<span className={s.userInfoText}>{key}</span>}: {createField(key, `contacts.${key}`, [], Input, {}, "", "", s.editModeInput)}
                     </div>
                 })}
             </div>

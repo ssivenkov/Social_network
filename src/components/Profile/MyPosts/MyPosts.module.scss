@@ -14,35 +14,31 @@
 }
 
 .newPostCreateField {
-    width: 55%;
-    background-color: lightgray;
-    min-height: 60px;
+    min-width: 60%;
+    min-height: 70px;
+    background-color: #fff;
     padding: 10px;
     font-size: 18px;
     border: 1px solid transparent;
     border-radius: 5px;
-    word-wrap: break-word;
+    word-break: break-word;
+    resize: vertical;
 }
 .newPostCreateField:focus {
     box-shadow: chartreuse 0 0 10px 1px;
 }
 
 .sendPostBtn {
-    display: block;
-    max-width: 10%;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 15px;
     background-color: darkgreen;
-    padding: 5px 20px 5px 20px;
-    border-radius: 5px;
+    padding: 5px 15px 5px 15px;
+    border-radius: 8px;
 }
 .sendPostBtn:hover {
     background-color: #00aa00;
     color: #fff;
     text-shadow: #fff 0 0 4px;
     box-shadow: #009900 0 0 15px;
-}
-
-.postsListSection {
 }

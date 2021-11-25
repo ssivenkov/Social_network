@@ -4,6 +4,7 @@ import { setCurrentPage, UserType, getUsers, follow, unFollow } from "../../redu
 import { RootStateType } from "../../redux/reduxStore";
 import { Users } from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
+import stylePreloader from "../common/Preloader/Preloader.module.scss";
 import { compose } from "redux";
 import {
     getCurrentPageSelector, getFollowingInProgressSelector, getIsFetchingSelector, getPageSizeSelector,
@@ -55,7 +56,9 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
     render() {
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
+            {this.props.isFetching ? <div className={stylePreloader.absolutePreloaderContainer}>
+                <Preloader/>
+            </div> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
                    currentPage={this.props.currentPage}

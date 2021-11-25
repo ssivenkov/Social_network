@@ -50,7 +50,7 @@ export const MyPosts = React.memo((props: MyPostsConnectPropsType & MyPostsCommo
             <div className={s.newPostSection}>
                 <NewPostReduxForm onSubmit={addNewPost}/>
             </div>
-            <div className={s.postsListSection}>
+            <div>
                 {postsElements}
             </div>
         </div>

@@ -24,14 +24,16 @@ let state = {
     ],
 }
 
-it("message should be send", () => {
-    let action = sendMessage("test message");
-    let newState = dialogsReducer(state, action);
-    expect(newState.messages.length).toBe(6);
-})
+describe("Dialogs reducer", () => {
+    test("message should be send", () => {
+        let action = sendMessage("test message");
+        let newState = dialogsReducer(state, action);
+        expect(newState.messages.length).toBe(6);
+    })
 
-it("message should be correct", () => {
-    let action = sendMessage("test message");
-    let newState = dialogsReducer(state, action);
-    expect(newState.messages[5].message).toBe("test message");
+    test("message should be correct", () => {
+        let action = sendMessage("test message");
+        let newState = dialogsReducer(state, action);
+        expect(newState.messages[5].message).toBe("test message");
+    })
 })

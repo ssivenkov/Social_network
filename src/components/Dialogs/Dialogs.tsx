@@ -46,12 +46,14 @@ export const Dialogs = (props: DialogsPropsType) => {
     }
 
     return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsItems}>
-                {avatarsElements}
-            </div>
-            <div className={s.dialogsItems}>
-                {dialogsElements}
+        <div className={s.container}>
+            <div className={s.dialogs}>
+                <div className={s.dialogsItems}>
+                    {avatarsElements}
+                </div>
+                <div className={s.dialogsItems}>
+                    {dialogsElements}
+                </div>
             </div>
             <div className={s.messages}>
                 <div>{messagesElements}</div>

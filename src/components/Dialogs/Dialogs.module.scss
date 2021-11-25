@@ -1,16 +1,26 @@
+.container {
+    display: flex;
+}
+
 .dialogs {
     display: grid;
-    grid-template-columns: 1fr 1fr 9fr;
+    grid-template-columns: minmax(75px, 1fr) 1fr;
+    padding: 15px;
+    height: 400px;
+    gap: 15px;
 }
 
 .dialogsItems {
     display: flex;
+    justify-content: space-around;
     flex-direction: column;
-    padding: 10px;
 }
 
 .messages {
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin-top: 15px;
 }
 
 .inputContainer {
@@ -19,9 +29,12 @@
 }
 
 .input {
-    padding: 5px;
-    border-radius: 5px;
+    padding: 5px 8px;
+    min-width: 300px;
+    font-size: 16px;
+    border-radius: 8px;
     resize: none;
+    margin: 20px 0 0;
 }
 
 textarea.input::placeholder {
@@ -29,14 +42,17 @@ textarea.input::placeholder {
 }
 
 .sendButton {
-    margin-left: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 500;
-    background-color: gold;
+    color: #fff;
+    font-size: 18px;
+    background-color: darkgreen;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin-top: 15px;
 }
 
 .sendButton:hover {
-    background-color: yellow;
+    background-color: #00aa00;
+    color: #fff;
+    text-shadow: #fff 0 0 4px;
+    box-shadow: #009900 0 0 15px;
 }

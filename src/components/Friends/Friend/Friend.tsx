@@ -15,7 +15,7 @@ type FriendPropsType = {
 
 export let Friend: React.FC<FriendPropsType> = ({friend, follow, unFollow, followingInProgress, isOwner}) => {
     return <div className={s.container}>
-        <div>
+        <div className={s.friendContainer}>
             <div>
                 <NavLink to={"/profile/" + friend.id}>
                     <img className={s.avatar}
@@ -37,11 +37,11 @@ export let Friend: React.FC<FriendPropsType> = ({friend, follow, unFollow, follo
                 }
             </div>
             }
-        </div>
-        <div>
             <div>
-                <div className={s.name}>{friend.name}</div>
-                <div>{friend.status}</div>
+                <div>
+                    <div className={s.name}>{friend.name}</div>
+                    <div className={s.status}>{friend.status}</div>
+                </div>
             </div>
         </div>
     </div>

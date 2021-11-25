@@ -1,4 +1,5 @@
 import React from "react";
+import s from "./Users.module.scss"
 import { UserType } from "../../redux/reducers/usersReducer";
 import { Pagination } from "../common/Pagination/Pagination";
 import { User } from "./User/User";
@@ -25,19 +26,21 @@ export let Users: React.FC<UsersPropsType> = ({
         pages.push(i);
     }
 
-    return <div>
+    return <div className={s.wrapper}>
         <Pagination totalItemsCount={totalUsersCount} currentPage={currentPage} onPageChanged={onPageChanged}
                     pageSize={pageSize} portionSize={15}
         />
-        {
-            users.map(u => <User key={u.id}
-                                 user={u}
-                                 follow={follow}
-                                 unFollow={unFollow}
-                                 followingInProgress={followingInProgress}
-                                 isOwner={isOwner}
-                />,
-            )
-        }
+        <div className={s.container}>
+            {
+                users.map(u => <User key={u.id}
+                                     user={u}
+                                     follow={follow}
+                                     unFollow={unFollow}
+                                     followingInProgress={followingInProgress}
+                                     isOwner={isOwner}
+                    />,
+                )
+            }
+        </div>
     </div>
 }

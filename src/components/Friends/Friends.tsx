@@ -1,4 +1,5 @@
 import React from "react";
+import s from "./Friends.module.scss"
 import { FriendType } from "../../redux/reducers/friendsReducer";
 import { Pagination } from "../common/Pagination/Pagination";
 import { Friend } from "./Friend/Friend";
@@ -25,21 +26,27 @@ export let Friends: React.FC<FriendsPropsType> = ({
         pages.push(i);
     }
 
-    return <div>
-        <Pagination totalItemsCount={totalFriendsCount} currentPage={currentPage} onPageChanged={onPageChanged}
-                    pageSize={pageSize} portionSize={15}
-        />
-        {
-            friends.length === 0
-                ? <div>The users you are following will be displayed here</div>
-                : friends.map(u => <Friend key={u.id}
-                                           friend={u}
-                                           follow={follow}
-                                           unFollow={unFollow}
-                                           followingInProgress={followingInProgress}
-                                           isOwner={isOwner}
-                />,
-                )
-        }
+    return <div className={s.wrapper}>
+        {friends.length === 0
+            ? <div className={s.withoutAuthorizationTextContainer}>
+                <span className={s.withoutAuthorizationText}>The users you are following will be displayed here</span>
+            </div>
+            : <div>
+                <Pagination totalItemsCount={totalFriendsCount} currentPage={currentPage} onPageChanged={onPageChanged}
+                            pageSize={pageSize} portionSize={15}
+                />
+                <div className={s.container}>
+                    {
+                        friends.map(u => <Friend key={u.id}
+                                                 friend={u}
+                                                 follow={follow}
+                                                 unFollow={unFollow}
+                                                 followingInProgress={followingInProgress}
+                                                 isOwner={isOwner}
+                            />,
+                        )
+                    }
+                </div>
+            </div>}
     </div>
 }
