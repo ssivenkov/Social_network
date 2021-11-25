@@ -21,18 +21,37 @@
 
 .infoContainer {
     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login {
+    color: #fff;
+    margin-right: 12px;
+    font-size: 20px;
 }
 
 .avatar img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    margin-right: 30px;
 }
 
-.loginBlock {
-    float: right;
-}
-
-.loginBlock a {
+a {
     color: #fff;
+}
+
+.button {
+    color: #fff;
+    font-size: 18px;
+    background-color: #3a0064;
+    padding: 10px 15px;
+    border-radius: 8px;
+    &:hover {
+        background-color: #3a007d;
+        color: #fff;
+        text-shadow: #fff 0 0 4px;
+        box-shadow: #520099 0 0 15px;
+    }
 }

@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from "react";
+import s from "./ProfileStatus.module.scss"
 
 type MapDispatchToPropsType = {
     updateStatus: (status: string) => void
@@ -53,15 +54,18 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, StateType> {
         return <div>
             {!this.state.editMode ?
                 <div>
-                    <span onClick={this.activateEditMode}>{this.props.status || "Status is not set"}</span>
+                    <span className={s.status}
+                          onClick={this.activateEditMode}>{this.props.status || "Status is not set"}
+                    </span>
                 </div>
                 :
                 <div>
                     <input autoFocus
                            onChange={this.onStatusChange}
                            onBlur={this.deactivateEditMode}
-                           value={this.state.status}>
-
+                           value={this.state.status}
+                           className={s.editStatus}
+                    >
                     </input>
                 </div>
             }

@@ -1,0 +1,17 @@
+.container {
+    display: grid;
+    grid-template: repeat(4, auto)/repeat(5, 1fr);
+    margin-top: 15px;
+}
+
+.wrapper {
+    margin-top: 15px;
+}
+
+.withoutAuthorizationTextContainer {
+    padding: 15px;
+}
+
+.withoutAuthorizationText {
+    font-size: 18px;
+}

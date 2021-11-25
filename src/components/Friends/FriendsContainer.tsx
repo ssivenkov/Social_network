@@ -9,6 +9,7 @@ import {
     getCurrentPageSelector, getFollowingInProgressSelector, getFriendsSelector, getIsFetchingSelector,
     getPageSizeSelector, getTotalFriendsCountSelector,
 } from "../../redux/selectors/friendSelector";
+import stylePreloader from "../common/Preloader/Preloader.module.scss";
 
 type MapStateToPropsType = {
     friends: Array<FriendType>
@@ -55,7 +56,9 @@ class FriendsContainer extends React.Component<FriendsContainerPropsType> {
 
     render() {
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
+            {this.props.isFetching ? <div className={stylePreloader.absolutePreloaderContainer}>
+                <Preloader/>
+            </div> : null}
             <Friends totalFriendsCount={this.props.totalFriendsCount}
                      pageSize={this.props.pageSize}
                      currentPage={this.props.currentPage}

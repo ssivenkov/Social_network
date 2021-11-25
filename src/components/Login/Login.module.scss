@@ -1,21 +1,52 @@
+.container {
+    padding: 15px;
+}
+
+.text {
+    display: inline-block;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
 .formContainer {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .field {
-    display: inline-flex;
+    display: flex;
+    font-size: 16px;
     margin: 5px;
 }
 
-.login {
-    border: 1px solid green;
+input[type="checkbox"] {
+    margin-right: 15px;
 }
 
-.password {
+.input {
+    font-size: 18px;
+    padding: 3px 7px;
     border: 1px solid green;
+    border-radius: 8px;
 }
 
 .error {
+    font-size: 18px;
     color: red;
+}
+
+.button {
+    display: inline-block;
+    color: #fff;
+    font-size: 18px;
+    background-color: darkgreen;
+    padding: 8px 14px;
+    border-radius: 8px;
+    &:hover {
+        background-color: #00aa00;
+        color: #fff;
+        text-shadow: #fff 0 0 4px;
+        box-shadow: #009900 0 0 15px;
+    }
 }

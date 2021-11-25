@@ -1,5 +1,14 @@
 .container {
-    border: 1px solid #000;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .avatar {
@@ -10,13 +19,30 @@
 }
 
 .name {
+    font-size: 18px;
+    word-break: break-word;
+    text-align: center;
+    padding: 3px 7px;
+}
+
+.status {
     font-size: 16px;
+    word-break: break-word;
+    text-align: center;
     padding: 3px 7px;
 }
 
 .button {
-    font-size: 16px;
-    user-select: none;
-    padding: 3px 7px;
-    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+    background-color: darkgreen;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.button:hover {
+    background-color: #00aa00;
+    color: #fff;
+    text-shadow: #fff 0 0 4px;
+    box-shadow: #009900 0 0 15px;
 }

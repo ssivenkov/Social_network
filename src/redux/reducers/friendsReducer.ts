@@ -34,7 +34,7 @@ type FriendsStateType = {
 
 let initialState = {
     friends: [],
-    pageSize: 5,
+    pageSize: 20,
     totalFriendsCount: 0,
     currentPage: 1,
     isFetching: false,

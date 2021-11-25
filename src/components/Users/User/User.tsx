@@ -15,7 +15,7 @@ export type UserPropsType = {
 
 export let User: React.FC<UserPropsType> = ({user, follow, unFollow, followingInProgress, isOwner}) => {
     return <div className={s.container}>
-        <div>
+        <div className={s.userContainer}>
             <div>
                 <NavLink to={"/profile/" + user.id}>
                     <img className={s.avatar}
@@ -37,11 +37,11 @@ export let User: React.FC<UserPropsType> = ({user, follow, unFollow, followingIn
                 }
             </div>
             }
-        </div>
-        <div>
             <div>
-                <div className={s.name}>{user.name}</div>
-                <div>{user.status}</div>
+                <div>
+                    <div className={s.name}>{user.name}</div>
+                    <div className={s.status}>{user.status}</div>
+                </div>
             </div>
         </div>
     </div>

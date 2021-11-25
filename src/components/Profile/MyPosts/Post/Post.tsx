@@ -10,7 +10,7 @@ export type PostType = {
 
 export const Post: React.FC<PostType> = ({message, likesCount, userAvatar}) => {
     return (
-        <div className={s.post_item}>
+        <div className={s.post}>
             <div className={s.avatar}>
                 <img
                     src={userAvatar || AnonymousUserPhoto}

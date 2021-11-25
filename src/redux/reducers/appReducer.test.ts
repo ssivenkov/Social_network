@@ -7,8 +7,10 @@ let state = {
     isAuth: false,
 }
 
-it("app should be success initialized", () => {
-    let action = initializedSuccess();
-    let newState = appReducer(state, action);
-    expect(newState.initialized).toBe(true);
+describe("App reducer", () => {
+    test("app should be success initialized", () => {
+        let action = initializedSuccess();
+        let newState = appReducer(state, action);
+        expect(newState.initialized).toBe(true);
+    })
 })
