@@ -4,24 +4,26 @@ import s from "./Music.module.scss"
 const Music = () => {
     return (
         <div className={s.container}>
-            <iframe width="410" height="231" src="https://www.youtube.com/embed/7NOSDKb0HlU"
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/GsiKHJtSFyg"
                     title="YouTube video player" frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className={s.roundBorderLeft}>
+                    className={s.roundBorderLeft}
+            >
             </iframe>
-            <iframe width="410" height="231" src="https://www.youtube.com/embed/_daTfgc4u3k"
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/lSAz2ONC1rk"
                     title="YouTube video player" frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className={s.roundBorderRight}>
+                    className={s.roundBorderRight}
+            >
             </iframe>
-            <iframe width="410" height="231" src="https://www.youtube.com/embed/5yx6BWlEVcY"
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/3oHhEx7voLs"
                     title="YouTube video player" frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen>
             </iframe>
-            <iframe width="410" height="231" src="https://www.youtube.com/embed/zPNi78sVbio"
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/KB15PmfhvBY"
                     title="YouTube video player" frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen>
