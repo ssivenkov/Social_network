@@ -1,21 +1,23 @@
 .nav {
-    background: linear-gradient(#3A0064, darkslateblue, transparent, transparent);
-    border-radius: 8px;
+    background: linear-gradient(#3A0064, darkslateblue);
+    border-radius: unset;
 }
 
 .nav_section {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
 }
 
 .item {
     border-radius: 8px;
-    padding: 7px 12px;
-    display: inline-block;
+    padding: 4px 12px;
     font-size: 24px;
     line-height: 1.2;
     color: #fff;
-
     &:hover {
         background-color: #7536b4;
         color: #fff;
@@ -31,13 +33,35 @@
     color: chartreuse;
 }
 
-.item.margin {
-    margin-top: 35px;
+.friendsContainer {
+    display: none;
 }
 
-.friendsContainer {
-    display: flex;
-    flex-direction: row;
-    padding: 0 10px;
-    margin-top: 25px;
+@media (pointer: fine) {
+    .nav {
+        background: linear-gradient(#3A0064, darkslateblue, transparent, transparent);
+        border-radius: 8px;
+    }
+
+    .nav_section {
+        flex-direction: column;
+    }
+
+    .item {
+        width: 100%;
+        text-align: center;
+        display: inline-block;
+        padding: 7px 12px;
+    }
+
+    .friendsContainer {
+        display: flex;
+        flex-direction: row;
+        padding: 0 10px;
+        margin-top: 25px;
+    }
+
+    .item.margin {
+        margin-top: 35px;
+    }
 }

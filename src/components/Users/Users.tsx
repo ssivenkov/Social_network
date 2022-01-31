@@ -26,9 +26,18 @@ export let Users: React.FC<UsersPropsType> = ({
         pages.push(i);
     }
 
+    const portionSizeCondition = () => {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            return 5;
+        } else {
+            return 15;
+        }
+    }
+
     return <div className={s.wrapper}>
         <Pagination totalItemsCount={totalUsersCount} currentPage={currentPage} onPageChanged={onPageChanged}
-                    pageSize={pageSize} portionSize={15}
+                    pageSize={pageSize}
+                    portionSize={portionSizeCondition()}
         />
         <div className={s.container}>
             {

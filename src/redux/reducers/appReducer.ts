@@ -36,7 +36,7 @@ export const initializeApp = () => {
     return (dispatch: ThunkDispatch<RootStateType, unknown, InitializeActionsType>) => {
         try {
             let promise = dispatch(getAuthUserData());
-            Promise.all([promise])
+            promise
                 .then(() => {
                     dispatch(initializedSuccess());
                 })

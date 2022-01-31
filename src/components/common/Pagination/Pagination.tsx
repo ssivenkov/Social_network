@@ -30,7 +30,7 @@ export let Pagination: React.FC<PaginationPropsType> = ({
     let rightPortionPageNumber = portionNumber * portionSize;
 
     return <div className={s.pagination}>
-        <div>
+        <div className={s.buttonContainer}>
             <Button disabled={portionNumber <= 1}
                     className={s.button}
                     onClick={() => setPortionNumber(portionNumber - 1)}>Prev list
