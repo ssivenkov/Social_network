@@ -26,6 +26,14 @@ export let Friends: React.FC<FriendsPropsType> = ({
         pages.push(i);
     }
 
+    const portionSizeCondition = () => {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            return 5;
+        } else {
+            return 15;
+        }
+    }
+
     return <div className={s.wrapper}>
         {friends.length === 0
             ? <div className={s.withoutAuthorizationTextContainer}>
@@ -33,7 +41,7 @@ export let Friends: React.FC<FriendsPropsType> = ({
             </div>
             : <div>
                 <Pagination totalItemsCount={totalFriendsCount} currentPage={currentPage} onPageChanged={onPageChanged}
-                            pageSize={pageSize} portionSize={15}
+                            pageSize={pageSize} portionSize={portionSizeCondition()}
                 />
                 <div className={s.container}>
                     {

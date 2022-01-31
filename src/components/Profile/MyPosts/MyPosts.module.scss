@@ -14,7 +14,7 @@
 }
 
 .newPostCreateField {
-    min-width: 60%;
+    min-width: 100%;
     min-height: 70px;
     background-color: #fff;
     padding: 10px;
@@ -23,9 +23,9 @@
     border-radius: 5px;
     word-break: break-word;
     resize: vertical;
-}
-.newPostCreateField:focus {
-    box-shadow: chartreuse 0 0 10px 1px;
+    &:focus {
+        box-shadow: chartreuse 0 0 10px 1px;
+    }
 }
 
 .sendPostBtn {
@@ -35,10 +35,16 @@
     background-color: darkgreen;
     padding: 5px 15px 5px 15px;
     border-radius: 8px;
+    &:hover {
+        background-color: #00aa00;
+        color: #fff;
+        text-shadow: #fff 0 0 4px;
+        box-shadow: #009900 0 0 15px;
+    }
 }
-.sendPostBtn:hover {
-    background-color: #00aa00;
-    color: #fff;
-    text-shadow: #fff 0 0 4px;
-    box-shadow: #009900 0 0 15px;
+
+@media (pointer: fine) {
+    .newPostCreateField {
+        min-width: 60%;
+    }
 }

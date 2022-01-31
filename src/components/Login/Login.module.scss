@@ -2,6 +2,11 @@
     padding: 15px;
 }
 
+.textContainer {
+    display: flex;
+    flex-direction: column;
+}
+
 .text {
     display: inline-block;
     font-size: 18px;

@@ -3,11 +3,11 @@
 }
 
 .dialogs {
-    display: grid;
+    display: none;
     grid-template-columns: minmax(75px, 1fr) 1fr;
     padding: 15px;
     height: 400px;
-    gap: 15px;
+    gap: 0;
 }
 
 .dialogsItems {
@@ -17,20 +17,24 @@
 }
 
 .messages {
+    width: 100%;
     display: flex;
     flex-direction: column;
     padding: 15px;
-    margin-top: 15px;
+    margin-top: 35px;
 }
 
 .inputContainer {
+    width: 100%;
     display: flex;
     align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 25px;
 }
 
 .input {
+    width: 90vw;
     padding: 5px 8px;
-    min-width: 300px;
     font-size: 16px;
     border-radius: 8px;
     resize: none;
@@ -55,4 +59,25 @@ textarea.input::placeholder {
     color: #fff;
     text-shadow: #fff 0 0 4px;
     box-shadow: #009900 0 0 15px;
+}
+
+@media (pointer:fine) {
+    .dialogs {
+        display: grid;
+        gap: 15px;
+    }
+
+    .input {
+        width: auto;
+        min-width: 300px;
+    }
+
+    .messages {
+        width: auto;
+        margin-top: 15px;
+    }
+
+    .inputContainer {
+        margin-bottom: 0;
+    }
 }
