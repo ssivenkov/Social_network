@@ -1,0 +1,3 @@
+export const INPUT_MAX_LENGTH = 100;
+export const MOBILE_USERS_PORTION_SIZE = 5;
+export const DESKTOP_USERS_PORTION_SIZE = 15;

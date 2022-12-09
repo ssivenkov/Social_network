@@ -1,15 +1,8 @@
-import reportWebVitals from "./reportWebVitals";
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.scss";
-import SocialNetworkApp from "./App";
+import React from 'react';
 
-ReactDOM.render(
-    <SocialNetworkApp/>,
-    document.getElementById("root"),
-);
+import ReactDOM from 'react-dom';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+import './index.scss';
+import { SocialNetworkApp } from './App';
+
+ReactDOM.render(<SocialNetworkApp />, document.getElementById('root'));

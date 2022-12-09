@@ -1,0 +1,9 @@
+export enum USERS_REDUCER_ACTION {
+  FOLLOW = 'usersReducer/FOLLOW',
+  UNFOLLOW = 'usersReducer/UNFOLLOW',
+  SET_USERS = 'usersReducer/SET_USERS',
+  SET_CURRENT_PAGE = 'usersReducer/SET_CURRENT_PAGE',
+  SET_TOTAL_USERS_COUNT = 'usersReducer/SET_TOTAL_USERS_COUNT',
+  TOGGLE_IS_FETCHING = 'usersReducer/TOGGLE_IS_FETCHING',
+  FOLLOWING_IN_PROGRESS = 'usersReducer/FOLLOWING_IN_PROGRESS',
+}

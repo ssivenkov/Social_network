@@ -1,24 +1,31 @@
-import { Redirect } from "react-router-dom";
-import React, { ComponentType } from "react";
-import { connect } from "react-redux";
-import { RootStateType } from "../redux/reduxStore";
+import React, { FunctionComponent } from 'react';
 
-type mapStateToPropsForRedirectType = {
-    isAuth: boolean
-}
+import { PATH } from 'enum/pathEnum';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { RootStateType } from 'store/types';
 
-let mapStateToPropsForRedirect = (state: RootStateType): mapStateToPropsForRedirectType => ({
-    isAuth: state.auth.isAuth,
-})
+type MapStateToPropsType = {
+  isAuth: boolean;
+};
 
-export function withAuthRedirect<T>(Component: ComponentType<T>) {
-    function RedirectComponent(props: mapStateToPropsForRedirectType) {
-        let {isAuth, ...restProps} = props;
-        if (!isAuth) return <Redirect to={"/login"}/>
-        return <Component {...restProps as T}/>
-    }
+const mapStateToProps = (state: RootStateType): MapStateToPropsType => ({
+  isAuth: state.auth.isAuth,
+});
 
-    let ConnectedAuthRedirectComponent = connect(mapStateToPropsForRedirect)(RedirectComponent);
+export function withAuthRedirect<TWrappedComponentProps>(
+  WrappedComponent: FunctionComponent<TWrappedComponentProps>,
+) {
+  const RedirectComponent = (props: MapStateToPropsType) => {
+    const { isAuth, ...restProps } = props;
 
-    return ConnectedAuthRedirectComponent;
+    if (!isAuth) return <Redirect to={`/${PATH.LOGIN}`} />;
+
+    return <WrappedComponent {...(restProps as TWrappedComponentProps)} />;
+  };
+
+  return connect<MapStateToPropsType, object, TWrappedComponentProps, RootStateType>(
+    mapStateToProps,
+    {},
+  )(RedirectComponent);
 }
