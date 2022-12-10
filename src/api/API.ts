@@ -4,8 +4,8 @@ import { ProfileType } from "../redux/reducers/profileReducer";
 
 const instance = axios.create({
     withCredentials: true,
-    baseURL: ***REMOVED***,
-    headers: {"API-KEY": ***REMOVED***},
+    baseURL: "Removed",
+    headers: {"API-KEY": "Removed"},
 });
 
 type GetUsersResponseType = {
