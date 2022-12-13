@@ -1,0 +1,9 @@
+export enum FRIENDS_REDUCER_ACTION {
+  FOLLOW = 'friendsReducer/FOLLOW',
+  UNFOLLOW = 'friendsReducer/UNFOLLOW',
+  SET_FRIENDS = 'friendsReducer/SET_FRIENDS',
+  SET_CURRENT_PAGE = 'friendsReducer/SET_CURRENT_PAGE',
+  SET_TOTAL_FRIENDS_COUNT = 'friendsReducer/SET_TOTAL_FRIENDS_COUNT',
+  TOGGLE_IS_FETCHING = 'friendsReducer/TOGGLE_IS_FETCHING',
+  FOLLOWING_IN_PROGRESS = 'friendsReducer/FOLLOWING_IN_PROGRESS',
+}

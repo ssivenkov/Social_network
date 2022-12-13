@@ -1,9 +1,13 @@
-import React, { ComponentType, Suspense } from "react";
+import React, { FunctionComponent, Suspense } from 'react';
 
-export const withSuspense = (Component: ComponentType) => {
-    return (props: any) => {
-        return <Suspense fallback={<div>Loading...</div>}>
-            <Component {...props}/>
-        </Suspense>
-    }
+import { Preloader } from 'components/common/preloader/Preloader';
+
+export function withSuspense<TWrappedComponentProps>(
+  WrappedComponent: FunctionComponent<TWrappedComponentProps>,
+) {
+  return (props: TWrappedComponentProps) => (
+    <Suspense fallback={<Preloader />}>
+      <WrappedComponent {...props} />
+    </Suspense>
+  );
 }

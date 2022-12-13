@@ -1,0 +1,35 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: write-all
+
+jobs:
+  build-and-deploy:
+    runs-on: macos-12
+    environment: github-pages
+    concurrency: ci-${{github.ref}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          yarn install
+          yarn run lint
+          unset CI
+          yarn run test
+          yarn run build
+        env:
+          REACT_APP_DATA_BASE_URL: ${{ secrets.REACT_APP_DATA_BASE_URL }}
+          REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          TOKEN: ${{ github.token }}
+          BRANCH: gh-pages
+          FOLDER: build
