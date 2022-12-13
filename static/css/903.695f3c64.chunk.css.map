@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/903.695f3c64.chunk.css","mappings":"AAAA,0BAEI,gBADA,YACA,CAGJ,qBACI","sources":["pages/page404/page404.module.scss"],"sourcesContent":[".container {\n    padding: 15px;\n    margin-top: 15px;\n}\n\n.text {\n    font-size: 18px;\n}"],"names":[],"sourceRoot":""}
